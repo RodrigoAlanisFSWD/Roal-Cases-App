@@ -1,0 +1,51 @@
+@import '../vars';
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $primary;
+    padding: 0px 15px;
+    background-color: #fff;
+
+    &__title {
+        font-family: $vogue;
+        font-size: $small_header_size;
+        color: $secondary;
+        margin-top: 10px;
+    }
+
+    &__cart-wrapper {
+        .navbar__cart {
+            font-size: $small_subtitle_size;
+            color: $secondary;
+        }
+    }
+
+    &__utils {
+        .navbar__bars {
+            font-size: $small_subtitle_size;
+            color: $secondary;
+        }
+    }
+}
+
+.offers {
+    width: 100%;
+    background-color: $primary;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+
+    span {
+        font-family: $champagne;
+    }
+}
+
+.header {
+    width: 100%;
+    position: fixed;
+}
