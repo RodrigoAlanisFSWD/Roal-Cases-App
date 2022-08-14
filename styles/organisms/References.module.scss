@@ -4,16 +4,29 @@
     background-color: $background;
     padding: 50px 0px;
 
-    &__swipper {
+    &__swiper {
         width: 100%;
         height: 300px;
         background-color: #fff;
+
+        :global(.swiper-pagination-bullet) {
+            background: #ABABAB;
+        }
+        
+        :global(.swiper-pagination-bullet-active) {
+          background-color: $primary;
+        }
+    }
+
+    &__slide {
+        background-image: url('/fundas.webp');
+        background-size: cover;
     }
 
     &__btn {
         margin: 0 auto;
         width: 75%;
-        margin-top: 25px;
+        margin-top: 50px;
         margin-bottom: 25px;
     }
 
@@ -21,6 +34,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: $secondary;
+
         h3 {
             font-size: $small_subtitle_size;
             margin: 40px 0px;

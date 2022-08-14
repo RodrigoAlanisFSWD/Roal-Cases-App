@@ -2,15 +2,35 @@ import React from "react";
 import { Button } from "../atoms/Button";
 import styles from "../../styles/organisms/References.module.scss";
 
+// Import Swiper React components
+import { Autoplay, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
 export const References = () => {
   return (
     <>
       <Button text="Ver Mas" className={styles["references__btn"]} />
 
-      <div className={styles['references']}>
-        <div className={styles['references__swipper']}></div>
+      <div className={styles["references"]}>
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          className={styles["references__swiper"]}
+          slidesPerView={1}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
+          <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
+          <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
+          <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
+        </Swiper>
 
-        <div className={styles['references__info']}>
+        <div className={styles["references__info"]}>
           <h3>Nuestros Clientes Confian En Nosotros</h3>
 
           <p>
@@ -20,7 +40,10 @@ export const References = () => {
             quisquam distinctio.
           </p>
 
-          <Button text="Mas Referencias" className={styles['references__btn']} />
+          <Button
+            text="Mas Referencias"
+            className={styles["references__btn"]}
+          />
         </div>
       </div>
     </>
