@@ -1,0 +1,28 @@
+@import '../vars';
+
+.categories {
+
+    padding: 50px;
+
+    span {
+        color: $primary;
+        font-size: $small_normal_size;
+        cursor: pointer;
+    }
+
+    &__articles {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        grid-auto-rows: 0px;
+        overflow: hidden;
+    }
+
+    &__articles--more {
+        grid-auto-rows: auto;
+    }
+
+    &__btn {
+        margin-top: 25px;
+    }
+}

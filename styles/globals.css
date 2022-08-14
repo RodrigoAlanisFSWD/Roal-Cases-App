@@ -3,6 +3,17 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Champagne';
+  font-weight: 300;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 @font-face {
@@ -13,4 +24,14 @@
 @font-face {
   font-family: 'Champagne';
   src: url("./fonts//champagne/Champagne\ &\ Limousines.ttf");
+}
+
+element {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
+}
+
+element::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
