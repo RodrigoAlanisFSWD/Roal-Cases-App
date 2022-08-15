@@ -1,0 +1,15 @@
+@import '../vars';
+
+.item {
+    padding: 0px 15px;
+    display: flex;
+    color: $secondary;
+
+    &__icon {
+        font-size: $small_normal_size;
+    }
+
+    span {
+        margin-left: 10px;
+    }
+}

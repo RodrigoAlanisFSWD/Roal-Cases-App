@@ -9,6 +9,7 @@
     border-bottom: 1px solid $primary;
     padding: 0px 15px;
     background-color: #fff;
+    z-index: 100000;
 
     &__title {
         font-family: $vogue;
@@ -28,6 +29,7 @@
         .navbar__bars {
             font-size: $small_subtitle_size;
             color: $secondary;
+            cursor: pointer;
         }
     }
 }
@@ -39,9 +41,14 @@
     padding: 5px;
     display: flex;
     justify-content: center;
+    transition: all 300ms;
 
     span {
         font-family: $champagne;
+    }
+
+    &__menu-active {
+        margin-top: 50px;
     }
 }
 
@@ -49,4 +56,52 @@
     z-index: 100000;
     width: 100%;
     position: fixed;
+}
+
+.menu {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    transform: translateY(-100%);
+    z-index: -1;
+    opacity: 0;
+
+    &__items {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__disabled {
+        animation: hideMenu 300ms forwards;
+    }
+
+    &__active {
+        display: block;
+        animation: showMenu 300ms forwards;
+    }
+}
+
+@keyframes showMenu {
+    from { 
+        opacity: 0; 
+    }
+        
+    to { 
+        transform: translateY(0%); 
+        opacity: 1; 
+    }
+}
+
+@keyframes hideMenu {
+    from { 
+        opacity: 1; 
+        transform: translateY(0%) 
+    }
+    to { 
+        transform: translateY(-100%); 
+        opacity: 0;  
+    }
 }
