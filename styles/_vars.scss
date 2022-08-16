@@ -11,3 +11,45 @@ $small_title_size: 28px;
 $small_subtitle_size: 24px;
 $small_normal_size: 18px;
 $small_text_size: 16px;
+
+$normal_header_size: 42px;
+$normal_title_size: 32px;
+$normal_subtitle_size: 28px;
+$normal_normal_size: 24px;
+$normal_text_size: 20px;
+
+@mixin extra-small {
+    @media only screen and (min-width: 500px) {
+        @content;
+    }
+}
+
+@mixin small {
+    @media only screen and (min-width: 640px) {
+        @content;
+    }
+}
+
+@mixin medium {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin large {
+    @media only screen and (min-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin extra-large {
+    @media only screen and (min-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin extra-x-large {
+    @media only screen and (min-width: 1536px) {
+        @content;
+    }
+}
