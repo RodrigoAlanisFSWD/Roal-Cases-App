@@ -8,11 +8,24 @@
     display: grid;
     grid-template-columns: 1fr;
 
+    @include large {
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        padding: 50px 100px;
+        grid-column-gap: 20px;
+    }
+
     &__newspaper {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        @include large {
+            display: grid;
+            grid-template-columns: 1fr 25%;
+            grid-gap: 10px;
+        }
 
         h3 {
             color: #fff;
@@ -31,9 +44,23 @@
         margin-bottom: 25px;
         font-size: $small_normal_size;
         outline: none;
+        grid-row: 2 / 3;
 
         &::placeholder {
             color: $secondary
+        }
+
+        @include large {
+            margin-bottom: 0px;
+        }
+    }
+
+    &__btn {
+        width: 100%;
+
+        @include large {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
         }
     }
 
@@ -43,6 +70,12 @@
         flex-direction: column;
         align-items: center;
         padding: 25px;
+        grid-column: 1 / 2;
+
+        @include large {
+            padding: 0px;
+            align-items: flex-start;
+        }
 
         h3 {
             color: #fff;
@@ -55,6 +88,10 @@
         width: 100%;
         display: flex;
         justify-content: center;
+
+        @include large {
+            width: auto;
+        }
     }
 
     &__social-icon {
@@ -95,6 +132,20 @@
             text-align: center;
             margin-top: 25px;
         }
+
+        @include large {
+            align-items: flex-start;
+
+            p {
+                text-align: left;
+            }
+        }
+
+        
+
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+
     }
 
     &__help {
@@ -102,6 +153,11 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+
+        @include large {
+            align-items: flex-start;
+        padding: 0px 25px;
+        }
 
         span {
             margin-bottom: 15px;

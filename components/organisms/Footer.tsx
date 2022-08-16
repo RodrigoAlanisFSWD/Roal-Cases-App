@@ -15,7 +15,7 @@ export const Footer = () => {
 
             <input type="email" name='email' placeholder='Ingresa Tu Correo' className={styles['footer__input']} />
 
-            <Button text="UNETE" />
+            <Button text="UNETE" className={styles['footer__btn']} />
         </div>
         <div className={styles['footer__socials']}>
             <h3>

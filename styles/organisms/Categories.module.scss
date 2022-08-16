@@ -16,6 +16,18 @@
         grid-template-rows: repeat(3, 1fr);
         grid-auto-rows: 0px;
         overflow: hidden;
+        justify-items: center;
+
+        @include medium {
+            grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 15px;
+        }
+
+        @include large {
+            grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: repeat(1, 1fr);
+        }
     }
 
     &__articles--more {
@@ -24,5 +36,9 @@
 
     &__btn {
         margin-top: 25px;
+
+        @include medium {
+            width: 300px;
+        }
     }
 }

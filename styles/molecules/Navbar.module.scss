@@ -36,6 +36,8 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        cursor: pointer;
+        
         .navbar__cart {
             font-size: $small_subtitle_size;
             color: $secondary;

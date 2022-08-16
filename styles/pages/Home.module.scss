@@ -17,6 +17,14 @@
         .home__btn {
             width: 70%;
             margin-bottom: 50px;
+
+            @include medium {
+                width: 40%;
+            }
+
+            @include extra-large {
+                width: 350px;
+            }
         }
     }
 
@@ -52,6 +60,7 @@
             text-align: center;
             margin-top: 25px;
             color: $secondary;
+            max-width: 500px;
         }
     }
 }
