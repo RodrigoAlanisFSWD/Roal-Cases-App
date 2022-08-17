@@ -7,6 +7,8 @@
   justify-content: center;
 
   max-height: 667px;
+  background-color: #fff;
+  z-index: 1000;
 
   @include large {
     max-height: 800px;

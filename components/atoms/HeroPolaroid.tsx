@@ -1,5 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import styles from '../../styles/atoms/HeroPolaroid.module.scss'
+import {Swiper, SwiperSlide} from 'swiper/react'
+import { Autoplay } from 'swiper'
+
+import 'swiper/css';
 
 interface HeroPolaroidProps {
     changing?: Boolean;
@@ -21,11 +25,16 @@ export const HeroPolaroid: FC<HeroPolaroidProps> = ({ image, size, className }) 
         }
     }
 
+    const images = [
+        '/case.svg',
+        '/case-2.webp'
+    ]
+
   return (
     <div className={`${styles['hero-polaroid']} ${getSizeClass()} ${className}`}>
-        <div className={styles['hero-polaroid__wrapper']}>
-            <img className={styles['hero-polaroid__image']} src={image} />
-        </div>
+        <Swiper modules={[Autoplay]} autoplay={{ delay: 5000, pauseOnMouseEnter: false, stopOnLastSlide: false, disableOnInteraction: false }} allowTouchMove={false} className={styles['hero-polaroid__wrapper']} slidesPerView={1}>
+            {images.map(image => (<SwiperSlide key={image} className={styles['hero-polaroid__slide']}><img src={image} className={styles['hero_polaroid__image']} /></SwiperSlide>))}
+        </Swiper>
     </div>
   )
 }
