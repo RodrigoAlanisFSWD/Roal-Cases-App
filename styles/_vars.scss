@@ -18,6 +18,12 @@ $normal_subtitle_size: 28px;
 $normal_normal_size: 24px;
 $normal_text_size: 20px;
 
+$big_header_size: 48px;
+$big_title_size: 36px;
+$big_subtitle_size: 32px;
+$big_normal_size: 28px;
+$big_text_size: 24px;
+
 @mixin extra-small {
     @media only screen and (min-width: 500px) {
         @content;

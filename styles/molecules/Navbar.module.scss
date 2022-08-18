@@ -37,8 +37,18 @@
         justify-content: flex-end;
         align-items: center;
         cursor: pointer;
+        transition: all 300ms;
+
+        &:hover {
+            color: $primary;
+
+            .navbar__cart {
+                color: $primary;
+            }
+        }
         
         .navbar__cart {
+        transition: all 300ms;
             font-size: $small_subtitle_size;
             color: $secondary;
 

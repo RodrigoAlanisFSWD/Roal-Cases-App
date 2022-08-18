@@ -15,7 +15,7 @@
   }
 
   @include extra-x-large {
-    max-height: 100vh;
+    max-height: 80vh
   }
 
   &__content {
@@ -42,7 +42,7 @@
     }
 
     @include medium {
-        width: 400px;
+        width: 300px;
     }
   }
 

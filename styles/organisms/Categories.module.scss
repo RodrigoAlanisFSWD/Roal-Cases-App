@@ -1,8 +1,10 @@
 @import '../vars';
 
 .categories {
-
+    display: flex;
     padding: 50px;
+    flex-direction: column;
+    align-items: center;
 
     span {
         color: $primary;
@@ -20,13 +22,21 @@
 
         @include medium {
             grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(2, 1fr);
-        grid-column-gap: 15px;
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 15px;
         }
 
         @include large {
             grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: repeat(1, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+        }
+
+        @include extra-large {
+            width: 90%;
+        }
+
+        @include extra-x-large {
+            width: 75%;
         }
     }
 
