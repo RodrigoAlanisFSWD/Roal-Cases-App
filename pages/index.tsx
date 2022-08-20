@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
-import { Button } from "../components/atoms/Button";
-import { Navbar } from "../components/molecules/Navbar";
-import { Categories } from "../components/organisms/Categories";
-import { Hero } from "../components/organisms/Hero";
-import { References } from "../components/organisms/References";
+import { Button } from "../components/atoms/shared/Button";
+import { Navbar } from "../components/molecules/shared/Navbar";
+import { Categories } from "../components/organisms/home/Categories";
+import { Hero } from "../components/organisms/home/Hero";
+import { References } from "../components/organisms/home/References";
 import styles from "../styles/pages/Home.module.scss";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { Footer } from "../components/organisms/Footer";
+import { Footer } from "../components/organisms/shared/Footer";
 
 const Home: NextPage = () => {
   return (

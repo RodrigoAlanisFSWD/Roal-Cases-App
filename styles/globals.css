@@ -18,12 +18,12 @@ body {
 
 @font-face {
   font-family: 'Vogue';
-  src: url("./fonts/vogue/Vogue.ttf");
+  src: url("../assets/fonts/vogue/Vogue.ttf");
 }
 
 @font-face {
   font-family: 'Champagne';
-  src: url("./fonts//champagne/Champagne\ &\ Limousines.ttf");
+  src: url("../assets/fonts/champagne/Champagne\ &\ Limousines.ttf");
 }
 
 element {

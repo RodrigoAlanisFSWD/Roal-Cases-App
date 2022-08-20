@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../../styles/organisms/Hero.module.scss";
-import { Button } from "../atoms/Button";
-import { HeroPolaroid } from "../atoms/HeroPolaroid";
+import styles from "../../../styles/organisms/home/Hero.module.scss";
+import { Button } from "../../atoms/shared/Button";
+import { HeroPolaroid } from "../../atoms/home/HeroPolaroid";
 
 export const Hero = () => {
   return (

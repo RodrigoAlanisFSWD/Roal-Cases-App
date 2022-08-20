@@ -1,4 +1,4 @@
-@import '../vars';
+@import '../../vars';
 
 .references {
     background-color: $background;
@@ -26,7 +26,7 @@
     }
 
     &__slide {
-        background-image: url('/fundas.webp');
+        background-image: url('/img/fundas.webp');
         background-size: cover;
     }
 

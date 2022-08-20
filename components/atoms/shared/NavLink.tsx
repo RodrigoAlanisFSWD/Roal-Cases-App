@@ -2,7 +2,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
-import styles from "../../styles/atoms/NavLink.module.scss";
+import styles from "../../../styles/atoms/shared/NavLink.module.scss";
 
 export const NavLink = () => {
   return (

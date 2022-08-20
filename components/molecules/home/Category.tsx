@@ -1,15 +1,13 @@
 import React from "react";
-import styles from "../../styles/molecules/Category.module.scss";
+import styles from "../../../styles/molecules/home/Category.module.scss";
 
 export const Category = () => {
   return (
     <div className={styles["category"]}>
       <div className={styles["category__card"]}>
-        <div className={styles["category__price"]}>
-            $00.00
-        </div>
+        <div className={styles["category__price"]}>$00.00</div>
       </div>
-      <div className={styles['category__info']}>
+      <div className={styles["category__info"]}>
         <h3>Category Title</h3>
 
         <p>

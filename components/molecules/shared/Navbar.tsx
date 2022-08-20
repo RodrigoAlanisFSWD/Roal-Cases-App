@@ -6,8 +6,8 @@ import {
   faShoppingCart,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../styles/molecules/Navbar.module.scss";
-import { NavLink } from "../atoms/NavLink";
+import styles from "../../../styles/molecules/shared/Navbar.module.scss";
+import { NavLink } from "../../atoms/shared/NavLink";
 
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
@@ -42,9 +42,7 @@ export const Navbar = () => {
             icon={faShoppingCart}
             className={styles["navbar__cart"]}
           />
-          <h3>
-            Mi Carrito
-          </h3>
+          <h3>Mi Carrito</h3>
         </div>
       </nav>
       <menu

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../atoms/Button";
-import styles from "../../styles/organisms/References.module.scss";
+import { Button } from "../../atoms/shared/Button";
+import styles from "../../../styles/organisms/home/References.module.scss";
 
 // Import Swiper React components
 import { Autoplay, Pagination } from "swiper";
