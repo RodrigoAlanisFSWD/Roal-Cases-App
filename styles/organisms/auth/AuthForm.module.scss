@@ -1,0 +1,42 @@
+@import 'styles/vars';
+
+.authForm {
+  width: 100%;
+  height: auto;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-size: $small_title_size;
+    margin-bottom: 25px;
+  }
+
+  &__divider {
+    width: 100%;
+    background-color: $background;
+    padding: 15px;
+    font-size: $small_normal_size;
+    text-align: center;
+    color: $secondary
+  }
+
+  &__btn {
+    margin-top: 35px;
+    margin-bottom: 15px;
+  }
+
+  &__input {
+    margin-top: 15px;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    padding: 50px 25px 0px;
+  }
+}
