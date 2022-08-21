@@ -5,7 +5,7 @@ import { Navbar } from "../molecules/shared/Navbar";
 import { Categories } from "../organisms/home/Categories";
 import { Hero } from "../organisms/home/Hero";
 import { References } from "../organisms/home/References";
-import styles from "../styles/pages/Home.module.scss";
+import styles from "../../styles/pages/Home.module.scss";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../organisms/shared/Footer";
 
