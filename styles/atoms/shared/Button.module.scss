@@ -1,0 +1,21 @@
+@import '../../vars';
+
+.btn {
+    width: 100%;
+    background-color: $primary;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    color: #fff;
+    font-size: $small_normal_size;
+    cursor: pointer;
+    border: 2px solid $primary;
+    transition: all 300ms;
+
+    &:hover {
+        background-color: transparent;
+        color: $primary;
+    }
+}

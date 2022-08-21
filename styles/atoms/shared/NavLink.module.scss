@@ -1,0 +1,24 @@
+@import "../../vars";
+
+.item {
+  padding: 0px 15px;
+  display: flex;
+  color: $secondary;
+  height: 100%;
+  align-items: center;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    background-color: $primary;
+    color: white !important;
+  }
+
+  &__icon {
+    font-size: $small_normal_size;
+  }
+
+  span {
+    margin-left: 10px;
+  }
+}
