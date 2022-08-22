@@ -1,5 +1,5 @@
 import {FC} from "react";
-import styles from '../../styles/pages/Login.module.scss'
+import styles from '../../styles/pages/Sign.module.scss'
 import {Navbar} from "../molecules/shared/Navbar";
 import {Footer} from "../organisms/shared/Footer";
 import {SignInForm} from "../organisms/auth/SignInForm";
