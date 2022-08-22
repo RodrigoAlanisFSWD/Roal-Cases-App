@@ -8,23 +8,24 @@ export const useAuthService = () => {
     const authRepository = new AuthRepository();
     const dispatch = useDispatch();
 
-    const signUp = async (user: User) => {
+    const signUp = async (user: Object) => {
         try {
-            const tokens = await authRepository.signUp(user);
+            const tokens = await authRepository.signUp(user as User);
 
             dispatch(authActions.authenticateUser(tokens.access_token, tokens.refresh_token))
         } catch (e) {
-            dispatch(authActions.setAuthError())
+            dispatch(authActions.setAuthError('Usa Otro Correo O Prueba Mas Tarde'))
         }
     }
 
-    const signIn = async (user: User) => {
+    const signIn = async (user: Object) => {
         try {
-            const tokens = await authRepository.signIn(user);
+            const tokens = await authRepository.signIn(user as User);
 
             dispatch(authActions.authenticateUser(tokens.access_token, tokens.refresh_token))
         } catch (e) {
-            dispatch(authActions.setAuthError())
+            console.log(e)
+            dispatch(authActions.setAuthError('El Correo O La Contrasena Son Invalidos'))
         }
     }
 
@@ -34,13 +35,20 @@ export const useAuthService = () => {
 
             dispatch(authActions.logout())
         } catch (e) {
-            dispatch(authActions.setAuthError())
+            dispatch(authActions.setAuthError('Eror Al Cerrar Sesion'))
         }
     }
+
+    const setLoading = (loading: boolean) => dispatch(authActions.setAuthLoading(loading))
+
+
+    const setInitial = () => dispatch(authActions.setAuthInitial())
 
     return {
         signUp,
         signIn,
-        logout
+        logout,
+        setLoading,
+        setInitial
     }
 }

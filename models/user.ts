@@ -3,7 +3,7 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    points: number;
+    points?: number;
 }
 
 export type Tokens = {

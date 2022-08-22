@@ -2,6 +2,8 @@
 
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
+export const AUTH_LOADING = 'AUTH_LOADING'
+export const AUTH_INITIAL = 'AUTH_INITIAL'
 
 // Auth App States
 

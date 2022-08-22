@@ -2,15 +2,25 @@
 
 .authForm {
   width: 100%;
+  max-width: 550px;
   height: auto;
   grid-row: 2 / 3;
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  @include extra-x-large {
+    max-width: 550px;
+    box-shadow: 0px 4px 19px rgba(151, 151, 151, 0.25);
+  }
+
   h2 {
     font-size: $small_title_size;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
+
+    @include large {
+      margin-top: 50px;
+    }
   }
 
   &__divider {
@@ -38,5 +48,20 @@
     justify-content: center;
     height: auto;
     padding: 50px 25px 0px;
+
+    @include extra-large {
+      padding: 50px 50px;
+    }
+
+    @include extra-x-large {
+      padding: 100px 50px;
+    }
+  }
+
+  &__loading {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: flex-end;
   }
 }

@@ -16,8 +16,20 @@ export const logout = () => {
     }
 }
 
-export const setAuthError = () => {
+export const setAuthError = (errorMsg: string) => {
     return {
-        type: authTypes.AUTH_ERROR
+        type: authTypes.AUTH_ERROR,
+        payload: errorMsg
     }
 }
+
+export const setAuthLoading = (loading: boolean) => {
+    return {
+        type: authTypes.AUTH_LOADING,
+        payload: loading
+    }
+}
+
+export const setAuthInitial = () => ({
+    type: authTypes.AUTH_INITIAL
+})
