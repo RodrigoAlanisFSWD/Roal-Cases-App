@@ -8,9 +8,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../../styles/molecules/shared/Navbar.module.scss";
 import { NavLink } from "../../atoms/shared/NavLink";
+import { useSelector } from "react-redux";
+import { StoreState } from "../../../store";
+import * as authTypes from '../../../store/types/auth'
 
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
+
+  const state = useSelector((store: StoreState) => store.auth.state)
 
   return (
     <header className={styles["header"]}>
@@ -51,7 +56,14 @@ export const Navbar = () => {
         } `}
       >
         <ul className={styles["menu__items"]}>
-          <NavLink />
+          {
+            state === authTypes.UNAUNTHENTICATED ?
+            (
+              <NavLink text="Iniciar Sesion" href={"/sign-in"} icon={faUser} />
+            ) : (
+              <NavLink text="Cuenta" href={"/profile"} icon={faUser} />
+            )
+          }
         </ul>
       </menu>
 

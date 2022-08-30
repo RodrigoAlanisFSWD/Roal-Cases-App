@@ -4,6 +4,7 @@ export interface User {
     email: string;
     password: string;
     points?: number;
+    mail_confirmed: boolean;
 }
 
 export type Tokens = {

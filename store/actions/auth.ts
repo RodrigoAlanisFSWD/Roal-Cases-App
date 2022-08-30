@@ -1,11 +1,13 @@
+import { User } from '../../models/user'
 import * as authTypes from '../types/auth'
 
-export const authenticateUser = (access_token: string, refresh_token: string) => {
+export const authenticateUser = (access_token: string, refresh_token: string, profile: User) => {
     return {
         type: authTypes.AUTHENTICATE_USER,
         payload: {
             access_token,
-            refresh_token
+            refresh_token,
+            profile
         }
     }
 }
@@ -30,6 +32,7 @@ export const setAuthLoading = (loading: boolean) => {
     }
 }
 
-export const setAuthInitial = () => ({
-    type: authTypes.AUTH_INITIAL
+export const setAuthInitial = (state: any = authTypes.UNAUNTHENTICATED) => ({
+    type: authTypes.AUTH_INITIAL,
+    payload: state
 })

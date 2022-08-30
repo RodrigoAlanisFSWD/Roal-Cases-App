@@ -1,4 +1,5 @@
 import {Action} from "redux";
+import { User } from "../../models/user";
 import * as authTypes from '../types/auth'
 
 export interface AuthState {
@@ -7,6 +8,7 @@ export interface AuthState {
     refresh_token: string;
     loading: boolean;
     errorMsg: string;
+    profile: User | null;
 }
 
 const initialState: AuthState = {
@@ -14,7 +16,8 @@ const initialState: AuthState = {
     access_token: '',
     refresh_token: '',
     loading: false,
-    errorMsg: ''
+    errorMsg: '',
+    profile: null
 }
 
 export function authReducer(state = initialState, action: any): AuthState {
@@ -48,7 +51,7 @@ export function authReducer(state = initialState, action: any): AuthState {
         case authTypes.AUTH_INITIAL:
             return {
                 ...initialState,
-                state: authTypes.UNAUNTHENTICATED
+                state: action.payload
             }
 
         default:

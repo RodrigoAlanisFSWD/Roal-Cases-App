@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 import {StoreState} from "../../store";
 import * as authTypes from '../../store/types/auth'
 import {useAuthService} from "../../services/authService";
+import { Main } from "../layouts/Main";
 
 export const SignIn: FC = () => {
 
@@ -16,15 +17,9 @@ export const SignIn: FC = () => {
 
     return (
         <>
-            <div className={styles['login']}>
-                <div className={styles['login__content']}>
-                    <Navbar/>
-
-                    <SignInForm/>
-                </div>
-
-                <Footer/>
-            </div>
+            <Main>
+                <SignInForm/>
+            </Main>
             {
                 state === authTypes.AUTH_ERROR ?
                     <AlertModal onClose={() => setInitial()} title="Iniciar Sesion" body={errorMsg}/>
