@@ -6,9 +6,13 @@ import { Navbar } from '../molecules/shared/Navbar';
 import styles from '../../styles/pages/Profile.module.scss'
 import { useSelector } from 'react-redux';
 import { store, StoreState } from '../../store';
+import { useAuthService } from '../../services/authService';
+import { Button } from '../atoms/shared/Button';
 
 export const Profile = () => {
     const user = useSelector((store: StoreState) => store.auth.profile)
+
+    const { logout } = useAuthService();
 
     return (
        <Main>
@@ -28,6 +32,8 @@ export const Profile = () => {
                 <h3>
                     Puntos Totales: { user?.points }
                 </h3>
+
+                <Button text='Cerrar Sesion' onClick={async () => await logout()} />
             </div>
        </Main>
     )

@@ -33,10 +33,14 @@
     &__btn {
         margin: 0 auto;
         width: 75%;
-        margin-bottom: 25px;
+        margin-top: 25px;
 
         @include medium {
             width: 350px;
+        }
+
+        &--top {
+            margin-bottom: 25px;
         }
     }
 

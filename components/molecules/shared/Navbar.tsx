@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
+  faHome,
   faMagnifyingGlass,
   faShoppingCart,
   faUser,
@@ -56,6 +57,7 @@ export const Navbar = () => {
         } `}
       >
         <ul className={styles["menu__items"]}>
+        <NavLink text="Inicio" href={"/"} icon={faHome} />
           {
             state === authTypes.UNAUNTHENTICATED ?
             (
