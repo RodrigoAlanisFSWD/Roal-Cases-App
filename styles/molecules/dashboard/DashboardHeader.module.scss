@@ -1,0 +1,41 @@
+@import '../../vars';
+
+.dashboardHeader {
+    width: 100%;
+    border-bottom: 1px solid #292929;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    height: 60px;
+
+    &__bell {
+        font-size: 25px;
+        margin-right: 25px;
+        color: $dark;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__user {
+        width: 175px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid #292929;
+        padding: 0px 25px;
+        height: 100%;
+
+        h4 {
+            color: $dark
+        }
+    }
+
+    &__icon {
+        font-size: 35px;
+        color: $dark;
+        margin-right: 15px;
+    }
+}

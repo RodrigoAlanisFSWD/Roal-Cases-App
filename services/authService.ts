@@ -93,6 +93,6 @@ export const useAuthService = () => {
     setLoading,
     setInitial,
     initAuth,
-    verifyMail
+    verifyMail,
   };
 };

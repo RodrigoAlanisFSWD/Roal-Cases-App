@@ -10,6 +10,12 @@
   align-items: center;
   padding-left: 15px;
 
+  &--textarea {
+    height: 100px;
+    align-items: flex-start;
+    padding-top: 15px;
+  }
+
   &--error {
     border: 1px solid $danger;
   }
@@ -32,7 +38,7 @@
     }
   }
 
-  input {
+  input, textarea {
     height: 100%;
     border: none;
     font-size: $normal_text_size;

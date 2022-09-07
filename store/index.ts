@@ -3,9 +3,11 @@ import {createWrapper} from "next-redux-wrapper";
 import {rootReducer} from "./reducers";
 import {configureStore} from "@reduxjs/toolkit";
 import {AuthState} from "./reducers/auth";
+import { ProductsState } from './reducers/products';
 
 export interface StoreState {
-    auth: AuthState
+    auth: AuthState,
+    products: ProductsState
 }
 
 export const store = configureStore(

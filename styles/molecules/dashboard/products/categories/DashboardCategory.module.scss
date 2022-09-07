@@ -1,0 +1,24 @@
+@import '../../../../vars';
+
+.category {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    height: 60px;
+    align-items: center;
+
+    h4 {
+        font-size: $normal_normal_size;
+        margin-left: 15px;
+    }
+
+    border-bottom: 1px solid #dcdcdc;
+
+    &__actions { 
+        display: flex;
+        justify-content: flex-end;
+
+        & > * {
+            margin-left: 10px;
+        }
+    }
+}

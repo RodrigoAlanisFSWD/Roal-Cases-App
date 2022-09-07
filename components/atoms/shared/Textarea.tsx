@@ -17,10 +17,9 @@ interface FormControlProps {
   className?: string;
   error?: string | undefined;
   touched?: boolean;
-  as?: string;
 }
 
-export const FormControl: FC<FormControlProps> = ({
+export const Textarea: FC<FormControlProps> = ({
   placeholder,
   type,
   name,
@@ -28,11 +27,10 @@ export const FormControl: FC<FormControlProps> = ({
   className,
   error,
   touched,
-  as
 }) => {
   return (
     <div
-      className={`${styles["formControl"]} ${
+      className={`${styles["formControl"]} ${styles["formControl--textarea"]} ${
         error && touched
           ? styles["formControl--error"]
           : !error && touched
@@ -41,7 +39,7 @@ export const FormControl: FC<FormControlProps> = ({
       } ${className}`}
     >
       <FontAwesomeIcon icon={icon} className={styles["formControl__icon"]} />
-      <Field as={as ? as : "input"} placeholder={placeholder} type={type} name={name} />
+      <Field as="textarea" placeholder={placeholder} type={type} name={name} />
       {error && touched ? (
         <FontAwesomeIcon
           icon={faTimesCircle}
