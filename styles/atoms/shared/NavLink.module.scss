@@ -9,7 +9,7 @@
   cursor: pointer;
   transition: all 300ms;
 
-  &:hover {
+  &:hover, &--active {
     background-color: $primary;
     color: white !important;
   }

@@ -1,0 +1,13 @@
+// Auth Action Types
+
+export const AUTHENTICATE_USER = 'AUTHENTICATE_USER'
+export const LOGOUT_USER = 'LOGOUT_USER'
+export const AUTH_LOADING = 'AUTH_LOADING'
+export const AUTH_INITIAL = 'AUTH_INITIAL'
+
+// Auth App States
+
+export const AUTHENTICATED = 'AUTHENTICATED'
+export const UNAUNTHENTICATED = 'UNAUNTHENTICATED'
+export const NOT_INITIALIZED = 'NOT_INITIALIZED'
+export const AUTH_ERROR = 'AUTH_ERROR'
