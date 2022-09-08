@@ -1,11 +1,11 @@
 import React from 'react'
 import { Dashboard } from '../../../../components/layouts/Dashboard';
-import { CreateCategory } from '../../../../components/pages/dashboard/products/categories/CreateCategory'
+import { CategoryForm } from '../../../../components/pages/dashboard/products/categories/CategoryForm';
 
 const CreateCategoryPage = () => {
   return (
     <Dashboard>
-        <CreateCategory />
+        <CategoryForm />
     </Dashboard>
   )
 }

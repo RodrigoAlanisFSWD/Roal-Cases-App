@@ -29,7 +29,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (auth.state === authTypes.AUTHENTICATED && auth.profile) {
+    if (auth.profile) {
       if (auth.profile.role !== "ADMIN") {
         router.push("/sign-in")
       }

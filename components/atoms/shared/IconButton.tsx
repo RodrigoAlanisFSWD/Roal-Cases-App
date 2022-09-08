@@ -6,11 +6,12 @@ import styles from '../../../styles/atoms/shared/IconButton.module.scss'
 interface IconButtonProps {
     icon: IconProp;
     color: string;
+    onClick?: () => void;
 }
 
-export const IconButton: FC<IconButtonProps> = ({ icon, color }) => {
+export const IconButton: FC<IconButtonProps> = ({ icon, color, onClick }) => {
     return (
-        <div className={`${styles['iconBtn']} ${styles['iconBtn--' + color]}`}>
+        <div onClick={onClick} className={`${styles['iconBtn']} ${styles['iconBtn--' + color]}`}>
             <FontAwesomeIcon icon={icon} className={styles['iconBtn__icon']} />
         </div>
     )
