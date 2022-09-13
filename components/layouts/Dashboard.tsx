@@ -58,7 +58,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
       {
         text: "Groups",
         icon: faHouse,
-        href: "/dashboard"
+        href: "/dashboard/products/groups"
       },
     ],
   ] 

@@ -15,6 +15,7 @@
 
 @include iconBtn("danger", $danger);
 @include iconBtn("primary", $primary);
+@include iconBtn("dark", $dark);
 
 .iconBtn {
     padding: 10px;

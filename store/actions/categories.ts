@@ -1,22 +1,22 @@
 import { Category } from "../../models/category";
-import * as productsTypes from '../types/products';
+import * as categoriesTypes from '../types/categories';
 
 export const setCategories = (categories: Category[]) => ({
-    type: productsTypes.SET_CATEGORIES,
+    type: categoriesTypes.SET_CATEGORIES,
     payload: categories
 })
 
 export const addCategory = (category: Category) => ({
-    type: productsTypes.ADD_CATEGORY,
+    type: categoriesTypes.ADD_CATEGORY,
     payload: category
 })
 
 export const editCategory = (category: Category) => ({
-    type: productsTypes.EDIT_CATEGORY,
+    type: categoriesTypes.EDIT_CATEGORY,
     payload: category
 })
 
 export const removeCategory = (id: any) => ({
-    type: productsTypes.REMOVE_CATEGORY,
+    type: categoriesTypes.REMOVE_CATEGORY,
     payload: id
 })

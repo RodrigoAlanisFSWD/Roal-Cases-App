@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useCategoryService } from '../../../../../services/categoryService'
 import styles from '../../../../../styles/pages/dashboard/products/categories/ProductCategories.module.scss'
 import { Button } from '../../../../atoms/shared/Button';
-import { CategoryList } from '../../../../organisms/dashboard/products/CategoryList';
+import { CategoryList } from '../../../../organisms/dashboard/products/categories/CategoryList';
 
 export const ProductCategories = () => {
 

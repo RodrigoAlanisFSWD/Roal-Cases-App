@@ -8,3 +8,15 @@ export interface Category {
     price: number;
     products: Product[];
 }
+
+export interface SubCategory {
+    id?: number;
+    name: string;
+    group?: Group;
+}
+
+export interface Group {
+    id: number;
+    name: string;
+    subCategories?: SubCategory[]
+}

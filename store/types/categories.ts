@@ -1,4 +1,3 @@
-// Categories
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';

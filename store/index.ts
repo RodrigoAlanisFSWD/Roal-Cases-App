@@ -3,11 +3,12 @@ import {createWrapper} from "next-redux-wrapper";
 import {rootReducer} from "./reducers";
 import {configureStore} from "@reduxjs/toolkit";
 import {AuthState} from "./reducers/auth";
-import { ProductsState } from './reducers/products';
+import { Category, Group } from '../models/category';
 
 export interface StoreState {
     auth: AuthState,
-    products: ProductsState
+    categories: Category[],
+    groups: Group[]
 }
 
 export const store = configureStore(
