@@ -12,6 +12,8 @@ export const useGroupService = () => {
         const groups = await groupRepository.getGroups()
 
         dispatch(setGroups(groups))
+
+        return groups
     }
 
     const createGroup = async (values: any): Promise<Group> => {

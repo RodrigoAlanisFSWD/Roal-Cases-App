@@ -12,6 +12,8 @@ export const useCategoryService = () => {
         const categories = await categoryRepository.getCategories()
 
         dispatch(setCategories(categories))
+
+        return categories
     }
 
     const createCategory = async (values: any, file: any) => {

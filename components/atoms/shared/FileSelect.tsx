@@ -33,7 +33,7 @@ export const FileSelect: FC<FileSelectProps> = ({ placeholder, handleFile, selec
       onClick={() => handleClick()}
       className={`${styles["fileSelect"]} ${error
           ? styles["fileSelect--error"]
-          : ""
+          : (success ? styles["fileSelect--success"] : "")
         } ${className}`}
     >
       <FontAwesomeIcon icon={faFile} className={styles["fileSelect__icon"]} />

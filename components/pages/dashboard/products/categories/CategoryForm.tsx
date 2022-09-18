@@ -54,10 +54,6 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                 }}
                 validationSchema={createCategorySchema}
                 onSubmit={async (data) => {
-                    console.log({
-                        ...category,
-                        ...data
-                    })
                     if (!edit) {
                         if (!image) {
                             setImageError(true)

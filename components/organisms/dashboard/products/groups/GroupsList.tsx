@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Group as GroupType, SubCategory } from '../../../../../models/category'
 import { useGroupService } from '../../../../../services/groupService'
 import { StoreState } from '../../../../../store'
-import { Group } from '../../../../molecules/dashboard/products/products/Group'
+import { Group } from '../../../../molecules/dashboard/products/groups/Group'
 import { AddCategoryModal } from './AddCategoryModal'
 
 interface ModalAction {

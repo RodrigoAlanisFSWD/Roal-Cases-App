@@ -14,8 +14,14 @@ export class ProductRepository {
         return data
     }
 
-    async createProduct(product: Product): Promise<Product> {
-        const { data } = await api.post<Product>("/products/", product)
+    async createProduct(product: Product, formData: FormData): Promise<Product> {
+        const { data: { id } } = await api.post<Product>("/products/" + product.category?.id, product)
+
+        return this.uploadImage(formData, id)
+    }
+
+    async uploadImage(formData: FormData, id: number): Promise<Product> {
+        const { data } = await api.post<Product>("/products/upload-image/" + id, formData)
 
         return data;
     }

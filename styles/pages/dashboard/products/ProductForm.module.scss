@@ -1,0 +1,40 @@
+@import '../../../vars';
+
+.productForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+
+    h2 {
+        margin-bottom: 50px;
+        font-size: $normal_subtitle_size;
+    }
+
+    &__form {
+        &-wrapper {
+            width: 100%;
+            display: grid;
+        grid-template-columns: 450px 450px;
+        grid-template-rows: 1fr 200px 1fr;
+        grid-gap: 15px;
+        }
+    }
+
+    &__btn {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    &__textarea {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        height: 100% !important;
+    }
+
+    &__subCategories {
+        grid-row: 2 / 4;
+        height: 100% !important;
+    }
+}

@@ -22,14 +22,6 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
 
   const [showCategories, setShowCategories] = useState(false);
 
-  // const [categories, setCategories] = useState<SubCategory[]>([])
-
-  // useEffect(() => {
-  //   if (subCategories) {
-  //     setCategories(subCategories)
-  //   }
-  // }, [subCategories])
-
   return (
     <>
       <div className={styles['group']}>
@@ -75,8 +67,6 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
                         }} icon={faPencil} color="primary" />
                         <IconButton onClick={async () => {
                           await deleteSubCategory(subCategory, id)
-                          // const newCategories = categories.filter((cat: SubCategory) => cat.id !== subCategory.id)
-                          // setCategories(newCategories)
                         }} icon={faTrash} color="danger" />
                       </div>
                     </article>

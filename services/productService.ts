@@ -20,10 +20,19 @@ export const useProductService = () => {
         return product;
     }
 
-    const createProduct = async (product: Product) => {
-        const created = await productRepository.createProduct(product);
+    const createProduct = async (product: Product, file: any) => {
+        const formData = new FormData()
+        formData.set("image", file);
+        const created = await productRepository.createProduct(product, formData);
 
         dispatch(addProduct(created))
+    }
+
+    const uploadProductImage = async (file: any, id: number) => {
+        const formData = new FormData()
+        formData.set("image", file);
+
+        return await productRepository.uploadImage(formData, id)
     }
 
     const updateProduct = async (product: Product) => {
@@ -43,6 +52,7 @@ export const useProductService = () => {
         getProduct,
         createProduct,
         updateProduct,
-        deleteProduct
+        deleteProduct,
+        uploadProductImage
     }
 }

@@ -1,0 +1,43 @@
+@import '../../../vars';
+
+.product {
+    display: grid;
+    grid-template-columns: 40px 1fr 200px;
+    height: 60px;
+    align-items: center;
+
+    &--category {
+        grid-template-columns: 1fr 200px;
+    }
+
+    h4 {
+        font-size: $normal_normal_size;
+        margin-left: 15px;
+    }
+
+    border-bottom: 1px solid #dcdcdc;
+
+    &__actions { 
+        display: flex;
+        justify-content: flex-end;
+
+        & > * {
+            margin-left: 10px;
+        }
+    }
+}
+
+.productInfo {
+    h3 {
+        font-size: $normal_normal_size;
+        margin: 15px 0px;
+    }
+
+    ul {
+        padding: 0px 25px;
+        
+        li {
+            font-size: $normal_text_size;
+        }
+    }
+}

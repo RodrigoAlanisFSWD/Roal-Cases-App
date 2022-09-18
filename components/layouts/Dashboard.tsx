@@ -46,7 +46,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
     ],
     [
       {
-        text: "Products",
+        text: "Products And More",
         icon: faShoppingBag,
         href: "/dashboard"
       },
@@ -59,6 +59,11 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         text: "Groups",
         icon: faHouse,
         href: "/dashboard/products/groups"
+      },
+      {
+        text: "Products",
+        icon: faHouse,
+        href: "/dashboard/products/"
       },
     ],
   ] 
