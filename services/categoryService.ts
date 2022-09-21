@@ -26,6 +26,14 @@ export const useCategoryService = () => {
         dispatch(addCategory(category))
     }
 
+    const uploadCategoryImage = async (file: any, id: number) => {
+        const formData = new FormData()
+
+        formData.set("image", file)
+
+        return await categoryRepository.uploadCategoryImage(formData, id)
+    }
+
     const getCategory = async (id: any) => {
         const category = await categoryRepository.getCategory(id)
 
@@ -49,6 +57,7 @@ export const useCategoryService = () => {
         createCategory,
         getCategory,
         updateCategory,
-        deleteCategory
+        deleteCategory,
+        uploadCategoryImage
     }
 }

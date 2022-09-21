@@ -11,7 +11,11 @@ export class CategoryRepository {
     async createCategory(values: string, formData: FormData): Promise<Category> {
         const { data: { id } } = await api.post<Category>("/categories/", values)
 
-        const { data } = await api.post("/categories/upload-image/" + id, formData)
+        return this.uploadCategoryImage(formData, id)
+    }
+
+    async uploadCategoryImage(formData: FormData, id: number): Promise<Category> {
+        const { data } = await api.post<Category>("/categories/upload-image/" + id, formData)
 
         return data;
     }

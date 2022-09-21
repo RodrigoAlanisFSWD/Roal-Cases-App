@@ -34,7 +34,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
     const [imageError, setImageError] = useState(false)
     const [imageSuccess, setImageSuccess] = useState(false)
 
-    const { createCategory, updateCategory } = useCategoryService()
+    const { createCategory, updateCategory, uploadCategoryImage } = useCategoryService()
 
     return (
         <div className={styles['createCategory']}>
@@ -59,15 +59,18 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                             setImageError(true)
                             return;
                         }
-    
+
                         await createCategory(data, image)
                     } else {
+                        if (image) {
+                            await uploadCategoryImage(image, category?.id as number)
+                        }
                         await updateCategory({
                             ...category,
                             ...data
                         })
                     }
-                    
+
 
                     router.push("/dashboard/products/categories/")
                 }}
@@ -77,15 +80,11 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                         <FormControl icon={faShoppingBag} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className={styles['createCategory__input']} />
                         <Textarea icon={faList} placeholder="Description" name="description" type="text" error={errors.description} touched={touched.description} className={styles['createCategory__input']} />
                         <FormControl icon={faMoneyBill} placeholder="Precio" name="price" type="number" error={errors.price} touched={touched.price} className={styles['createCategory__input']} />
-                        {
-                            !edit && (
-                                <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
-                                    setImageError(false)
-                                    setImage(file)
-                                    setImageSuccess(true)
-                                }} />
-                            )
-                        }
+                        <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
+                            setImageError(false)
+                            setImage(file)
+                            setImageSuccess(true)
+                        }} />
 
 
                         <Button onClick={handleSubmit} text={!edit ? 'Crear' : 'Editar'}
