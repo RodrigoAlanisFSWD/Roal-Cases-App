@@ -9,6 +9,7 @@ export interface AuthState {
     loading: boolean;
     errorMsg: string;
     profile: User | null;
+    role: string;
 }
 
 const initialState: AuthState = {
@@ -17,12 +18,14 @@ const initialState: AuthState = {
     refresh_token: '',
     loading: false,
     errorMsg: '',
-    profile: null
+    profile: null,
+    role: "USER"
 }
 
 export function authReducer(state = initialState, action: any): AuthState {
     switch (action.type) {
         case authTypes.AUTHENTICATE_USER:
+            console.log(action)
             return {
                 ...action.payload,
                 state: authTypes.AUTHENTICATED,
@@ -52,6 +55,12 @@ export function authReducer(state = initialState, action: any): AuthState {
             return {
                 ...initialState,
                 state: action.payload
+            }
+
+        case authTypes.SET_ADMIN:
+            return {
+                ...state,
+                role: "ADMIN"
             }
 
         default:

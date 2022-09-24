@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Category } from "../../molecules/home/Category";
-import styles from "../../../styles/organisms/home/Categories.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Link, animateScroll as scroll } from 'react-scroll';
@@ -9,10 +8,10 @@ export const Categories = () => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className={styles["categories"]} id="categories">
+    <div className="flex p-12 flex-col items-center" id="categories">
       <div
-        className={`${styles["categories__articles"]} ${
-          showMore ? styles["categories__articles--more"] : ""
+        className={`xl:w-3/4 2xl:w-11/12 grid grid-cols-1 grid-rows-3 overflow-hidden justify-center sm:grid-cols-2 md:grid-rows-2 gap-4 lg:grid-cols-3 lg:grid-rows-1 auto-rows-none ${
+          showMore && "auto-rows-auto" 
         }`}
       >
         <Category />
@@ -23,16 +22,16 @@ export const Categories = () => {
         <Category />
       </div>
 
-      <span onClick={() => setShowMore(!showMore)}>
+      <span className="text-primary text-xl cursor-pointer" onClick={() => setShowMore(!showMore)}>
         {showMore ? (
-                <span onClick={() => scroll.scrollTo(window.innerHeight, {
+                <span className="text-primary text-xl cursor-pointer" onClick={() => scroll.scrollTo(window.innerHeight, {
                     duration: 500
                 })}>
             Ver Menos <FontAwesomeIcon icon={faChevronUp} />
           </span>
 
         ) : (
-          <span>
+          <span className="text-primary text-xl cursor-pointer">
             Ver Mas <FontAwesomeIcon icon={faChevronDown} />
           </span>
         )}

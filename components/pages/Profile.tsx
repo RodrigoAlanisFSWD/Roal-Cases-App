@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { User } from '../../models/user';
-import { useUserService } from '../../services/userService';
+import React from 'react'
 import { Main } from '../layouts/Main';
-import { Navbar } from '../molecules/shared/Navbar';
-import styles from '../../styles/pages/Profile.module.scss'
 import { useSelector } from 'react-redux';
 import { store, StoreState } from '../../store';
 import { useAuthService } from '../../services/authService';
@@ -16,7 +12,7 @@ export const Profile = () => {
 
     return (
        <Main>
-            <div className={styles['profile']}>
+            <div className="row-[2/3] w-full max-w-lg h-[300px] rounded-md flex flex-col items-center justify-center shadow-md px-6">
                 <h2>
                     { user?.name }
                 </h2>

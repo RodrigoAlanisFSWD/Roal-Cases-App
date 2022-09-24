@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
-import styles from "../../../styles/atoms/home/HeroPolaroid.module.scss";
+import styles from "../../../styles/HeroPolaroid.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
 

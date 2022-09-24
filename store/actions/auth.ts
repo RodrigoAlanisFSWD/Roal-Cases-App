@@ -36,3 +36,7 @@ export const setAuthInitial = (state: any = authTypes.UNAUNTHENTICATED) => ({
     type: authTypes.AUTH_INITIAL,
     payload: state
 })
+
+export const setAdmin= () => ({
+    type: authTypes.SET_ADMIN,
+})

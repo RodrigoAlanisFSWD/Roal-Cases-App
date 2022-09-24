@@ -5,31 +5,30 @@ import { Navbar } from "../molecules/shared/Navbar";
 import { Categories } from "../organisms/home/Categories";
 import { Hero } from "../organisms/home/Hero";
 import { References } from "../organisms/home/References";
-import styles from "../../styles/pages/Home.module.scss";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../organisms/shared/Footer";
 
 export const Home = () => {
   return (
-    <div className={styles["home"]}>
+    <div>
       <Navbar />
       <Hero />
-      <div className={styles["home__divider"]}>
-        <h2>Nuestros Productos</h2>
+      <div className="bg-background flex flex-col items-center justify-center">
+        <h2 className="mt-12 mb-12 text-2xl">Nuestros Productos</h2>
 
-        <Button className={styles["home__btn"]} text="Comprar Ahora" />
+        <Button className="w-3/4 md:w-1/3 xl:w-80 mb-12" text="Comprar Ahora" />
       </div>
       <Categories />
       <References />
-      <div className={styles["home__warranty"]}>
-        <div className={styles["home__warranty-icon"]}>
+      <div className="flex flex-col items-center w-full p-8">
+        <div className="w-20 bg-primary flex rounded-full justify-center items-center h-20">
           <FontAwesomeIcon
             icon={faCheck}
-            className={styles["home__warranty-check"]}
+            className="text-white text-2xl"
           />
         </div>
-        <h3>Te Garantisamos Calidad</h3>
-        <p>
+        <h3 className="mt-6 text-2xl">Te Garantisamos Calidad</h3>
+        <p className="text-center mt-6 text-secondary max-w-lg">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo a at
           optio assumenda consequuntur quas, quo ipsam ducimus rem sequi ex et
           dignissimos neque nemo, ut quaerat dicta recusandae odio.

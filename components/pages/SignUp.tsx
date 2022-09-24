@@ -1,7 +1,4 @@
 import {FC, useEffect, useState} from "react";
-import styles from '../../styles/pages/Sign.module.scss'
-import {Navbar} from "../molecules/shared/Navbar";
-import {Footer} from "../organisms/shared/Footer";
 import {SignUpForm} from "../organisms/auth/SignUpForm";
 import * as authTypes from "../../store/types/auth";
 import {AlertModal} from "../molecules/shared/AlertModal";

@@ -5,9 +5,9 @@ import { Footer } from '../organisms/shared/Footer'
 
 export const Main: FC<any> = ({ children }) => {
   return (
-    <div className={styles['main']}>
+    <div className="w-screen min-h-screen">
 
-        <div className={styles['main__content']}>
+        <div className="w-screen h-screen min-h-[700px] grid grid-cols-1 grid-rows-[75px_1fr] justify-items-center items-center">
             <Navbar />
 
             { children }

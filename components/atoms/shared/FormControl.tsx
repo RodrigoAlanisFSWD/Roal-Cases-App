@@ -1,5 +1,4 @@
 import { FC } from "react";
-import styles from "../../../styles/atoms/shared/FormControl.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -17,6 +16,7 @@ interface FormControlProps {
   className?: string;
   error?: string | undefined;
   touched?: boolean;
+  as?: string;
 }
 
 export const FormControl: FC<FormControlProps> = ({
@@ -27,29 +27,30 @@ export const FormControl: FC<FormControlProps> = ({
   className,
   error,
   touched,
+  as
 }) => {
   return (
     <div
-      className={`${styles["formControl"]} ${
+      className={`w-full h-14 bg-white border rounded-sm flex items-center pl-4 ${
         error && touched
-          ? styles["formControl--error"]
+          ? "border-danger"
           : !error && touched
-          ? styles["formControl--success"]
-          : ""
+          ? "border-primary"
+          : "border-gray-200"
       } ${className}`}
     >
-      <FontAwesomeIcon icon={icon} className={styles["formControl__icon"]} />
-      <Field placeholder={placeholder} type={type} name={name} />
+      <FontAwesomeIcon icon={icon} className="text-2xl mr-4 text-secondary" />
+      <Field className="outline-none h-full w-11/12 border-none text-xl" as={as ? as : "input"} placeholder={placeholder} type={type} name={name} />
       {error && touched ? (
         <FontAwesomeIcon
           icon={faTimesCircle}
-          className={`${styles["formControl__icon--error"]} ${styles["formControl__icon"]}`}
+          className={`text-xl text-danger mr-4`}
         />
       ) : null}
       {!error && touched ? (
         <FontAwesomeIcon
           icon={faCheckCircle}
-          className={`${styles["formControl__icon--success"]} ${styles["formControl__icon"]}`}
+          className={`text-xl text-primary mr-4`}
         />
       ) : null}
     </div>
