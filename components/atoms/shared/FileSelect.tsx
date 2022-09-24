@@ -1,6 +1,4 @@
 import React, { FC, SyntheticEvent } from 'react'
-import { Button } from './Button'
-import styles from "../../../styles/atoms/shared/FileSelect.module.scss";
 import { faCheckCircle, faFile, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -31,13 +29,13 @@ export const FileSelect: FC<FileSelectProps> = ({ placeholder, handleFile, selec
   return (
     <div
       onClick={() => handleClick()}
-      className={`${styles["fileSelect"]} ${error
-          ? styles["fileSelect--error"]
-          : (success ? styles["fileSelect--success"] : "")
+      className={`w-full h-14 bg-white border rounded-sm flex items-center pl-4 cursor-pointer ${error
+          ? "border-danger"
+          : (success ? "border-primary" : "border-gray-200")
         } ${className}`}
     >
-      <FontAwesomeIcon icon={faFile} className={styles["fileSelect__icon"]} />
-      <span>
+      <FontAwesomeIcon icon={faFile} className="text-xl text-dark mr-4" />
+      <span className="text-xl w-11/12">
         {selectedFile ? selectedFile.name : placeholder}
       </span>
       <input type="file" ref={fileInput}
@@ -46,13 +44,13 @@ export const FileSelect: FC<FileSelectProps> = ({ placeholder, handleFile, selec
       {error ? (
         <FontAwesomeIcon
           icon={faTimesCircle}
-          className={`${styles["fileSelect__icon--error"]} ${styles["fileSelect__icon"]}`}
+          className={`text-xl text-danger mr-4`}
         />
       ) : null}
       {success ? (
         <FontAwesomeIcon
           icon={faCheckCircle}
-          className={`${styles["fileSelect__icon--success"]} ${styles["fileSelect__icon"]}`}
+          className={`text-xl text-primary mr-4`}
         />
       ) : null}
     </div>

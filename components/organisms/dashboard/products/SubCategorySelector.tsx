@@ -1,9 +1,6 @@
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC, useEffect, useState } from 'react'
 import { Group, SubCategory } from '../../../../models/category';
 import { useGroupService } from '../../../../services/groupService';
-import styles from '../../../../styles/organisms/dashboard/products/SubCategorySelector.module.scss';
 import { SubCategorySelectItem } from '../../../molecules/dashboard/products/SubCategorySelectItem';
 
 interface SubCategorySelectorProps {
@@ -28,7 +25,7 @@ export const SubCategorySelector: FC<SubCategorySelectorProps> = ({ onAdd, onRem
     }, [])
 
     return (
-        <div className={`${styles['subCategorySelector']} ${className}`}>
+        <div className={`w-full min-h-[200px] rounded-sm border border-gray-200 flex flex-col overflow-y-scroll ${className}`}>
             {
                 groups.map((group: Group) => (
                     <SubCategorySelectItem selected={subCategories} onAdd={onAdd} onRemove={onRemove} key={group.id} {...group} />

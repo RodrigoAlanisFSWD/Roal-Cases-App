@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { FC, useState } from 'react'
 import { Url } from 'url';
-import { DashboardLink } from './DashboardLink';
-import styles from '../../../styles/atoms/dashboard/DashboardLinkGroup.module.scss'
 import { AnimatePresence, motion } from "framer-motion"
 
 
@@ -25,18 +23,18 @@ export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
 
     return (
         <>
-            <li onClick={() => setShowGroup(!showGroup)} className={styles['dashboardLink']}>
+            <li onClick={() => setShowGroup(!showGroup)} className="list-none p-3 pl-0 flex justify-between items-center cursor-pointer">
                 <div>
-                    <FontAwesomeIcon icon={group[0].icon ? group[0].icon : faHouse} className={styles['dashboardLink__icon']} />
-                    <span>
+                    <FontAwesomeIcon icon={group[0].icon ? group[0].icon : faHouse} className="mr-4 text-lg sm:text-xl" />
+                    <span className="text-xl">
                         {group[0].text}
                     </span>
                 </div>
 
-                <FontAwesomeIcon icon={showGroup ? faAngleUp: faAngleDown} className={styles['dashboardLink__side-icon']} />
+                <FontAwesomeIcon icon={showGroup ? faAngleUp: faAngleDown} />
             </li>
 
-            <ul className={styles['dashboardGroup']}>
+            <ul className="w-full h-auto p-6 pt-3 pl-9">
             <AnimatePresence>
             {
                     showGroup ? group.filter((el: Link) => el.text !== group[0].text).map((link: Link) => (
@@ -44,7 +42,7 @@ export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
                             <motion.li initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }} className={styles['dashboardGroup__item']}>
+            transition={{ duration: 0.2 }} className="cursor-pointer list-none text-xl mb-4">
                                 {link.text}
                             </motion.li>
                         </Link>

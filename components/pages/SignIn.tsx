@@ -1,7 +1,4 @@
 import {FC, useState} from "react";
-import styles from '../../styles/pages/Sign.module.scss'
-import {Navbar} from "../molecules/shared/Navbar";
-import {Footer} from "../organisms/shared/Footer";
 import {SignInForm} from "../organisms/auth/SignInForm";
 import {AlertModal} from "../molecules/shared/AlertModal";
 import {useSelector} from "react-redux";

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button } from "../../atoms/shared/Button";
-import styles from "../../../styles/organisms/home/References.module.scss";
 
 // Import Swiper React components
 import { Autoplay, Pagination } from "swiper";
@@ -17,7 +16,7 @@ export const References = () => {
 
   return (
     <>
-      <Button onClick={() => setShowReferences(!showReferences)} text={showReferences ? 'Ver Menos' : 'Ver Mas'} className={`${styles["references__btn"]} ${styles["references__btn--top"]} `} />
+      <Button onClick={() => setShowReferences(!showReferences)} text={showReferences ? 'Ver Menos' : 'Ver Mas'} className={`m-auto w-3/4 my-6 md:w-80 `} />
 
       <AnimatePresence>
         {
@@ -29,25 +28,25 @@ export const References = () => {
             transition={{ duration: 0.3 }}
 
 
-            className={styles["references"]}>
+            className="bg-background py-12">
             <Swiper
               modules={[Autoplay, Pagination]}
-              className={styles["references__swiper"]}
+              className="w-full h-80 bg-white max-w-lg md:rounded-md"
               slidesPerView={1}
               autoplay={{ delay: 3000, disableOnInteraction: false }}
               pagination={{ clickable: true }}
               onSwiper={(swiper) => console.log(swiper)}
             >
-              <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
-              <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
-              <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
-              <SwiperSlide className={styles["references__slide"]}></SwiperSlide>
+              <SwiperSlide className="bg-cover" style={{backgroundImage: `url(/img/fundas.webp)`}}></SwiperSlide> 
+              <SwiperSlide className="bg-cover" style={{backgroundImage: `url(/img/fundas.webp)`}}></SwiperSlide> 
+              <SwiperSlide className="bg-cover" style={{backgroundImage: `url(/img/fundas.webp)`}}></SwiperSlide> 
+              <SwiperSlide className="bg-cover" style={{backgroundImage: `url(/img/fundas.webp)`}}></SwiperSlide> 
             </Swiper>
 
-            <div className={styles["references__info"]}>
-              <h3>Nuestros Clientes Confian En Nosotros</h3>
+            <div className="flex flex-col items-center text-secondary">
+              <h3 className="text-2xl my-12">Nuestros Clientes Confian En Nosotros</h3>
 
-              <p>
+              <p className="text-center text-xl max-w-lg">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem ab
                 suscipit, quod, id explicabo dolorem velit quasi labore assumenda
                 inventore alias praesentium? Porro nemo ut aperiam culpa animi
@@ -56,7 +55,7 @@ export const References = () => {
 
               <Button
                 text="Mas Referencias"
-                className={styles["references__btn"]}
+                className="m-auto w-3/4 md:w-80 mt-6"
               />
             </div>
           </motion.div> : null

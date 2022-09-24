@@ -1,17 +1,16 @@
 import React, { FC } from 'react'
-import styles from '../../../styles/atoms/shared/Switch.module.scss'
 
 interface SwitchProps {
-    onChange: () => void;
-    isActive: boolean;
+  onChange: () => void;
+  isActive: boolean;
 }
 
 export const Switch: FC<SwitchProps> = ({ onChange, isActive }) => {
   return (
-    <div onClick={() => onChange()} className={`${styles['switch']} ${isActive ? styles['switch--active'] : ''}`}>
-        <div className={styles['switch__dot']}>
+    <div onClick={() => onChange()} className={`w-[50px] border border-gray-200 h-[26px] flex items-center justify-start cursor-pointer rounded-[25px] ${isActive ? "bg-primary justify-end" : 'bg-white'}`}>
+      <div className={`w-6 h-6 rounded-[25px] ${isActive ? "bg-white" : 'bg-[#dcdcdc]'}`}>
 
-        </div>
+      </div>
     </div>
   )
 }

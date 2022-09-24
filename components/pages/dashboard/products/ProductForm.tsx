@@ -114,8 +114,8 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
   const [imageSuccess, setImageSuccess] = useState(false)
 
   return (
-    <div className={styles['productForm']}>
-      <h2>
+    <div className="flex justify-center items-center h-full flex-col">
+      <h2 className="hidden lg:block text-3xl mb-14">
         {!edit ? 'Crear Producto' : 'Editar Producto'}
       </h2>
 
@@ -131,13 +131,13 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
         onSubmit={onSubmit}
       >
         {({ touched, errors, handleSubmit }) => (
-          <Form className={styles['productForm__form']}>
-            <div className={styles['productForm__form-wrapper']}>
-              <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className={styles['productForm__input']} />
-              <Textarea icon={faNewspaper} placeholder="Descripcion" name="description" type="text" error={errors.description} touched={touched.description} className={`${styles['productForm__input']} ${styles['productForm__textarea']}`} />
+          <Form className="w-full sm:w-auto h-full lg:h-auto">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-[450px] lg:grid-cols-[450px_450px] lg:grid-rows-[1fr_200px_1fr] gap-4">
+              <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} />
+              <Textarea icon={faNewspaper} placeholder="Descripcion" name="description" type="text" error={errors.description} touched={touched.description} className="lg:col-[1/2] lg:row-[2/3] h-full" />
               <Select items={items} selectedItem={selectedCategory} onSelect={(item: SelectItemType) => setSelectedCategory(item)} placeholder="Categoria" />
-              <SubCategorySelector className={styles['productForm__subCategories']} onAdd={handleAdd} onRemove={handleRemove} subCategories={subCategories} />
-              <FileSelect className={styles['productForm__file']} error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
+              <SubCategorySelector className="lg:row-[2/4] h-full" onAdd={handleAdd} onRemove={handleRemove} subCategories={subCategories} />
+              <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
                 setImageError(false)
                 setImage(file)
                 setImageSuccess(true)
@@ -146,7 +146,7 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
 
 
             <Button onClick={handleSubmit} text={!edit ? 'Crear' : 'Editar'}
-              className={styles['productForm__btn']} />
+              className="mt-4 md:mt-6" />
           </Form>
         )}
       </Formik>

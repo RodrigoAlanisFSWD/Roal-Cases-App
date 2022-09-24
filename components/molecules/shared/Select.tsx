@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { FC, useState } from 'react'
 import { SelectItemType } from '../../../models/select';
-import styles from '../../../styles/molecules/shared/Select.module.scss'
 
 interface SelectProps {
     placeholder: string;
@@ -16,13 +15,13 @@ export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSe
     const [showItems, setShowItems] = useState(false);
 
     return (
-        <div className={styles['select']}>
-            <div onClick={() => setShowItems(!showItems)} className={styles['select__deployer']}>
-                <span>
+        <div className="w-full flex flex-col">
+            <div onClick={() => setShowItems(!showItems)} className="h-[55px] border border-gray-200 rounded-sm flex justify-between items-center px-4">
+                <span className='text-xl'>
                     {selectedItem !== null ? selectedItem.text : placeholder}
                 </span>
 
-                <FontAwesomeIcon icon={showItems ? faAngleUp : faAngleDown} className={styles['select__icon']} />
+                <FontAwesomeIcon icon={showItems ? faAngleUp : faAngleDown} className="text-xl" />
             </div>
             <AnimatePresence>
                 {
@@ -31,13 +30,13 @@ export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSe
                         <motion.div initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }} className={styles['select__items']}>
+                            transition={{ duration: 0.3 }} className="border md:absolute rounded-b-sm md:mt-[55px] w-full md:w-[450px] bg-white border-t-0">
                             {
                                 items.map((item: SelectItemType) => (
                                     <div key={item.key} onClick={() => { 
                                         onSelect(item) 
                                         setShowItems(false)
-                                    }} className={styles['select__item']}>
+                                    }} className="flex items-center text-xl h-[55px] px-4 cursor-pointer">
                                         {item.text}
                                     </div>
                                 ))

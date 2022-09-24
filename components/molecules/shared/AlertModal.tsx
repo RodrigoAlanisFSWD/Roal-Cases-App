@@ -1,5 +1,4 @@
 import {FC} from "react";
-import styles from '../../../styles/molecules/shared/AlertModal.module.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from '@fortawesome/free-solid-svg-icons'
 
@@ -11,15 +10,15 @@ interface AlertModalProps {
 
 export const AlertModal: FC<AlertModalProps> = ({title, body, onClose}) => {
     return (
-        <div className={styles['wrapper']}>
-            <div className={styles['alertModal']}>
-                <div className={styles['alertModal__header']}>
-                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className={styles['alertModal__icon']}/>
-                    <h2>
+        <div className="top-0 fixed w-screen h-screen bg-[rgba(220, 220, 220, 0.53)] flex z-[10000000] justify-center items-center">
+            <div className="w-[95%] max-w-[500px] min-h-[100px] bg-white p-3 grid grid-cols-1 grid-rows-[30px_1fr] items-center">
+                <div className="flex flex-row-reverse justify-between">
+                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className="text-xl mr-2"/>
+                    <h2 className="text-xl">
                         {title}
                     </h2>
                 </div>
-                <div className={styles['alertModal__content']}>
+                <div className="py-3 flex items-center h-full text-lg">
                     {body}
                 </div>
             </div>

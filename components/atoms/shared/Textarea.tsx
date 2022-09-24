@@ -1,8 +1,6 @@
 import { FC } from "react";
-import styles from "../../../styles/atoms/shared/FormControl.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEnvelope,
   faTimesCircle,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -30,26 +28,26 @@ export const Textarea: FC<FormControlProps> = ({
 }) => {
   return (
     <div
-      className={`${styles["formControl"]} ${styles["formControl--textarea"]} ${
+      className={`w-full min-h-[100px] items-start pt-4 bg-white border rounded-sm pl-4 flex ${
         error && touched
-          ? styles["formControl--error"]
+          ? "border-danger"
           : !error && touched
-          ? styles["formControl--success"]
-          : ""
+          ? "border-primary"
+          : "border-gray-200"
       } ${className}`}
     >
-      <FontAwesomeIcon icon={icon} className={styles["formControl__icon"]} />
-      <Field as="textarea" placeholder={placeholder} type={type} name={name} />
+      <FontAwesomeIcon icon={icon} className="text-2xl text-dark mr-4" />
+      <Field as="textarea" placeholder={placeholder} type={type} name={name} className="text-xl placeholder:text-secondary resize-none w-11/12 outline-none" />
       {error && touched ? (
         <FontAwesomeIcon
           icon={faTimesCircle}
-          className={`${styles["formControl__icon--error"]} ${styles["formControl__icon"]}`}
+          className={`text-danger text-2xl mr-4`}
         />
       ) : null}
       {!error && touched ? (
         <FontAwesomeIcon
           icon={faCheckCircle}
-          className={`${styles["formControl__icon--success"]} ${styles["formControl__icon"]}`}
+          className={`text-primary text-2xl mr-4`}
         />
       ) : null}
     </div>

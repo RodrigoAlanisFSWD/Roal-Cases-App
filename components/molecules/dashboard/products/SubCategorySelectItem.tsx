@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { FC, useEffect, useState } from 'react'
 import { Group, SubCategory } from '../../../../models/category'
-import styles from '../../../../styles/organisms/dashboard/products/SubCategorySelector.module.scss';
 import { Switch } from '../../../atoms/shared/Switch';
 
 interface SubCategorySelectItemProps extends Group {
@@ -18,14 +17,14 @@ export const SubCategorySelectItem: FC<SubCategorySelectItemProps> = ({ name, su
 
     return (
         <>
-            <div className={styles['subCategorySelector__item']}>
-                <span>
+            <div className="h-[55px] border-b border-gray-200 justify-between flex p-4 w-full">
+                <span className="text-xl">
                     {name}
                 </span>
 
-                <FontAwesomeIcon onClick={() => setDeploy(!deploy)} icon={deploy ? faAngleUp : faAngleDown} className={styles['subCategorySelector__item-icon']} />
+                <FontAwesomeIcon onClick={() => setDeploy(!deploy)} icon={deploy ? faAngleUp : faAngleDown} className="text-xl cursor-pointer" />
             </div>
-            <div className={styles['subCategorySelector__item-subcategories']}>
+            <div className="w-full flex flex-col">
                 <AnimatePresence>
                     {
                         deploy && subCategories?.map((subCategory: SubCategory) => (
@@ -81,7 +80,7 @@ const SubCategoryItem: FC<SubCategoryItemProps> = (props) => {
         <motion.div initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }} className={styles['subCategorySelector__item-subcategory']}>
+            transition={{ duration: 0.3 }} className="w-full h-[45px] border-b border-gray-200 flex items-center px-4 justify-between">
             <span>
                 {name}
             </span>

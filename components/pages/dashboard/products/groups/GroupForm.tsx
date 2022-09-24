@@ -5,7 +5,6 @@ import React, { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { Category, Group, SubCategory } from '../../../../../models/category';
 import { useGroupService } from '../../../../../services/groupService';
-import styles from '../../../../../styles/pages/dashboard/products/groups/GroupForm.module.scss'
 import { Button } from '../../../../atoms/shared/Button';
 import { FormControl } from '../../../../atoms/shared/FormControl';
 import { AddCategoryModal } from '../../../../organisms/dashboard/products/groups/AddCategoryModal';
@@ -49,8 +48,8 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
 
     return (
         <>
-            <div className={styles['groupForm']}>
-                <h2>
+            <div className="flex justify-center items-center flex-col h-full">
+                <h2 className="text-4xl mb-14">
                     {!edit ? 'Crear Grupo' : 'Editar Grupo'}
                 </h2>
 
@@ -79,8 +78,8 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
                     }}
                 >
                     {({ touched, errors, handleSubmit }) => (
-                        <Form className={styles['groupForm__form']}>
-                            <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className={styles['groupForm__input']} />
+                        <Form className="w-full sm:w-[450px] h-auto">
+                            <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className="mb-4" />
 
                             {
                                 !edit && (
@@ -89,7 +88,7 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
                             }
 
                             <Button onClick={handleSubmit} text={!edit ? 'Crear' : 'Editar'}
-                                className={styles['groupForm__btn']} />
+                                className="mt-14" />
                         </Form>
                     )}
                 </Formik>

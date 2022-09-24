@@ -1,5 +1,4 @@
 import {FC} from "react";
-import styles from '../../../styles/organisms/auth/AuthForm.module.scss'
 import {faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons'
 import {Button} from "../../atoms/shared/Button";
 import {FormControl} from "../../atoms/shared/FormControl";
@@ -31,12 +30,12 @@ export const SignUpForm: FC = () => {
     const loading = useSelector((store: StoreState) => store.auth.loading);
 
     return (
-        <div className={styles['authForm']}>
-            <h2>
+        <div className="w-full max-w-xl row-[2/3] h-auto flex flex-col items-center 2xl:max-w-xl 2xl:shadow-md">
+            <h2 className="text-3xl mb-14 lg:mt-14">
                 Crear Una Cuenta
             </h2>
 
-            <div className={styles['authForm__divider']}>
+            <div className="w-full bg-background p-4 text-xl text-center text-secondary">
                 Ingresa Los Datos Para Crear Tu Cuenta w
             </div>
 
@@ -58,17 +57,17 @@ export const SignUpForm: FC = () => {
                 }}
             >
                 {({values, touched, errors, handleSubmit}) => (
-                    <Form className={styles['authForm__form']}>
-                        <FormControl className={styles['authForm__input']} placeholder="Nombre" type="text"
+                    <Form className="w-full flex flex-col justify-center h-auto py-14 pb-0 px-6 xl:p-14 2xl:py-28 2xl:px-14">
+                        <FormControl className="mt-4" placeholder="Nombre" type="text"
                                      name="name" icon={faUser} error={errors.name} touched={touched.name}/>
-                        <FormControl className={styles['authForm__input']} placeholder="Correo Electronico" type="email"
+                        <FormControl className="mt-4" placeholder="Correo Electronico" type="email"
                                      name="email" icon={faEnvelope} error={errors.email} touched={touched.email}/>
-                        <FormControl className={styles['authForm__input']} placeholder="Contrasena" type="password"
+                        <FormControl className="mt-4" placeholder="Contrasena" type="password"
                                      name="password" icon={faLock} error={errors.password} touched={touched.password}/>
 
-                        <Button onClick={handleSubmit} text="Crear" className={styles['authForm__btn']}/>
+                        <Button onClick={handleSubmit} text="Crear" className="mt-9 mb-4"/>
                         <Button text="Iniciar Sesion" type="outlined" onClick={() => router.push("/sign-in")}/>
-                        {loading ? <span className={styles['authForm__loading']}>
+                        {loading ? <span className="flex w-full mt-3 justify-end">
                             Cargando...
                         </span> : null}
                     </Form>

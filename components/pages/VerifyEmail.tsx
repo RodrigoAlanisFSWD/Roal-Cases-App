@@ -2,7 +2,6 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import { Main } from '../layouts/Main'
 import * as Yup from 'yup';
-import styles from '../../styles/pages/VerifyEmail.module.scss'
 import { FormControl } from "../atoms/shared/FormControl";
 import { faCode, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '../atoms/shared/Button';
@@ -30,7 +29,7 @@ export const VerifyEmail = () => {
     return (
         <>
             <Main>
-                <div className={styles['verifyEmail']}>
+                <div className="w-full max-w-[400px] row-[2/3] shadow-md p-6">
                     <Formik
                         initialValues={
                             {
@@ -46,13 +45,13 @@ export const VerifyEmail = () => {
                     >
                         {
                             ({ values, touched, errors, handleSubmit }) => (
-                                <Form className={styles['verifyEmail__form']}>
+                                <Form className="flex flex-col justify-center items-center">
                                     <h2>
                                         Verificar Correo
                                     </h2>
-                                    <FormControl name='code' placeholder='Codigo' type='text' touched={touched.code} error={errors.code} className={styles['verifyEmail__input']} icon={faLock} />
+                                    <FormControl name='code' placeholder='Codigo' type='text' touched={touched.code} error={errors.code} className="mt-6" icon={faLock} />
 
-                                    <Button text='Continuar' onClick={handleSubmit} className={styles['verifyEmail__btn']} />
+                                    <Button text='Continuar' onClick={handleSubmit} className="mt-6" />
                                 </Form>
 
                             )

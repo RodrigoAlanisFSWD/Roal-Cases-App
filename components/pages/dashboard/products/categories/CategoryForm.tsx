@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import styles from '../../../../../styles/pages/dashboard/products/categories/CreateCategory.module.scss'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { FormControl } from '../../../../atoms/shared/FormControl'
@@ -37,8 +36,8 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
     const { createCategory, updateCategory, uploadCategoryImage } = useCategoryService()
 
     return (
-        <div className={styles['createCategory']}>
-            <h2>
+        <div className="flex justify-center items-center flex-col h-full">
+            <h2 className="mb-14 text-3xl">
                 {!edit ? 'Crear Categoria' : 'Editar Categoria'}
             </h2>
 
@@ -76,10 +75,10 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                 }}
             >
                 {({ values, touched, errors, handleSubmit }) => (
-                    <Form className={styles['createCategory__form']}>
-                        <FormControl icon={faShoppingBag} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className={styles['createCategory__input']} />
-                        <Textarea icon={faList} placeholder="Description" name="description" type="text" error={errors.description} touched={touched.description} className={styles['createCategory__input']} />
-                        <FormControl icon={faMoneyBill} placeholder="Precio" name="price" type="number" error={errors.price} touched={touched.price} className={styles['createCategory__input']} />
+                    <Form className="w-full sm:w-[450px] h-auto">
+                        <FormControl icon={faShoppingBag} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className="mb-4" />
+                        <Textarea icon={faList} placeholder="Description" name="description" type="text" error={errors.description} touched={touched.description} className="mb-4" />
+                        <FormControl icon={faMoneyBill} placeholder="Precio" name="price" type="number" error={errors.price} touched={touched.price} className="mb-4" />
                         <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
                             setImageError(false)
                             setImage(file)
@@ -88,7 +87,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
 
 
                         <Button onClick={handleSubmit} text={!edit ? 'Crear' : 'Editar'}
-                            className={styles['createCategory__btn']} />
+                            className="mt-14" />
                     </Form>
                 )}
             </Formik>

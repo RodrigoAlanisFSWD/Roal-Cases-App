@@ -6,7 +6,6 @@ import React, { FC, useState } from 'react'
 import { SubCategory } from '../../../../models/category'
 import { Product } from '../../../../models/product'
 import { useProductService } from '../../../../services/productService'
-import styles from '../../../../styles/molecules/dashboard/products/DashboardProduct.module.scss'
 import { IconButton } from '../../../atoms/shared/IconButton'
 
 export const DashbordProduct: FC<Product> = ({ name, category, subCategories, description, id, imageUrl }) => {
@@ -19,40 +18,40 @@ export const DashbordProduct: FC<Product> = ({ name, category, subCategories, de
 
   return (
     <>
-      <div className={styles['product']}>
+      <div className="border-b border-gray-200 grid grid-cols-[40px_1fr_100px] h-[60px] items-center sm:grid-cols-[40px_1fr_200px]">
         <FontAwesomeIcon style={{ marginLeft: 15 }} onClick={() => setShowInfo(!showInfo)} icon={showInfo ? faAngleUp : faAngleDown} />
-        <h4>
+        <h4 className="text-2xl ml-4">
           {name}
         </h4>
-        <div className={styles['product__actions']}>
+        <div className="flex justify-end">
           <IconButton onClick={() => {
             router.push("/dashboard/products/" + id)
-          }} icon={faPencil} color="primary" />
+          }} icon={faPencil} color="primary" className="ml-[10px]" />
           <IconButton onClick={async () => {
             await deleteProduct(id)
-          }} icon={faTrash} color="danger" />
+          }} icon={faTrash} color="danger" className="ml-[10px]" />
         </div>
       </div>
       <AnimatePresence>
         {
           showInfo && (
-            <motion.div className={styles['productInfo']}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <h3>
+              <h3 className="text-2xl my-[15px]">
                 Categoria: { category?.name }
               </h3>
 
-              <h3>
+              <h3 className="text-2xl my-[15px]">
                 Sub Categorias:
               </h3>
 
-              <ul>
+              <ul className="px-6">
                 {
-                    subCategories?.map((subCategory: SubCategory) => <li key={subCategory.id}>{ subCategory.name }</li>)
+                    subCategories?.map((subCategory: SubCategory) => <li className='text-xl list-disc' key={subCategory.id}>{ subCategory.name }</li>)
                 }
               </ul>
 

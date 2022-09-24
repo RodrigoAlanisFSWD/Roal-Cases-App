@@ -1,7 +1,6 @@
 import { faList, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { FC } from 'react'
-import styles from '../../../../../styles/organisms/dashboard/products/groups/AddCategoryModal.module.scss'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { FormControl } from '../../../../atoms/shared/FormControl'
@@ -23,14 +22,14 @@ export const AddCategoryModal: FC<AddCategoryModalProps> = ({ onClose, onAdd, bu
     })
 
     return (
-        <div className={styles['wrapper']}>
-            <div className={styles['addCategoryModal']}>
-                <div className={styles['addCategoryModal__header']}>
-                    <h4>
+        <div className="w-[calc(100vw-50px)] xl:w-[calc(100vw-350px)] h-[calc(100vh-60px)] bg-modal flex justify-center items-center absolute bottom-0 right-0">
+            <div className="w-[calc(100%-25px)] sm:w-[450px] bg-white p-4 rounded-sm">
+                <div className="flex justify-between items-center">
+                    <h4 className="text-2xl">
                         { title ? title  : 'Agregar Categoria' }
                     </h4>
 
-                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className={styles['addCategoryModal__header-icon']} />
+                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className="text-2xl" />
                 </div>
 
                 <Formik
@@ -50,10 +49,10 @@ export const AddCategoryModal: FC<AddCategoryModalProps> = ({ onClose, onAdd, bu
                 >
                     {
                         ({ errors, touched, handleSubmit }) => (
-                            <Form className={styles['addCategoryModal__form']}>
-                                <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className={styles['addCategoryModal__input']} />
+                            <Form className="mt-4">
+                                <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className="mt-6" />
 
-                                <Button className={styles['addCategoryModal__btn']} onClick={handleSubmit} text={buttonText ? buttonText : "Agregar"} />
+                                <Button className="mt-6" onClick={handleSubmit} text={buttonText ? buttonText : "Agregar"} />
                             </Form>
                         )
                     }
