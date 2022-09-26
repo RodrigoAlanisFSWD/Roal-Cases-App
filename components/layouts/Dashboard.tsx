@@ -27,13 +27,13 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (auth.profile) {
-  //     if (auth.profile.role !== "ADMIN") {
-  //       router.push("/sign-in")
-  //     }
-  //   }
-  // }, [auth.state])
+  useEffect(() => {
+    if (auth.profile) {
+      if (auth.profile.role !== "ADMIN") {
+        router.push("/sign-in")
+      }
+    }
+  }, [auth.state])
 
   const links: Array<Array<Link>> = [
     [

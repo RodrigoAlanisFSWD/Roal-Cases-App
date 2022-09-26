@@ -61,13 +61,14 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
 
                         await createCategory(data, image)
                     } else {
-                        if (image) {
-                            await uploadCategoryImage(image, category?.id as number)
-                        }
                         await updateCategory({
                             ...category,
                             ...data
                         })
+
+                        if (image) {
+                            await uploadCategoryImage(image, category?.id as number)
+                        }
                     }
 
 

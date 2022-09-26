@@ -3,9 +3,14 @@ import { Category } from "../../molecules/home/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Link, animateScroll as scroll } from 'react-scroll';
+import { useSelector } from "react-redux";
+import { StoreState } from "../../../store";
+import { Category as CategoryType } from "../../../models/category";
 
 export const Categories = () => {
   const [showMore, setShowMore] = useState(false);
+
+  const categories = useSelector((store: StoreState) => store.categories)
 
   return (
     <div className="flex p-12 flex-col items-center" id="categories">
@@ -14,12 +19,9 @@ export const Categories = () => {
           showMore && "auto-rows-auto" 
         }`}
       >
-        <Category />
-        <Category />
-        <Category />
-        <Category />
-        <Category />
-        <Category />
+        {
+          categories.map((category: CategoryType) => <Category key={category.id} {...category} />)
+        }
       </div>
 
       <span className="text-primary text-xl cursor-pointer" onClick={() => setShowMore(!showMore)}>

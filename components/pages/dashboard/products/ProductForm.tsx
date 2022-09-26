@@ -98,10 +98,10 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
         category: await getCategory(selectedCategory?.key),
         subCategories,
       }
+      await updateProduct(newProduct)
       if (image) {
         await uploadProductImage(image, newProduct.id)
       }
-      await updateProduct(newProduct)
     }
 
     router.push("/dashboard/products")
