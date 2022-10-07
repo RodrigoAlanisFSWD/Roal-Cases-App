@@ -99,9 +99,9 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
           </nav>
         </div>
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="grid grid-cols-1 grid-rows-[60px_1fr] max-h-screen">
         <DashboardHeader />
-        <div className="p-6 h-[calc(100vh-60px)] overflow-y-hidden">
+        <div className="p-6 h-[calc(100vh-60px)]">
           {children}
         </div>
       </div>

@@ -16,6 +16,10 @@ export const useGroupService = () => {
         return groups
     }
 
+    const getSubCategories = async (ids: Array<number>) => {
+        return groupRepository.getSubCategories(ids);
+    }
+
     const createGroup = async (values: any): Promise<Group> => {
         const group = await groupRepository.createGroup(values)
 
@@ -67,6 +71,7 @@ export const useGroupService = () => {
         deleteGroup,
         createSubCategories,
         deleteSubCategory,
-        updateSubCategory
+        updateSubCategory,
+        getSubCategories
     }
 }

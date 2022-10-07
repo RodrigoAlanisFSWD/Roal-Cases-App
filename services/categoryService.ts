@@ -34,8 +34,8 @@ export const useCategoryService = () => {
         return await categoryRepository.uploadCategoryImage(formData, id)
     }
 
-    const getCategory = async (id: any) => {
-        const category = await categoryRepository.getCategory(id)
+    const getCategory = async (slug: string) => {
+        const category = await categoryRepository.getCategory(slug)
 
         return category
     }

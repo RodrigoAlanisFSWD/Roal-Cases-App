@@ -1,4 +1,4 @@
-import { faAngleDown, faAngleUp, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faImage, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -8,7 +8,7 @@ import { Product } from '../../../../models/product'
 import { useProductService } from '../../../../services/productService'
 import { IconButton } from '../../../atoms/shared/IconButton'
 
-export const DashbordProduct: FC<Product> = ({ name, category, subCategories, description, id, imageUrl }) => {
+export const DashbordProduct: FC<Product> = ({ name, category, subCategories, description, id, imageUrl, slug }) => {
 
     const [showInfo, setShowInfo] = useState(false);
 
@@ -24,8 +24,11 @@ export const DashbordProduct: FC<Product> = ({ name, category, subCategories, de
           {name}
         </h4>
         <div className="flex justify-end">
+        <IconButton onClick={() => {
+            router.push("/dashboard/products/images/" + slug)
+          }} icon={faImage} color="primary" className="ml-[10px]" />
           <IconButton onClick={() => {
-            router.push("/dashboard/products/" + id)
+            router.push("/dashboard/products/" + slug)
           }} icon={faPencil} color="primary" className="ml-[10px]" />
           <IconButton onClick={async () => {
             await deleteProduct(id)

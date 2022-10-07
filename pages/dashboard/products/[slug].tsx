@@ -9,7 +9,7 @@ import { useProductService } from '../../../services/productService';
 const EditProductPage = () => {
     const router = useRouter();
 
-    const { id } = router.query
+    const { slug } = router.query
 
     const { getProduct } = useProductService()
 
@@ -17,14 +17,14 @@ const EditProductPage = () => {
 
     useEffect(() => {
         const init = async () => {
-            setProduct(await getProduct(id as any))
+            setProduct(await getProduct(slug as string))
         }
 
-        if (id) {
+        if (slug) {
             init()
         }
 
-    }, [id])
+    }, [slug])
 
 
   return product && (

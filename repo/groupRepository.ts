@@ -8,6 +8,12 @@ export class GroupRepository {
         return data;
     }
 
+    async getSubCategories(ids: Array<number>): Promise<SubCategory[]> {
+        const { data } = await api.post<SubCategory[]>("/subcategories/fromIds", ids)
+
+        return data
+    }
+
     async createGroup(values: string): Promise<Group> {
         const { data } = await api.post<Group>("/groups/", values)
 

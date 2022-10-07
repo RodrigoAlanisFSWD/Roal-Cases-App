@@ -29,7 +29,7 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
         </h4>
         </div>
         
-        <div className="flex justify-evenly h-full w-3/4 sm:justify-end sm:w-auto self-end">
+        <div className="flex justify-evenly h-full w-3/4 sm:justify-end sm:w-auto self-end items-center">
         <IconButton onClick={() => {
             onAction('CREATE', id, null)
           }} icon={faAdd} color="primary" className='ml-[10px]' />

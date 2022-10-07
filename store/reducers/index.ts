@@ -3,10 +3,12 @@ import {authReducer} from "./auth";
 import { categoriesReducer } from "./categories";
 import { groupsReducer } from "./groups";
 import { productsReducer } from "./products";
+import { searchReducer } from "./search";
 
 export const rootReducer = combineReducers({
     auth: authReducer,
     categories: categoriesReducer,
     groups: groupsReducer,
-    products: productsReducer
+    products: productsReducer,
+    search: searchReducer
 })
