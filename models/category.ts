@@ -3,6 +3,7 @@ import { Product } from "./product";
 export interface Category {
     id: number;
     name: string;
+    slug: string;
     description: string;
     imageUrl: string;
     price: number;
@@ -10,7 +11,7 @@ export interface Category {
 }
 
 export interface SubCategory {
-    id?: number;
+    id: number;
     name: string;
     group?: Group;
 }

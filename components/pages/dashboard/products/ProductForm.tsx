@@ -43,13 +43,13 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
     const init = async () => {
       const categories = await getCategories()
 
-      setItems(categories.reduce((acc: any, cur: any) => acc = [...acc, { key: cur.id, text: cur.name }], []))
+      setItems(categories.reduce((acc: any, cur: any) => acc = [...acc, { key: cur.slug, text: cur.name }], []))
     }
 
     const initEdited = async () => {
       if (product && product.category && product.subCategories) {
         setSelectedCategory({
-          key: product.category?.id,
+          key: product.category?.slug,
           text: product.category?.name
         })
 
@@ -81,37 +81,24 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
 
   const onSubmit = async (data: any) => {
     if (!edit) {
-      if (!image) {
-        setImageError(true)
-        return;
-      }
       const newProduct: Product = {
         ...data,
         subCategories,
-        category: await getCategory(selectedCategory?.key),
+        category: await getCategory(selectedCategory?.key as string),
       }
-      await createProduct(newProduct, image)
+      await createProduct(newProduct)
     } else {
       const newProduct: Product = {
         ...product,
         ...data,
-        category: await getCategory(selectedCategory?.key),
+        category: await getCategory(selectedCategory?.key as string),
         subCategories,
-      }
-      if (image) {
-        await uploadProductImage(image, newProduct.id)
       }
       await updateProduct(newProduct)
     }
 
     router.push("/dashboard/products")
   }
-
-  // Image Pick
-
-  const [image, setImage] = useState(null)
-  const [imageError, setImageError] = useState(false)
-  const [imageSuccess, setImageSuccess] = useState(false)
 
   return (
     <div className="flex justify-center items-center h-full flex-col">
@@ -132,16 +119,11 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
       >
         {({ touched, errors, handleSubmit }) => (
           <Form className="w-full sm:w-auto h-full lg:h-auto">
-            <div className="w-full grid grid-cols-1 sm:grid-cols-[450px] lg:grid-cols-[450px_450px] lg:grid-rows-[1fr_200px_1fr] gap-4">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-[450px] lg:grid-cols-[450px_450px] lg:grid-rows-[1fr_200px] gap-4">
               <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} />
               <Textarea icon={faNewspaper} placeholder="Descripcion" name="description" type="text" error={errors.description} touched={touched.description} className="lg:col-[1/2] lg:row-[2/3] h-full" />
               <Select items={items} selectedItem={selectedCategory} onSelect={(item: SelectItemType) => setSelectedCategory(item)} placeholder="Categoria" />
-              <SubCategorySelector className="lg:row-[2/4] h-full" onAdd={handleAdd} onRemove={handleRemove} subCategories={subCategories} />
-              <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
-                setImageError(false)
-                setImage(file)
-                setImageSuccess(true)
-              }} />
+              <SubCategorySelector className="lg:row-[2/3] h-full" onAdd={handleAdd} onRemove={handleRemove} subCategories={subCategories} />
             </div>
 
 

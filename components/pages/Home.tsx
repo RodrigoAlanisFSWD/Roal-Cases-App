@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../atoms/shared/Button";
 import { Navbar } from "../molecules/shared/Navbar";
@@ -7,8 +7,22 @@ import { Hero } from "../organisms/home/Hero";
 import { References } from "../organisms/home/References";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../organisms/shared/Footer";
+import { useCategoryService } from "../../services/categoryService";
 
 export const Home = () => {
+
+  const { getCategories } = useCategoryService()
+
+  useEffect(() => {
+
+    const init = async () => {
+      await getCategories()
+    }
+
+    init()
+
+  }, [])
+
   return (
     <div>
       <Navbar />

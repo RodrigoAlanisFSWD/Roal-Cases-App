@@ -49,8 +49,6 @@ export const SignInForm: FC = () => {
                     })
 
                     setLoading(false)
-
-                    router.push("/profile")
                 }}
             >
                 {({values, touched, errors, handleSubmit}) => (

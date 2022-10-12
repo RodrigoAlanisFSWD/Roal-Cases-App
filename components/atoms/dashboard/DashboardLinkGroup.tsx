@@ -31,26 +31,30 @@ export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
                     </span>
                 </div>
 
-                <FontAwesomeIcon icon={showGroup ? faAngleUp: faAngleDown} />
+                <FontAwesomeIcon icon={showGroup ? faAngleUp : faAngleDown} />
             </li>
 
-            <ul className="w-full h-auto p-6 pt-3 pl-9">
             <AnimatePresence>
-            {
-                    showGroup ? group.filter((el: Link) => el.text !== group[0].text).map((link: Link) => (
-                        <Link key={link.text} href={link.href as Url}>
-                            <motion.li initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }} className="cursor-pointer list-none text-xl mb-4">
-                                {link.text}
-                            </motion.li>
-                        </Link>
-                    )) : null
+                {
+                    showGroup && (<ul className="w-full h-auto p-6 pt-0 pl-9">
+                        {
+                            group.filter((el: Link) => el.text !== group[0].text).map((link: Link) => (
+
+                                <Link key={link.text} href={link.href as Url}>
+                                    <motion.li initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.2 }} className="cursor-pointer list-none text-xl mt-4">
+                                        {link.text}
+                                    </motion.li>
+                                </Link>
+
+                            ))
+                        }
+                    </ul>)
 
                 }
             </AnimatePresence>
-            </ul>
         </>
     )
 }

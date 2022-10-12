@@ -1,5 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faBell, faHouse, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBell, faHouse, faMobilePhone, faPhone, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -27,13 +27,13 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (auth.profile) {
-  //     if (auth.profile.role !== "ADMIN") {
-  //       router.push("/sign-in")
-  //     }
-  //   }
-  // }, [auth.state])
+  useEffect(() => {
+    if (auth.profile) {
+      if (auth.profile.role !== "ADMIN") {
+        router.push("/sign-in")
+      }
+    }
+  }, [auth.state])
 
   const links: Array<Array<Link>> = [
     [
@@ -63,6 +63,23 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         text: "Products",
         icon: faHouse,
         href: "/dashboard/products/"
+      },
+    ],
+    [
+      {
+        text: "Product Models",
+        icon: faMobilePhone,
+        href: "/dashboard"
+      },
+      {
+        text: "Brands",
+        icon: faHouse,
+        href: "/dashboard/models/brands"
+      },
+      {
+        text: "Models",
+        icon: faHouse,
+        href: "/dashboard/models"
       },
     ],
   ]
@@ -99,9 +116,9 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
           </nav>
         </div>
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="grid grid-cols-1 grid-rows-[60px_1fr] max-h-screen">
         <DashboardHeader />
-        <div className="p-6 h-[calc(100vh-60px)] overflow-y-hidden">
+        <div className="p-6 h-[calc(100vh-60px)]">
           {children}
         </div>
       </div>

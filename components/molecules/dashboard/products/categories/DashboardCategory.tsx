@@ -5,7 +5,7 @@ import { Category } from '../../../../../models/category'
 import { useCategoryService } from '../../../../../services/categoryService'
 import { IconButton } from '../../../../atoms/shared/IconButton'
 
-export const DashboardCategory: FC<Category> = ({ name, id }) => {
+export const DashboardCategory: FC<Category> = ({ name, id, slug }) => {
 
   const router = useRouter()
 
@@ -18,7 +18,7 @@ export const DashboardCategory: FC<Category> = ({ name, id }) => {
         </h4>
         <div className="flex justify-end">
             <IconButton onClick={() => {
-              router.push("/dashboard/products/categories/" + id)
+              router.push("/dashboard/products/categories/" + slug)
             }} icon={faPencil} color="primary" className="ml-[10px]"/>
             <IconButton onClick={async () => {
               await deleteCategory(id)

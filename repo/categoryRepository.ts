@@ -20,8 +20,8 @@ export class CategoryRepository {
         return data;
     }
 
-    async getCategory(id: any): Promise<Category> {
-        const { data } = await api.get<Category>("/categories/" + id)
+    async getCategory(slug: string): Promise<Category> {
+        const { data } = await api.get<Category>("/categories/" + slug)
 
         return data;
     }

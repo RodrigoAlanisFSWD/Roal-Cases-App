@@ -13,7 +13,7 @@ export const AfterRegister = () => {
                         Gracias Por Registrarte!
                     </h2>
                 </div>
-                <div className="pt-6 flex flex-cl items-center h-full text-xl">
+                <div className="pt-6 flex flex-col items-center h-full text-xl">
                     Ahora Te Pedimos Completes La Verificacion De Correo Electronico.
                      A Tu Correo Llego Un Codigo Que Debes Ingresar, Cuando Estes Listo Da Click En Continuar
 

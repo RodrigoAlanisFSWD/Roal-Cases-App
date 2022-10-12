@@ -4,10 +4,13 @@ import { useDispatch } from "react-redux";
 import * as authActions from "../store/actions/auth";
 import * as authTypes from "../store/types/auth";
 import { useUserService } from "./userService";
+import { useRouter } from "next/router";
 
 export const useAuthService = () => {
   const authRepository = new AuthRepository();
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const { getProfile } = useUserService()
 
@@ -19,7 +22,7 @@ export const useAuthService = () => {
 
       dispatch(
         authActions.authenticateUser(tokens.access_token, tokens.refresh_token, profile)
-      );
+      )
     } catch (e) {
       dispatch(authActions.setAuthError("Usa Otro Correo O Prueba Mas Tarde"));
     }
@@ -34,6 +37,8 @@ export const useAuthService = () => {
       dispatch(
         authActions.authenticateUser(tokens.access_token, tokens.refresh_token, profile)
       );
+
+      router.push("/profile")
     } catch (e) {
       console.log(e);
       dispatch(

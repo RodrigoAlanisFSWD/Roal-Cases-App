@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
+  faDashboard,
   faHome,
   faMagnifyingGlass,
   faShoppingCart,
@@ -16,7 +17,7 @@ import * as authTypes from '../../../store/types/auth'
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
 
-  const state = useSelector((store: StoreState) => store.auth.state)
+  const { state, profile } = useSelector((store: StoreState) => store.auth)
 
   return (
     <header style={{"zIndex": "100000"}} className="w-full fixed z-50">
@@ -63,6 +64,9 @@ export const Navbar = () => {
             ) : (
               <NavLink text="Cuenta" href={"/profile"} icon={faUser} />
             )
+          }
+          {
+            profile?.role === "ADMIN" && <NavLink text="Dashboard" href={"/dashboard"} icon={faDashboard} />
           }
         </ul>
       </menu>

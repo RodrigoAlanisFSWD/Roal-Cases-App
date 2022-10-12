@@ -7,7 +7,7 @@ export const Main: FC<any> = ({ children }) => {
   return (
     <div className="w-screen min-h-screen">
 
-        <div className="w-screen h-screen min-h-[700px] grid grid-cols-1 grid-rows-[75px_1fr] justify-items-center items-center">
+        <div className="w-screen h-screen min-h-[700px] grid grid-cols-1 grid-rows-[100px_1fr] justify-items-center items-center">
             <Navbar />
 
             { children }

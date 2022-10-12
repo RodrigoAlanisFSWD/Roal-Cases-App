@@ -8,7 +8,7 @@ import { useCategoryService } from '../../../../services/categoryService'
 const EditCategoryPage = () => {
     const router = useRouter();
 
-    const { id } = router.query
+    const { slug } = router.query
 
     const { getCategory } = useCategoryService()
 
@@ -16,14 +16,14 @@ const EditCategoryPage = () => {
 
     useEffect(() => {
         const init = async () => {
-            setCategory(await getCategory(id))
+            setCategory(await getCategory(slug as string))
         }
 
-        if (id) {
+        if (slug) {
             init()
         }
 
-    }, [id])
+    }, [slug])
 
 
   return category && (

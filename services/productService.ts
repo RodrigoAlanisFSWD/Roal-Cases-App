@@ -14,25 +14,34 @@ export const useProductService = () => {
         dispatch(setProducts(products))
     }
 
-    const getProduct = async (id: number) => {
-        const product = await productRepository.getProduct(id)
+    const getProduct = async (slug: string) => {
+        const product = await productRepository.getProduct(slug)
 
         return product;
     }
 
-    const createProduct = async (product: Product, file: any) => {
-        const formData = new FormData()
-        formData.set("image", file);
-        const created = await productRepository.createProduct(product, formData);
+    const createProduct = async (product: Product) => {
+        const created = await productRepository.createProduct(product);
 
         dispatch(addProduct(created))
     }
 
-    const uploadProductImage = async (file: any, id: number) => {
+    const uploadProductImage = async (file: any, id: number, type: string) => {
         const formData = new FormData()
         formData.set("image", file);
 
-        return await productRepository.uploadImage(formData, id)
+        return await productRepository.uploadImage(formData, id, type)
+    }
+
+    const updateProductImage = async (file: any, id: number) => {
+        const formData = new FormData()
+        formData.set("image", file);
+
+        return await productRepository.updateImage(formData, id)
+    }
+
+    const deleteProductImage = async (id: number) => {
+        await productRepository.deleteImage(id)
     }
 
     const updateProduct = async (product: Product) => {
@@ -53,6 +62,8 @@ export const useProductService = () => {
         createProduct,
         updateProduct,
         deleteProduct,
-        uploadProductImage
+        uploadProductImage,
+        updateProductImage,
+        deleteProductImage
     }
 }
