@@ -9,13 +9,15 @@ interface SelectProps {
     items: SelectItemType[];
     selectedItem: SelectItemType | null;
     onSelect: (item: SelectItemType) => void;
+    width?: string;
+    className?: string;
 }
 
-export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSelect }) => {
+export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSelect, width, className }) => {
     const [showItems, setShowItems] = useState(false);
 
     return (
-        <div className="w-full flex flex-col">
+        <div className={`w-full flex flex-col ${className}`}>
             <div onClick={() => setShowItems(!showItems)} className="h-[55px] border border-gray-200 rounded-sm flex justify-between items-center px-4">
                 <span className='text-xl'>
                     {selectedItem !== null ? selectedItem.text : placeholder}
@@ -30,7 +32,7 @@ export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSe
                         <motion.div initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }} className="border absolute w-full rounded-b-sm mt-[55px] sm:w-[450px] bg-white border-t-0">
+                            transition={{ duration: 0.3 }} className={`border absolute w-full rounded-b-sm mt-[55px] sm:w-[${width ? width : "450px"}] bg-white border-t-0`}>
                             {
                                 items.map((item: SelectItemType) => (
                                     <div key={item.key} onClick={() => { 

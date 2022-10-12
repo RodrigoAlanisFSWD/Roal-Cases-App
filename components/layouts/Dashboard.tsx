@@ -1,5 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faBell, faHouse, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBell, faHouse, faMobilePhone, faPhone, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -63,6 +63,23 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         text: "Products",
         icon: faHouse,
         href: "/dashboard/products/"
+      },
+    ],
+    [
+      {
+        text: "Product Models",
+        icon: faMobilePhone,
+        href: "/dashboard"
+      },
+      {
+        text: "Brands",
+        icon: faHouse,
+        href: "/dashboard/models/brands"
+      },
+      {
+        text: "Models",
+        icon: faHouse,
+        href: "/dashboard/models"
       },
     ],
   ]

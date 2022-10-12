@@ -46,7 +46,7 @@ export const VerifyEmail = () => {
                         {
                             ({ values, touched, errors, handleSubmit }) => (
                                 <Form className="flex flex-col justify-center items-center">
-                                    <h2>
+                                    <h2 className='text-xl'>
                                         Verificar Correo
                                     </h2>
                                     <FormControl name='code' placeholder='Codigo' type='text' touched={touched.code} error={errors.code} className="mt-6" icon={faLock} />
