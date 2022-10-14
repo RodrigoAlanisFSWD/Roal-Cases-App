@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Protected } from "../components/layouts/Protected";
 import { VerifyEmail } from "../components/pages/VerifyEmail";
 import { User } from "../models/user";
-import { useUserService } from "../services/userService";
+import { useUserService } from "../services2/userService";
 import { StoreState } from "../store";
 
 const VerifyEmailPage: NextPage = () => {

@@ -1,4 +1,4 @@
-import {Action} from "redux";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User } from "../../models/user";
 import * as authTypes from '../types/auth'
 
@@ -22,48 +22,51 @@ const initialState: AuthState = {
     role: "USER"
 }
 
-export function authReducer(state = initialState, action: any): AuthState {
-    switch (action.type) {
-        case authTypes.AUTHENTICATE_USER:
-            console.log(action)
+export const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        authenticateUser: (state: AuthState, action: PayloadAction<any>) => {
             return {
                 ...action.payload,
                 state: authTypes.AUTHENTICATED,
                 loading: false,
-            };
-
-        case authTypes.LOGOUT_USER:
+            }
+        },
+        logoutUser: (state: AuthState) => {
             return {
                 ...initialState,
                 state: authTypes.UNAUNTHENTICATED
             }
-
-        case authTypes.AUTH_ERROR:
+        },
+        authError: (state: AuthState, action: PayloadAction<string>) => {
             return {
                 ...initialState,
                 state: authTypes.AUTH_ERROR,
                 errorMsg: action.payload
             }
-
-        case authTypes.AUTH_LOADING:
+        },
+        authLoading: (state: AuthState, action: PayloadAction<boolean>) => {
             return {
                 ...state,
                 loading: action.payload
             }
-            
-        case authTypes.AUTH_INITIAL:
+        },
+        authInitial: (state: AuthState, action: PayloadAction<string>) => {
             return {
                 ...initialState,
                 state: action.payload
             }
-
-        case authTypes.SET_ADMIN:
+        },
+        setAdmin: (state: AuthState) => {
             return {
                 ...state,
                 role: "ADMIN"
             }
-
-        default:
-            return state
+        }
     }
-}
+})
+
+export const { setAdmin, authInitial, authLoading, authError, logoutUser, authenticateUser } = authSlice.actions
+
+export default authSlice.reducer

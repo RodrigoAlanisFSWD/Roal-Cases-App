@@ -2,19 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { GroupsList } from '../../../../organisms/dashboard/products/groups/GroupsList'
 import { useRouter } from 'next/router'
 import { Button } from '../../../../atoms/shared/Button'
-import { useGroupService } from '../../../../../services/groupService'
 
 export const Groups = () => {
-
-    const { getGroups } = useGroupService();
-
-    useEffect(() => {
-        const init = async () => {
-            await getGroups()
-        }
-
-        init()
-    }, [])
 
     const router = useRouter();
 

@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import React from 'react'
 import { ProductDetail } from '../../components/pages/products/ProductDetail'
 import { Product } from '../../models/product'
-import api from '../../plugins/axios';
+import api from '../../interceptors/axios';
 
 interface ProductDetailPageProps {
     product: Product;

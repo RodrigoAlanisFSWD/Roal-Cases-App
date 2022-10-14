@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Group as GroupType, SubCategory } from '../../../../../models/category'
-import { useGroupService } from '../../../../../services/groupService'
-import { StoreState } from '../../../../../store'
+import { addSubCategoriesToGroup, editSubCategoryFromGroup } from '../../../../../redux/states/groups'
+import { AppStore } from '../../../../../redux/store'
+import { createSubCategories, editSubCategory } from '../../../../../services/subCategoriesService'
 import { Group } from '../../../../molecules/dashboard/products/groups/Group'
 import { AddCategoryModal } from './AddCategoryModal'
 
@@ -19,9 +21,9 @@ export const GroupsList = () => {
   const [modalAction, setModalAction] = useState<ModalAction>({})
   const [modalPayload, setModalPayload] = useState<SubCategory | null>(null)
 
-  const groups = useSelector((store: StoreState) => store.groups)
+  const groups = useSelector((store: AppStore) => store.groups)
 
-  const { createSubCategories, updateSubCategory } = useGroupService();
+  const dispatch = useDispatch()
 
   const handleModalAction = (action: string, groupId: number, subCategory: SubCategory | null = null) => {
     switch(action) {
@@ -33,7 +35,11 @@ export const GroupsList = () => {
           title: "Editar Categoria",
           buttonText: "Editar",
           toDo: async (data: SubCategory) => {
-            await updateSubCategory({...subCategory, ...data}, groupId)
+            const updated = await editSubCategory({...subCategory, ...data})
+            dispatch(editSubCategoryFromGroup({
+              subCategory: updated,
+              groupId: groupId
+            }))
             setShowModal(false)
             setModalPayload(null)
           }
@@ -46,7 +52,12 @@ export const GroupsList = () => {
           title: "Crear Categoria",
           buttonText: "Crear",
           toDo: async (subCategory: SubCategory) => {
-            await createSubCategories([subCategory], groupId)
+            const created = await createSubCategories([subCategory], groupId)
+
+            dispatch(addSubCategoriesToGroup({
+              subCategories: created,
+              groupId,
+            }))
             setShowModal(false)
           }
         })

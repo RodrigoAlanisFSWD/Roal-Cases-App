@@ -7,7 +7,7 @@ import { Protected } from '../../components/layouts/Protected'
 import { Products } from '../../components/pages/products/Products'
 import { Category, SubCategory } from '../../models/category'
 import { Product } from '../../models/product'
-import api from '../../plugins/axios'
+import api from '../../interceptors/axios'
 import { setProducts } from '../../store/actions/products'
 import { setSubCategories, setCategory, setQuery } from '../../store/actions/search'
 

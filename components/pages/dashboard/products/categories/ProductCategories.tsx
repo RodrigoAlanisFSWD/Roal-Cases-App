@@ -1,20 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
-import { useCategoryService } from '../../../../../services/categoryService'
+import { useCategoryService } from '../../../../../services2/categoryService'
 import { Button } from '../../../../atoms/shared/Button';
 import { CategoryList } from '../../../../organisms/dashboard/products/categories/CategoryList';
 
 export const ProductCategories = () => {
-
-    const { getCategories } = useCategoryService();
-
-    useEffect(() => {
-        const init = async () => {
-            await getCategories()
-        }
-
-        init()
-    }, [])
 
     const router = useRouter();
 

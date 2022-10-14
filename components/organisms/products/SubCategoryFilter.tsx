@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Group, SubCategory } from '../../../models/category';
-import { useGroupService } from '../../../services/groupService';
-import { useSearchService } from '../../../services/searchService';
+import { useGroupService } from '../../../services2/groupService';
+import { useSearchService } from '../../../services2/searchService';
 import { store, StoreState } from '../../../store';
 import { Button } from '../../atoms/shared/Button';
 import { SubCategoryFilterGroup } from '../../molecules/products/SubCategoryFilterGroup'

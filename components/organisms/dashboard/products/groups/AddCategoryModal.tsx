@@ -42,7 +42,7 @@ export const AddCategoryModal: FC<AddCategoryModalProps> = ({ onClose, onAdd, bu
                     onSubmit={(data) => {
                         onAdd({
                             name: data.name
-                        })
+                        } as SubCategory)
 
                         onClose();
                     }}

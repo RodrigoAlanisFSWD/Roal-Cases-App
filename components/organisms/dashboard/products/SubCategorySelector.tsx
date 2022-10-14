@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Group, SubCategory } from '../../../../models/category';
-import { useGroupService } from '../../../../services/groupService';
+import { getGroups } from '../../../../services/groupsService';
 import { SubCategorySelectItem } from '../../../molecules/dashboard/products/SubCategorySelectItem';
 
 interface SubCategorySelectorProps {
@@ -13,8 +13,6 @@ interface SubCategorySelectorProps {
 export const SubCategorySelector: FC<SubCategorySelectorProps> = ({ onAdd, onRemove, subCategories, className }) => {
 
     const [groups, setGroups] = useState<Group[]>([]);
-
-    const { getGroups } = useGroupService()
 
     useEffect(() => {
         const init = async () => {

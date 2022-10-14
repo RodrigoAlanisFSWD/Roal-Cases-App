@@ -1,14 +1,13 @@
 import React from 'react'
 import { Main } from '../layouts/Main';
 import { useSelector } from 'react-redux';
-import { store, StoreState } from '../../store';
-import { useAuthService } from '../../services/authService';
+import { useAuthService } from '../../services2/authService';
 import { Button } from '../atoms/shared/Button';
+import { AppStore } from '../../redux/store';
+import { logout } from '../../services/authService';
 
 export const Profile = () => {
-    const user = useSelector((store: StoreState) => store.auth.profile)
-
-    const { logout } = useAuthService();
+    const user = useSelector((store: AppStore) => store.auth.profile)
 
     return (
        <Main>
@@ -29,7 +28,10 @@ export const Profile = () => {
                     Puntos Totales: { user?.points }
                 </h3>
 
-                <Button text='Cerrar Sesion' onClick={async () => await logout()} />
+                <Button text='Cerrar Sesion' onClick={async () => {
+                    logout()
+                    
+                }} />
             </div>
        </Main>
     )

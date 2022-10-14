@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react'
-import styles from '../../../../styles/pages/dashboard/products/ProductForm.module.scss'
 import * as Yup from 'yup'
 import { Product } from '../../../../models/product';
 import { Form, Formik } from 'formik';
@@ -9,12 +8,13 @@ import { Button } from '../../../atoms/shared/Button';
 import { Textarea } from '../../../atoms/shared/Textarea';
 import { Select } from '../../../molecules/shared/Select';
 import { SelectItemType } from '../../../../models/select';
-import { useCategoryService } from '../../../../services/categoryService';
 import { SubCategory } from '../../../../models/category';
 import { SubCategorySelector } from '../../../organisms/dashboard/products/SubCategorySelector';
-import { FileSelect } from '../../../atoms/shared/FileSelect';
-import { useProductService } from '../../../../services/productService';
 import { useRouter } from 'next/router';
+import { getCategories, getCategory } from '../../../../services/categoriesService';
+import { createProduct, updateProduct } from '../../../../services/productsService';
+import { useDispatch } from 'react-redux';
+import { addProduct, editProduct } from '../../../../redux/states/products';
 
 interface ProductFormProps {
   edit?: boolean;
@@ -24,6 +24,8 @@ interface ProductFormProps {
 export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const createProductSchema = Yup.object().shape({
     name: Yup.string()
@@ -35,9 +37,6 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
   const [items, setItems] = useState<SelectItemType[]>([])
 
   const [selectedCategory, setSelectedCategory] = useState<SelectItemType | null>(null)
-
-  const { getCategories, getCategory } = useCategoryService()
-  const { createProduct, updateProduct, uploadProductImage } = useProductService();
 
   useEffect(() => {
     const init = async () => {
@@ -86,7 +85,9 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
         subCategories,
         category: await getCategory(selectedCategory?.key as string),
       }
-      await createProduct(newProduct)
+      const product = await createProduct(newProduct)
+
+      dispatch(addProduct(product))
     } else {
       const newProduct: Product = {
         ...product,
@@ -94,7 +95,9 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
         category: await getCategory(selectedCategory?.key as string),
         subCategories,
       }
-      await updateProduct(newProduct)
+      const edited = await updateProduct(newProduct)
+
+      dispatch(editProduct(edited))
     }
 
     router.push("/dashboard/products")

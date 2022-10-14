@@ -1,6 +1,5 @@
 import axios from "axios";
 import { AuthRepository } from "../repo/authRepository";
-import * as jwt from "jsonwebtoken";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",

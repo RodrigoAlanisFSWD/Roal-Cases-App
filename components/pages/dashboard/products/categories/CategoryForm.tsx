@@ -6,9 +6,11 @@ import { faList, faMoneyBill, faShoppingBag } from '@fortawesome/free-solid-svg-
 import { Textarea } from '../../../../atoms/shared/Textarea'
 import { Button } from '../../../../atoms/shared/Button'
 import { FileSelect } from '../../../../atoms/shared/FileSelect'
-import { useCategoryService } from '../../../../../services/categoryService'
 import { Router, useRouter } from 'next/router'
 import { Category } from '../../../../../models/category'
+import { createCategory, updateCategory, uploadCategoryImage } from '../../../../../services/categoriesService'
+import { useDispatch } from 'react-redux'
+import { addCategory, editCategory } from '../../../../../redux/states/categories'
 
 interface CategoryFormProps {
     category?: Category;
@@ -18,6 +20,8 @@ interface CategoryFormProps {
 export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const createCategorySchema = Yup.object().shape({
         name: Yup.string()
@@ -32,8 +36,6 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
     const [image, setImage] = useState(null)
     const [imageError, setImageError] = useState(false)
     const [imageSuccess, setImageSuccess] = useState(false)
-
-    const { createCategory, updateCategory, uploadCategoryImage } = useCategoryService()
 
     return (
         <div className="flex justify-center items-center flex-col h-full">
@@ -59,7 +61,11 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                             return;
                         }
 
-                        await createCategory(data, image)
+                        const created = await createCategory(data)
+
+                        const category = await uploadCategoryImage(image, created.id)
+
+                        dispatch(addCategory(category))
                     } else {
                         await updateCategory({
                             ...category,
@@ -67,7 +73,9 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                         })
 
                         if (image) {
-                            await uploadCategoryImage(image, category?.id as number)
+                            const updated = await uploadCategoryImage(image, category?.id as number)
+
+                            dispatch(editCategory(updated))
                         }
                     }
 

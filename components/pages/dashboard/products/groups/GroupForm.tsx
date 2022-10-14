@@ -2,9 +2,12 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { FC, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup'
 import { Category, Group, SubCategory } from '../../../../../models/category';
-import { useGroupService } from '../../../../../services/groupService';
+import { addGroup, addSubCategoriesToGroup, editGroup } from '../../../../../redux/states/groups';
+import { createGroup, updateGroup } from '../../../../../services/groupsService';
+import { createSubCategories } from '../../../../../services/subCategoriesService';
 import { Button } from '../../../../atoms/shared/Button';
 import { FormControl } from '../../../../atoms/shared/FormControl';
 import { AddCategoryModal } from '../../../../organisms/dashboard/products/groups/AddCategoryModal';
@@ -17,6 +20,8 @@ interface GroupFormProps {
 
 export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const createGroupSchema = Yup.object().shape({
         name: Yup.string()
@@ -44,8 +49,6 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
         setCategories(newCategories)
     }
 
-    const { createGroup, createSubCategories, updateGroup } = useGroupService()
-
     return (
         <>
             <div className="flex justify-center items-center flex-col h-full">
@@ -62,15 +65,24 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
                     validationSchema={createGroupSchema}
                     onSubmit={async (data) => {
                         if (edit && group) {
-                            await updateGroup({
+                            const edited = await updateGroup({
                                 ...group,
                                 ...data
                             })
+
+                            dispatch(editGroup(edited))
                         } else {
                             const newGroup = await createGroup(data)
 
+                            dispatch(addGroup(newGroup))
+
                             if (categories.length > 0) {
-                                await createSubCategories(categories, newGroup.id)
+                                const subCategories = await createSubCategories(categories, newGroup.id)
+
+                                dispatch(addSubCategoriesToGroup({
+                                    subCategories,
+                                    groupId: newGroup.id
+                                }))
                             }
                         }
                         
