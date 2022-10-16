@@ -3,17 +3,39 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import type { AppProps } from "next/app";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { Provider } from "react-redux";
-import { wrapper, store } from "../store";
+import { store, wrapper } from "../redux/store";
 import { useEffect } from "react";
-import { useAuthService } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { getProfile, getTokens } from "../services/authService";
+import { authenticateUser, authInitial } from "../redux/states/auth";
+import * as authTypes from "../redux/types/auth";
 
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { initAuth } = useAuthService();
+
+  const dispatch = useDispatch()
+
+  const init = async () => {
+    const tokens = getTokens()
+
+    if (tokens.access_token && tokens.refresh_token) {
+
+      const user = (await getProfile()).data
+
+      dispatch(
+        authenticateUser({
+          ...tokens,
+          profile: user
+        })
+      );
+    } else {
+      dispatch(authInitial(authTypes.UNAUNTHENTICATED));
+    }
+  }
 
   useEffect(() => {
-    initAuth();
+    init()
   }, []);
 
   return (

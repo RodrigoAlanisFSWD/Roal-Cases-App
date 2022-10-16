@@ -6,9 +6,12 @@ import { faList, faMoneyBill, faShoppingBag } from '@fortawesome/free-solid-svg-
 import { Textarea } from '../../../../atoms/shared/Textarea'
 import { Button } from '../../../../atoms/shared/Button'
 import { FileSelect } from '../../../../atoms/shared/FileSelect'
-import { useCategoryService } from '../../../../../services/categoryService'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Category } from '../../../../../models/category'
+import { createCategory, updateCategory, uploadCategoryImage } from '../../../../../services/categoriesService'
+import { useDispatch } from 'react-redux'
+import { addCategory, editCategory } from '../../../../../redux/states/categories'
+import { useFileSelect } from '../../../../../hooks/fileSelect'
 
 interface CategoryFormProps {
     category?: Category;
@@ -18,6 +21,8 @@ interface CategoryFormProps {
 export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
 
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const createCategorySchema = Yup.object().shape({
         name: Yup.string()
@@ -29,11 +34,7 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
             .min(10)
     })
 
-    const [image, setImage] = useState(null)
-    const [imageError, setImageError] = useState(false)
-    const [imageSuccess, setImageSuccess] = useState(false)
-
-    const { createCategory, updateCategory, uploadCategoryImage } = useCategoryService()
+    const { file, setFile, fileError, setFileError, fileSuccess, setFileSuccess } = useFileSelect()
 
     return (
         <div className="flex justify-center items-center flex-col h-full">
@@ -54,20 +55,26 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                 validationSchema={createCategorySchema}
                 onSubmit={async (data) => {
                     if (!edit) {
-                        if (!image) {
-                            setImageError(true)
+                        if (!file) {
+                            setFileError(true)
                             return;
                         }
 
-                        await createCategory(data, image)
+                        const created = await createCategory(data)
+
+                        const category = await uploadCategoryImage(file, created.id)
+
+                        dispatch(addCategory(category))
                     } else {
                         await updateCategory({
                             ...category,
                             ...data
                         })
 
-                        if (image) {
-                            await uploadCategoryImage(image, category?.id as number)
+                        if (file) {
+                            const updated = await uploadCategoryImage(file, category?.id as number)
+
+                            dispatch(editCategory(updated))
                         }
                     }
 
@@ -80,10 +87,10 @@ export const CategoryForm: FC<CategoryFormProps> = ({ category, edit }) => {
                         <FormControl icon={faShoppingBag} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} className="mb-4" />
                         <Textarea icon={faList} placeholder="Description" name="description" type="text" error={errors.description} touched={touched.description} className="mb-4" />
                         <FormControl icon={faMoneyBill} placeholder="Precio" name="price" type="number" error={errors.price} touched={touched.price} className="mb-4" />
-                        <FileSelect error={imageError} success={imageSuccess} selectedFile={image} placeholder='Selecciona Una Imagen' handleFile={(file) => {
-                            setImageError(false)
-                            setImage(file)
-                            setImageSuccess(true)
+                        <FileSelect error={fileError} success={fileSuccess} selectedFile={file} placeholder='Selecciona Una Imagen' handleFile={(file) => {
+                            setFileError(false)
+                            setFile(file)
+                            setFileSuccess(true)
                         }} />
 
 

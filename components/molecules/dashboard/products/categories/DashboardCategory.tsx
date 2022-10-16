@@ -1,15 +1,17 @@
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { useDispatch } from 'react-redux'
 import { Category } from '../../../../../models/category'
-import { useCategoryService } from '../../../../../services/categoryService'
+import { removeCategory } from '../../../../../redux/states/categories'
+import { deleteCategory } from '../../../../../services/categoriesService'
 import { IconButton } from '../../../../atoms/shared/IconButton'
 
 export const DashboardCategory: FC<Category> = ({ name, id, slug }) => {
 
   const router = useRouter()
 
-  const { deleteCategory } = useCategoryService()
+  const dispatch = useDispatch()
 
   return (
     <div className="grid grid-cols-[1fr_100px] h-[50px] items-center sm:h-[60px] sm:grid-cols-[1fr_200px] border-b border-gray-200">
@@ -22,6 +24,7 @@ export const DashboardCategory: FC<Category> = ({ name, id, slug }) => {
             }} icon={faPencil} color="primary" className="ml-[10px]"/>
             <IconButton onClick={async () => {
               await deleteCategory(id)
+              dispatch(removeCategory(id))
             }} icon={faTrash} color="danger" className="ml-[10px]" />
         </div>
     </div>

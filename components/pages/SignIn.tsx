@@ -2,15 +2,16 @@ import {FC, useState} from "react";
 import {SignInForm} from "../organisms/auth/SignInForm";
 import {AlertModal} from "../molecules/shared/AlertModal";
 import {useSelector} from "react-redux";
-import {StoreState} from "../../store";
-import * as authTypes from '../../store/types/auth'
-import {useAuthService} from "../../services/authService";
+import * as authTypes from '../../redux/types/auth'
 import { Main } from "../layouts/Main";
+import { useDispatch } from "react-redux";
+import { authInitial } from "../../redux/states/auth";
+import { AppStore } from "../../redux/store";
 
 export const SignIn: FC = () => {
 
-    const {state, errorMsg} = useSelector((store: StoreState) => store.auth);
-    const {setInitial} = useAuthService()
+    const {state, errorMsg} = useSelector((store: AppStore) => store.auth);
+    const dispatch = useDispatch()
 
     return (
         <>
@@ -19,7 +20,7 @@ export const SignIn: FC = () => {
             </Main>
             {
                 state === authTypes.AUTH_ERROR ?
-                    <AlertModal onClose={() => setInitial()} title="Iniciar Sesion" body={errorMsg}/>
+                    <AlertModal onClose={() => dispatch(authInitial(authTypes.UNAUNTHENTICATED))} title="Iniciar Sesion" body={errorMsg}/>
                     : null
             }
         </>

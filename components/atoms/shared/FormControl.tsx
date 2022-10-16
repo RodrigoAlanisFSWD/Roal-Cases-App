@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEnvelope,
   faTimesCircle,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";

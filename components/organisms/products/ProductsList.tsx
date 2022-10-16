@@ -1,14 +1,12 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { SubCategory } from '../../../models/category'
 import { Product, ProductImage } from '../../../models/product'
-import { StoreState } from '../../../store'
+import { AppStore } from '../../../redux/store'
 
 export const ProductsList = () => {
 
-  const products = useSelector((store: StoreState) => store.products)
+  const products = useSelector((store: AppStore) => store.products)
 
   return (
     <div className={`w-full h-[100%] m-auto grid grid-cols-2 sm:flex flex-wrap justify-center content-start py-5`}>

@@ -6,11 +6,13 @@ import { FormControl } from "../atoms/shared/FormControl";
 import { faCode, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '../atoms/shared/Button';
 import { useSelector } from 'react-redux';
-import { StoreState } from '../../store';
-import { useAuthService } from '../../services/authService';
-import * as authTypes from "../../store/types/auth";
+import * as authTypes from "../../redux/types/auth";
 import { AlertModal } from '../molecules/shared/AlertModal';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { getProfile, verifyEmail } from '../../services/authService';
+import { authenticateUser, authError, authInitial } from '../../redux/states/auth';
+import { AppStore } from '../../redux/store';
 
 export const VerifyEmail = () => {
 
@@ -20,11 +22,29 @@ export const VerifyEmail = () => {
             .required('El Codigo Es Requerido')
     })
 
-    const { state, errorMsg } = useSelector((store: StoreState) => store.auth)
+    const { state, errorMsg } = useSelector((store: AppStore) => store.auth)
 
-    const {setInitial, verifyMail} = useAuthService()
+    const dispatch = useDispatch();
 
     const router = useRouter()
+
+    const submit = async (values: any) => {
+        try {
+            const tokens = await verifyEmail(values.code)
+
+            const profile = await getProfile()
+
+            dispatch(authenticateUser({
+                ...tokens,
+                profile,
+            }))
+
+            router.push("/profile")
+        } catch (error) {
+            dispatch(authError("El Codigo Es Incorrecto"))
+        }
+
+    }
 
     return (
         <>
@@ -37,14 +57,10 @@ export const VerifyEmail = () => {
                             }
                         }
                         validationSchema={VerifyEmailSchema}
-                        onSubmit={async (values) => {
-                            await verifyMail(values.code)
-
-                            router.push("/profile")
-                        }}
+                        onSubmit={submit}
                     >
                         {
-                            ({ values, touched, errors, handleSubmit }) => (
+                            ({ touched, errors, handleSubmit }) => (
                                 <Form className="flex flex-col justify-center items-center">
                                     <h2 className='text-xl'>
                                         Verificar Correo
@@ -61,7 +77,7 @@ export const VerifyEmail = () => {
             </Main>
             {
                 state === authTypes.AUTH_ERROR ?
-                    <AlertModal onClose={() => setInitial(authTypes.AUTHENTICATED)} title="Verificar Correo" body={errorMsg} />
+                    <AlertModal onClose={() => authInitial(authTypes.AUTHENTICATED)} title="Verificar Correo" body={errorMsg} />
                     : null
             }
         </>

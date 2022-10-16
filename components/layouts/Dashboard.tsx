@@ -1,29 +1,23 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faBell, faHouse, faMobilePhone, faPhone, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Url } from "url";
-import { StoreState } from "../../store";
 import { DashboardLink } from "../atoms/dashboard/DashboardLink";
 import { DashboardLinkGroup } from "../atoms/dashboard/DashboardLinkGroup";
 import { DashboardHeader } from "../molecules/dashboard/DashboardHeader";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
+import { AppStore } from "../../redux/store";
+import { NavItem } from "../../models/navbar";
+import { useDashboardMenu } from "../../hooks/dashboardMenu";
 
 interface DashboardProps {
   children: JSX.Element;
 }
 
-interface Link {
-  text: string;
-  icon: IconProp;
-  href: Url | string;
-}
-
 export const Dashboard: FC<DashboardProps> = ({ children }) => {
 
-  const auth = useSelector((store: StoreState) => store.auth)
+  const auth = useSelector((store: AppStore) => store.auth)
 
   const router = useRouter();
 
@@ -35,59 +29,12 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
     }
   }, [auth.state])
 
-  const links: Array<Array<Link>> = [
-    [
-      {
-        text: "Dashboard",
-        icon: faHouse,
-        href: "/dashboard"
-      },
-    ],
-    [
-      {
-        text: "Products And More",
-        icon: faShoppingBag,
-        href: "/dashboard"
-      },
-      {
-        text: "Categories",
-        icon: faHouse,
-        href: "/dashboard/products/categories"
-      },
-      {
-        text: "Groups",
-        icon: faHouse,
-        href: "/dashboard/products/groups"
-      },
-      {
-        text: "Products",
-        icon: faHouse,
-        href: "/dashboard/products/"
-      },
-    ],
-    [
-      {
-        text: "Product Models",
-        icon: faMobilePhone,
-        href: "/dashboard"
-      },
-      {
-        text: "Brands",
-        icon: faHouse,
-        href: "/dashboard/models/brands"
-      },
-      {
-        text: "Models",
-        icon: faHouse,
-        href: "/dashboard/models"
-      },
-    ],
-  ]
+  const { menu } = useDashboardMenu()
 
   return (
     <div className="w-screen h-screen grid grid-cols-[50px_1fr] xl:grid-cols-[350px_1fr]">
       <div className="w-full h-screen flex z-10 sticky">
-        <SmallSideBar links={links} />
+        <SmallSideBar links={menu} />
         <div className="w-[350px] bg-[#292929] text-white hidden xl:flex flex-col items-center p-4 h-screen relative">
           <h1 className="m-4 mb-8 text-2xl sm:text-3xl">
             ROAL CASES
@@ -100,15 +47,12 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
 
             <ul className="flex flex-col">
               {
-                links.map((group: Link[]) => {
-                  if (group.length === 1) {
-                    return (
-                      <DashboardLink key={group[0].text} {...group[0]} href={group[0].href as Url} />
-                    )
-                  } else {
-                    return (
-                      <DashboardLinkGroup key={group[0].text} group={group} />
-                    )
+                menu.map((item: NavItem) => {
+                  if (item.isGroup) {
+                    return <DashboardLinkGroup group={item} />
+                  } else if (!item.isGroup) {
+                    const link = item.header
+                    return <DashboardLink href={link.href} icon={link.icon} text={link.text} />
                   }
                 })
               }
@@ -126,7 +70,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   )
 };
 
-export const SmallSideBar: FC<any> = ({ links }) => {
+export const SmallSideBar: FC<any> = ({ menu }) => {
   const [showMenu, setShowMenu] = useState(false)
 
   return (
@@ -141,7 +85,7 @@ export const SmallSideBar: FC<any> = ({ links }) => {
             initial={{ translateX: -500 }}
             animate={{ translateX: 0 }}
             exit={{ translateX: -500 }}
-            transition={{ duration: 0.3 }} style={{zIndex: "100000"}} className="w-[calc(100vw-50px)] bg-[#292929] text-white flex xl:hidden flex-col items-center p-4 h-screen absolute ml-[50px] sm:w-[400px]">
+            transition={{ duration: 0.3 }} style={{ zIndex: "100000" }} className="w-[calc(100vw-50px)] bg-[#292929] text-white flex xl:hidden flex-col items-center p-4 h-screen absolute ml-[50px] sm:w-[400px]">
             <h1 className="m-4 mb-8 text-2xl sm:text-3xl">
               ROAL CASES
             </h1>
@@ -153,15 +97,12 @@ export const SmallSideBar: FC<any> = ({ links }) => {
 
               <ul className="flex flex-col">
                 {
-                  links.map((group: Link[]) => {
-                    if (group.length === 1) {
-                      return (
-                        <DashboardLink key={group[0].text} {...group[0]} href={group[0].href as Url} />
-                      )
-                    } else {
-                      return (
-                        <DashboardLinkGroup key={group[0].text} group={group} />
-                      )
+                  menu.map((item: NavItem) => {
+                    if (item.isGroup) {
+                      return <DashboardLinkGroup group={item} />
+                    } else if (!item.isGroup && item.links[0].icon) {
+                      const link = item.links[0]
+                      return <DashboardLink href={link.href} icon={link.icon} text={link.text} />
                     }
                   })
                 }

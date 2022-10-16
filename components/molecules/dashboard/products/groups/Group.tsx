@@ -2,9 +2,12 @@ import { faAdd, faAngleDown, faAngleUp, faPencil, faTrash } from '@fortawesome/f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Group as GroupType, SubCategory } from '../../../../../models/category'
-import { useGroupService } from '../../../../../services/groupService'
+import { deleteSubCategoryFromGroup, removeGroup } from '../../../../../redux/states/groups'
+import { deleteGroup } from '../../../../../services/groupsService'
+import { deleteSubCategory } from '../../../../../services/subCategoriesService'
 import { IconButton } from '../../../../atoms/shared/IconButton'
 
 interface GroupProps extends GroupType {
@@ -15,9 +18,9 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
 
   const router = useRouter()
 
-  const { deleteGroup, deleteSubCategory } = useGroupService()
-
   const [showCategories, setShowCategories] = useState(false);
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -38,6 +41,8 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
           }} icon={faPencil} color="primary" className='ml-[10px]' />
           <IconButton onClick={async () => {
             await deleteGroup(id)
+
+            dispatch(removeGroup(id))
           }} icon={faTrash} color="danger" className='ml-[10px]' />
         </div>
       </div>
@@ -66,7 +71,12 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
                           onAction('EDIT', id, subCategory)
                         }} icon={faPencil} color="primary" className='ml-[10px]' />
                         <IconButton onClick={async () => {
-                          await deleteSubCategory(subCategory, id)
+                          await deleteSubCategory(id)
+
+                          dispatch(deleteSubCategoryFromGroup({
+                            subCategory: subCategory,
+                            groupId: id
+                          }))
                         }} icon={faTrash} color="danger" className='ml-[10px]' />
                       </div>
                     </article>

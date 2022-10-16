@@ -3,17 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { Product, ProductImage as ProductImageType } from '../../../../models/product'
-import { useProductService } from '../../../../services/productService'
+import { deleteProductImage, getProduct, updateProductImage, uploadProductImage } from '../../../../services/productsService'
 import { ProductImage } from '../../../atoms/dashboard/ProductImage'
-import { FileSelect } from '../../../atoms/shared/FileSelect'
 
 export const ProductImages = () => {
 
     const fileInput = React.useRef<HTMLInputElement>(null);
 
     const [product, setProduct] = useState<Product | null>(null)
-
-    const { getProduct, uploadProductImage, updateProductImage, deleteProductImage } = useProductService()
 
     const router = useRouter()
 
@@ -37,8 +34,6 @@ export const ProductImages = () => {
 
     const handleChange = async (event: any) => {
         const fileUploaded = event.target.files[0];
-
-        console.log(event.target.files);
 
         if (product) {
             const newProduct = await uploadProductImage(fileUploaded, product.id, product?.images.length > 0 ? "NORMAL" : "MAIN")

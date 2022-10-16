@@ -5,16 +5,10 @@ import Link from 'next/link';
 import React, { FC, useState } from 'react'
 import { Url } from 'url';
 import { AnimatePresence, motion } from "framer-motion"
-
-
-interface Link {
-    text: string;
-    icon?: IconProp;
-    href: Url | string;
-}
+import { Link as LinkType, NavItem } from '../../../models/navbar';
 
 interface DahsboardLinkGroupProps {
-    group: Link[]
+    group: NavItem
 }
 
 export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
@@ -25,9 +19,9 @@ export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
         <>
             <li onClick={() => setShowGroup(!showGroup)} className="list-none p-3 pl-0 flex justify-between items-center cursor-pointer">
                 <div>
-                    <FontAwesomeIcon icon={group[0].icon ? group[0].icon : faHouse} className="mr-4 text-lg sm:text-xl" />
+                    <FontAwesomeIcon icon={group.header.icon} className="mr-4 text-lg sm:text-xl" />
                     <span className="text-xl">
-                        {group[0].text}
+                        {group.header.text}
                     </span>
                 </div>
 
@@ -38,7 +32,7 @@ export const DashboardLinkGroup: FC<DahsboardLinkGroupProps> = ({ group }) => {
                 {
                     showGroup && (<ul className="w-full h-auto p-6 pt-0 pl-9">
                         {
-                            group.filter((el: Link) => el.text !== group[0].text).map((link: Link) => (
+                            group.links.map((link: LinkType) => (
 
                                 <Link key={link.text} href={link.href as Url}>
                                     <motion.li initial={{ opacity: 0 }}

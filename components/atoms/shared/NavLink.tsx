@@ -6,7 +6,7 @@ import React, { FC } from "react";
 import { Url } from "url";
 
 interface NavLinkProps {
-  href?: Url;
+  href?: any;
   text: string;
   icon: IconProp;
 }

@@ -8,19 +8,18 @@ import {
   faShoppingCart,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../../styles/molecules/shared/Navbar.module.scss";
 import { NavLink } from "../../atoms/shared/NavLink";
 import { useSelector } from "react-redux";
-import { StoreState } from "../../../store";
-import * as authTypes from '../../../store/types/auth'
+import * as authTypes from '../../../redux/types/auth'
+import { AppStore } from "../../../redux/store";
 
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
 
-  const { state, profile } = useSelector((store: StoreState) => store.auth)
+  const { state, profile } = useSelector((store: AppStore) => store.auth)
 
   return (
-    <header style={{"zIndex": "100000"}} className="w-full fixed z-50">
+    <header style={{"zIndex": "100000"}} className="w-full fixed top-0 z-50">
       <div className="w-full h-16 grid grid-cols-navbar-small sm:grid-cols-navbar items-center border border-b-primary px-4 z-10 bg-white">
         <div className="flex items-center">
           <FontAwesomeIcon

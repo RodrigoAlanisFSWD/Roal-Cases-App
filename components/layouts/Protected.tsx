@@ -1,15 +1,15 @@
 import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { StoreState } from "../../store";
-import * as authTypes from "../../store/types/auth";
+import * as authTypes from "../../redux/types/auth";
 import { useRouter } from "next/router";
+import { AppStore } from "../../redux/store";
 
 interface ProtectedProps {
   children: JSX.Element;
 }
 
 export const Protected: FC<ProtectedProps> = ({ children }) => {
-  const state = useSelector((store: StoreState) => store.auth.state);
+  const state = useSelector((store: AppStore) => store.auth.state);
 
   const router = useRouter();
 

@@ -1,103 +1,59 @@
-import { AuthRepository } from "../repo/authRepository";
-import { User } from "../models/user";
-import { useDispatch } from "react-redux";
-import * as authActions from "../store/actions/auth";
-import * as authTypes from "../store/types/auth";
-import { useUserService } from "./userService";
-import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
+import api from "../interceptors/axios";
+import { Tokens, User } from "../models/user";
 
-export const useAuthService = () => {
-  const authRepository = new AuthRepository();
-  const dispatch = useDispatch();
+const cookies = new Cookies();
 
-  const router = useRouter();
+export const signUp = async (user: any) => {
+    return (await api.post<Tokens>("/auth/sign-up", user)).data;
+}
 
-  const { getProfile } = useUserService()
+export const signIn = async (user: any) => {
+    return (await api.post<Tokens>("/auth/sign-in", user)).data;
+}
 
-  const signUp = async (user: Object) => {
-    try {
-      const tokens = await authRepository.signUp(user as User);
+export const setTokens = async (tokens: Tokens) => {
+    cookies.set("roal_cases/access_token", tokens.access_token);
+    cookies.set("roal_cases/refresh_token", tokens.refresh_token);
+}
 
-      const profile = await getProfile()
-
-      dispatch(
-        authActions.authenticateUser(tokens.access_token, tokens.refresh_token, profile)
-      )
-    } catch (e) {
-      dispatch(authActions.setAuthError("Usa Otro Correo O Prueba Mas Tarde"));
+export const getTokens = (): Tokens => {
+    return {
+        access_token: cookies.get("roal_cases/access_token"),
+        refresh_token: cookies.get("roal_cases/refresh_token"),
     }
-  };
+}
 
-  const signIn = async (user: Object) => {
-    try {
-      const tokens = await authRepository.signIn(user as User);
+export const removeTokens = () => {
+    cookies.remove("roal_cases/access_token");
+    cookies.remove("roal_cases/refresh_token");
+}
 
-      const profile = await getProfile()
+export const getProfile = async () => {
+    return (await api.get<User>("/auth/profile")).data
+}
 
-      dispatch(
-        authActions.authenticateUser(tokens.access_token, tokens.refresh_token, profile)
-      );
+export const sendVerification = async (tokens: Tokens) => {
+    return (await api.post<Tokens>("/auth/send_confirmation", {}, {
+        headers: {
+            Authorization: `Bearer ${tokens.access_token}`
+        }
+    })).data
+}
 
-      router.push("/profile")
-    } catch (e) {
-      console.log(e);
-      dispatch(
-        authActions.setAuthError("El Correo O La Contrasena Son Invalidos")
-      );
-    }
-  };
+export const logout = async () => {
+    return (await api.post("/auth/logout")).data
+}
 
-  const logout = async () => {
-    try {
-      await authRepository.logout();
+export const refreshToken = async () => {
+    const refresh = cookies.get("roal_cases/refresh_token")
+    return (await api.post<Tokens>("/auth/refresh", {}, {
+        headers: {
+            Authorization: `Bearer ${refresh}`
+        }
+    })).data
+}
 
-      dispatch(authActions.logout());
-    } catch (e) {
-      dispatch(authActions.setAuthError("Eror Al Cerrar Sesion"));
-    }
-  };
-
-  const setLoading = (loading: boolean) =>
-    dispatch(authActions.setAuthLoading(loading));
-
-  const setInitial = (state: any = authTypes.UNAUNTHENTICATED) => dispatch(authActions.setAuthInitial(state));
-
-  const initAuth = async () => {
-    const tokens = authRepository.getTokens();
-
-    if (tokens.access_token && tokens.refresh_token) {
-
-      const user = await getProfile()
-
-      dispatch(
-        authActions.authenticateUser(tokens.access_token, tokens.refresh_token, user)
-      );
-    } else {
-      dispatch(authActions.setAuthInitial());
-    }
-  };
-
-  const verifyMail = async (code: string) => {
-    try {
-      const tokens = await authRepository.verifyEmail(code)
-
-      const profile = await getProfile()
-
-      dispatch(
-        authActions.authenticateUser(tokens.access_token, tokens.refresh_token, profile)
-      );
-    } catch (e) {
-      dispatch(authActions.setAuthError("El Codigo Es Incorrecto"));
-    }
-  }
-
-  return {
-    signUp,
-    signIn,
-    logout,
-    setLoading,
-    setInitial,
-    initAuth,
-    verifyMail,
-  };
-};
+export const verifyEmail = async (code: string) => {
+    return (await api.post<Tokens>("/auth/confirm_email/" + code)).data
+}

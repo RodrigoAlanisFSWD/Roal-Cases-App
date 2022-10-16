@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { SubCategory } from '../../../../models/category'
 import { Product } from '../../../../models/product'
-import { useProductService } from '../../../../services/productService'
+import { removeProduct } from '../../../../redux/states/products'
+import { deleteProduct } from '../../../../services/productsService'
 import { IconButton } from '../../../atoms/shared/IconButton'
 
 export const DashbordProduct: FC<Product> = ({ name, category, subCategories, description, id, imageUrl, slug }) => {
@@ -14,7 +16,7 @@ export const DashbordProduct: FC<Product> = ({ name, category, subCategories, de
 
     const router = useRouter()
 
-    const { deleteProduct } = useProductService()
+    const dispatch = useDispatch()
 
   return (
     <>
@@ -32,6 +34,7 @@ export const DashbordProduct: FC<Product> = ({ name, category, subCategories, de
           }} icon={faPencil} color="primary" className="ml-[10px]" />
           <IconButton onClick={async () => {
             await deleteProduct(id)
+            dispatch(removeProduct(id))
           }} icon={faTrash} color="danger" className="ml-[10px]" />
         </div>
       </div>

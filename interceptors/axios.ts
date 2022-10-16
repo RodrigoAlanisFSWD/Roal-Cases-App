@@ -1,6 +1,5 @@
 import axios from "axios";
-import { AuthRepository } from "../repo/authRepository";
-import * as jwt from "jsonwebtoken";
+import { getTokens, refreshToken } from "../services/authService";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -8,9 +7,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const authRepo = new AuthRepository();
-
-    const tokens = authRepo.getTokens();
+    const tokens = getTokens();
 
     config.headers = {
       Authorization: `Bearer ${tokens.access_token}`,
@@ -36,10 +33,8 @@ api.interceptors.response.use(
       error.config.url != "/auth/refresh"
     ) {
       originalRequest._retry = true;
-      const authRepo = new AuthRepository();
 
-      const newTokens = await authRepo.refreshToken();
-      console.log(newTokens);
+      const newTokens = await refreshToken();
       originalRequest.headers["Authorization"] =
         "Bearer " + newTokens.access_token;
       return api(originalRequest);
