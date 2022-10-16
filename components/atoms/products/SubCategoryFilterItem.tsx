@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { SubCategory } from '../../../models/category'
-import { StoreState } from '../../../store'
-import { addSubCategory, removeSubCategory } from '../../../store/actions/search'
+import { addSubCategory, removeSubCategory } from '../../../redux/states/search'
 import { CheckBox } from '../shared/CheckBox'
 
 interface SubCategoryFilterItemProps extends SubCategory {
@@ -15,7 +13,6 @@ export const SubCategoryFilterItem: FC<SubCategoryFilterItemProps> = ({ id, name
   const [isActive, setIsActive] = useState(!!subCategories.find((i: any) => i === id.toString()))
 
   const dispatch = useDispatch()
-
 
   const handleChange = () => {
     const newValue = !isActive;

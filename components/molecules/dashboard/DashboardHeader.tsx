@@ -2,11 +2,11 @@ import { faBell, faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { StoreState } from '../../../store'
+import { AppStore } from '../../../redux/store'
 
 export const DashboardHeader = () => {
 
-    const profile = useSelector((store: StoreState) => store.auth.profile)
+    const profile = useSelector((store: AppStore) => store.auth.profile)
 
     return (
         <div className="w-full bg-white border-b border-[#292929] grid grid-cols-[1fr_200px] h-[60px]">

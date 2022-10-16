@@ -1,31 +1,31 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Group, SubCategory } from '../../../models/category';
-import { useGroupService } from '../../../services2/groupService';
-import { useSearchService } from '../../../services2/searchService';
-import { store, StoreState } from '../../../store';
+import { useSearch } from '../../../hooks/search';
+import { Group } from '../../../models/category';
+import { setGroups } from '../../../redux/states/groups';
+import { AppStore } from '../../../redux/store';
+import { getGroups } from '../../../services/groupsService';
 import { Button } from '../../atoms/shared/Button';
 import { SubCategoryFilterGroup } from '../../molecules/products/SubCategoryFilterGroup'
 
 export const SubCategoryFilter = () => {
 
-    const { getGroups } = useGroupService();
+    const { groups, search: { subCategories } } = useSelector((store: AppStore) => store)
 
-    const groups = useSelector((store: StoreState) => store.groups)
-
-    const { search } = useSearchService()
-
-  const subCategories = useSelector((store: StoreState) => store.search.subCategories)
+  const dispatch = useDispatch();
 
     useEffect(() => {
         const init = async () => {
-            await getGroups()
+            const groups = await getGroups()
+
+            dispatch(setGroups(groups))
         }
 
         init()
     }, [])
 
+    const { search } = useSearch();
 
   return (
     <div className='w-full bg-white min-h-[200px] h-[200px] max-h-full lg:h-full lg:shadow-md p-5'>

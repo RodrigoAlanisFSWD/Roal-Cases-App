@@ -23,11 +23,11 @@ const HomePage: NextPage<HomeProps> = ({ categories }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-  const { data } = await getCategories()
+  const categories = await getCategories()
 
   return {
     props: {
-      categories: data
+      categories,
     }
   }
 }

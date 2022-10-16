@@ -2,11 +2,13 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { useSearch } from '../../../hooks/search'
 import { Category } from '../../../models/category'
-import { useSearchService } from '../../../services2/searchService'
-import { setQuery } from '../../../store/actions/search'
+import { setQuery } from '../../../redux/states/search'
+import { AppStore } from '../../../redux/store'
 import { Button } from '../../atoms/shared/Button'
 import { SearchInput } from '../../atoms/shared/SearchInput'
 import { Main } from '../../layouts/Main'
@@ -21,19 +23,19 @@ export const Products: FC<ProductsProps> = ({ category }) => {
 
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
   const params = router.query;
 
   const [searchQuery, setSearchQuery] = useState<string>(params.query ? params.query as string : "")
-
-  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(setQuery(searchQuery))
   }, [searchQuery])
 
-  const { search } = useSearchService()
-
   const [showFilters, setShowFilters] = useState(false)
+
+  const { search } = useSearch();
 
   return (
     <Main>

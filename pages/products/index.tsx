@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { Protected } from '../../components/layouts/Protected'
@@ -8,8 +8,9 @@ import { Products } from '../../components/pages/products/Products'
 import { Category, SubCategory } from '../../models/category'
 import { Product } from '../../models/product'
 import api from '../../interceptors/axios'
-import { setProducts } from '../../store/actions/products'
-import { setSubCategories, setCategory, setQuery } from '../../store/actions/search'
+import { setProducts } from '../../redux/states/products'
+import { SearchParams } from '../../models/search'
+import { setCategory, setQuery, setSubCategories } from '../../redux/states/search'
 
 interface ProductsPageProps {
   products: Product[];
@@ -19,6 +20,7 @@ interface ProductsPageProps {
 }
 
 const ProductsPage: NextPage<ProductsPageProps> = ({ products, category, subCategories, query }) => {
+  
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -26,14 +28,14 @@ const ProductsPage: NextPage<ProductsPageProps> = ({ products, category, subCate
     if (category) {
       dispatch(setCategory(category))
     }
-    dispatch(setSubCategories(subCategories))
+    dispatch(setSubCategories(subCategories ? subCategories : []))
     if (query) {
       dispatch(setQuery(query))
     }
   }, [products])
 
   return (
-    <Products category={category} />
+      <Products category={category} />
   )
 }
 

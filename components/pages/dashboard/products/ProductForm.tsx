@@ -15,6 +15,7 @@ import { getCategories, getCategory } from '../../../../services/categoriesServi
 import { createProduct, updateProduct } from '../../../../services/productsService';
 import { useDispatch } from 'react-redux';
 import { addProduct, editProduct } from '../../../../redux/states/products';
+import { useSubCategoriesSelector } from '../../../../hooks/categorySelector';
 
 interface ProductFormProps {
   edit?: boolean;
@@ -35,6 +36,8 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
   })
 
   const [items, setItems] = useState<SelectItemType[]>([])
+
+  const { subCategories, setSubCategories, handleAdd, handleRemove } = useSubCategoriesSelector()
 
   const [selectedCategory, setSelectedCategory] = useState<SelectItemType | null>(null)
 
@@ -62,21 +65,6 @@ export const ProductForm: FC<ProductFormProps> = ({ edit, product }) => {
       }
     });
   }, [])
-
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([])
-
-  const handleAdd = (subCategory: SubCategory) => {
-    setSubCategories([
-      ...subCategories,
-      subCategory
-    ])
-  }
-
-  const handleRemove = (subCategory: SubCategory) => {
-    setSubCategories(
-      subCategories.filter((sub: SubCategory) => sub.id !== subCategory.id)
-    )
-  }
 
   const onSubmit = async (data: any) => {
     if (!edit) {

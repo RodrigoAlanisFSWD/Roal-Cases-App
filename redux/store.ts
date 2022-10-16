@@ -5,13 +5,16 @@ import authReducer, { AuthState } from './states/auth';
 import productsReducer from './states/products';
 import categoriesReducer from './states/categories';
 import groupsReducer from './states/groups';
+import searchReducer from './states/search';
 import { createWrapper } from "next-redux-wrapper";
+import { SearchParams } from "../models/search";
 
 export interface AppStore {
     auth: AuthState;
     products: Product[];
     categories: Category[];
     groups: Group[];
+    search: SearchParams
 }
 
 export const store = configureStore<AppStore>({
@@ -19,7 +22,8 @@ export const store = configureStore<AppStore>({
         auth: authReducer,
         products: productsReducer,
         categories: categoriesReducer,
-        groups: groupsReducer
+        groups: groupsReducer,
+        search: searchReducer
     }
 })
 

@@ -60,7 +60,7 @@ export const VerifyEmail = () => {
                         onSubmit={submit}
                     >
                         {
-                            ({ values, touched, errors, handleSubmit }) => (
+                            ({ touched, errors, handleSubmit }) => (
                                 <Form className="flex flex-col justify-center items-center">
                                     <h2 className='text-xl'>
                                         Verificar Correo
