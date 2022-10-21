@@ -36,7 +36,10 @@ export const ProductImages = () => {
         const fileUploaded = event.target.files[0];
 
         if (product) {
-            const newProduct = await uploadProductImage(fileUploaded, product.id, product?.images.length > 0 ? "NORMAL" : "MAIN")
+            const formData = new FormData()
+
+            formData.set("image", fileUploaded)
+            const newProduct = await uploadProductImage(formData, product.id, product?.images.length > 0 ? "NORMAL" : "MAIN")
             setProduct(newProduct)
             event.target.value = null;
         }
@@ -51,7 +54,11 @@ export const ProductImages = () => {
                         await deleteProductImage(id)
                         setProduct({ ...product, images: product.images.filter((i: ProductImageType) => i.id !== id) })
                     }} handleEdit={async (file, id) => {
-                        const edited = await updateProductImage(file, id)
+                        const formData = new FormData()
+
+                        formData.set("image", file)
+
+                        const edited = await updateProductImage(formData, id)
                         setProduct({ ...product, images: product.images.map((i: ProductImageType) => i.id !== id ? i : edited) })
                     }} />
                 ))

@@ -8,6 +8,7 @@ import api from '../../../interceptors/axios'
 import { Button } from '../../atoms/shared/Button'
 import { Main } from '../../layouts/Main'
 import { Select } from '../../molecules/shared/Select'
+import { searchBrands, searchModels } from '../../../services/modelsService'
 
 interface ProductDetailProps {
     product: Product
@@ -34,9 +35,13 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
     useEffect(() => {
         const init = async () => {
-            const { data } = await api.post<Brand[]>("/models/brands/search", [product.category?.id.toString()])
+            const findedBrands = await searchBrands([product.category?.id.toString()])
 
-            setBrands(data.reduce((acc: any, cur: any) => acc = [...acc, { key: cur.id, text: cur.name }], []))
+            setBrands(findedBrands.reduce((acc: any, cur: any) => acc = [...acc, { key: cur.id, text: cur.name }], []))
+
+            const findedModels = await searchModels([product.category?.id.toString()])
+
+            setModels(findedModels.reduce((acc: any, cur: any) => acc = [...acc, { key: cur.id, text: cur.name }], []))
         }
 
         init()
@@ -50,7 +55,7 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                 <div className={`flex ${product.images.length > 2 ? "overflow-x-scroll" : ""} mt-2`}>
                     {
                         product.images.map((image: ProductImage) => (
-                            <div key={image.id} className='w-[100px] mr-2 flex justify-center border border-gray-200'>
+                            <div onClick={() => setSelectedImage(image)} key={image.id} className='w-[100px] mr-2 flex justify-center border border-gray-200'>
                                 <img className='w-[50px] opacity-75' src={image.imageUrl} alt={product.name} />
                             </div>
                         ))
