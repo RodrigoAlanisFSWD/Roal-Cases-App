@@ -1,6 +1,7 @@
-import {FC} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTimes} from '@fortawesome/free-solid-svg-icons'
+import { FC } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { Modal } from "../../layouts/Modal";
 
 interface AlertModalProps {
     title: string;
@@ -8,12 +9,12 @@ interface AlertModalProps {
     onClose?: () => void;
 }
 
-export const AlertModal: FC<AlertModalProps> = ({title, body, onClose}) => {
+export const AlertModal: FC<AlertModalProps> = ({ title, body, onClose }) => {
     return (
-        <div className="top-0 fixed w-screen h-screen bg-modal flex z-[10000000] justify-center items-center">
-            <div className="w-[95%] max-w-[500px] min-h-[100px] bg-white p-3 grid grid-cols-1 grid-rows-[30px_1fr] items-center">
+        <Modal>
+            <div className="w-[95%] max-w-[500px] min-h-[100px] bg-white p-3 grid grid-cols-1 grid-rows-[30px_1fr] items-center rounded-sm shadow-md">
                 <div className="flex flex-row-reverse justify-between">
-                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className="text-xl mr-2"/>
+                    <FontAwesomeIcon onClick={onClose} icon={faTimes} className="text-xl mr-2" />
                     <h2 className="text-xl">
                         {title}
                     </h2>
@@ -22,6 +23,7 @@ export const AlertModal: FC<AlertModalProps> = ({title, body, onClose}) => {
                     {body}
                 </div>
             </div>
-        </div>
+        </Modal>
+
     )
 }

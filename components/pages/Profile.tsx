@@ -1,7 +1,6 @@
 import React from 'react'
 import { Main } from '../layouts/Main';
 import { useSelector } from 'react-redux';
-import { useAuthService } from '../../services2/authService';
 import { Button } from '../atoms/shared/Button';
 import { AppStore } from '../../redux/store';
 import { logout } from '../../services/authService';
