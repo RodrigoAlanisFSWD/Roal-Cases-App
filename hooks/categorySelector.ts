@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SubCategory } from "../models/category"
+import { Category, SubCategory } from "../models/category"
 
 export const useSubCategoriesSelector = () => {
 
@@ -23,5 +23,30 @@ export const useSubCategoriesSelector = () => {
         handleRemove,
         subCategories,
         setSubCategories
+    }
+}
+
+export const useCategoriesSelector = () => {
+
+    const [categories, setCategories] = useState<Category[]>([])
+
+    const handleAdd = (category: Category) => {
+        setCategories([
+            ...categories,
+            category
+        ])
+    }
+
+    const handleRemove = (category: Category) => {
+        setCategories(
+            categories.filter((sub: Category) => sub.id !== category.id)
+        )
+    }
+
+    return {
+        handleAdd,
+        handleRemove,
+        categories,
+        setCategories
     }
 }

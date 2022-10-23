@@ -12,11 +12,9 @@ export const ProductsList = () => {
     <div className={`w-full h-[100%] m-auto grid grid-cols-2 sm:flex flex-wrap justify-center content-start py-5`}>
       {
         products.map((product: Product) => (
-          
+          <Link href={"/products/" + product.slug} className="cursor-pointer">
             <div key={product.id} className='w-auto h-auto flex flex-col items-center mx-5 mb-3'>
-              <Link href={"/products/" + product.slug}>
                 <img src={product.images.find((image: ProductImage) => image.type === "MAIN")?.imageUrl} alt={product.name} className="w-[100px]" />
-              </Link>
             <h3 className='text-xl mt-2'>
               { product.name }
             </h3>
@@ -25,6 +23,7 @@ export const ProductsList = () => {
               ${ product.price }
             </span>
           </div>
+          </Link>
           
         ))
       }

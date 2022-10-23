@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (tokens.access_token && tokens.refresh_token) {
 
-      const user = (await getProfile()).data
+      const user = await getProfile()
 
       dispatch(
         authenticateUser({

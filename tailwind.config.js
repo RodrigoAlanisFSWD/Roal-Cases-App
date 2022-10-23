@@ -12,7 +12,8 @@ module.exports = {
         "secondary": "#525252",
         "dark": "#555555",
         "danger": "#FF4B4B",
-        "modal": "rgba(255, 255, 255, 0.755)"
+        "modal": "rgba(255, 255, 255, 0.5)",
+        "modalBlack": "rgba(0, 0, 0, 0.5)",
       },
       gridTemplateColumns: {
         "navbar-small": "1fr 80% 1fr",

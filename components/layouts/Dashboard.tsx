@@ -49,10 +49,10 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
               {
                 menu.map((item: NavItem) => {
                   if (item.isGroup) {
-                    return <DashboardLinkGroup group={item} />
+                    return <DashboardLinkGroup group={item} key={item.header.text} />
                   } else if (!item.isGroup) {
                     const link = item.header
-                    return <DashboardLink href={link.href} icon={link.icon} text={link.text} />
+                    return <DashboardLink href={link.href} icon={link.icon} text={link.text} key={item.header.text} />
                   }
                 })
               }
@@ -99,10 +99,10 @@ export const SmallSideBar: FC<any> = ({ menu }) => {
                 {
                   menu.map((item: NavItem) => {
                     if (item.isGroup) {
-                      return <DashboardLinkGroup group={item} />
+                      return <DashboardLinkGroup group={item} key={item.header.text} />
                     } else if (!item.isGroup && item.links[0].icon) {
                       const link = item.links[0]
-                      return <DashboardLink href={link.href} icon={link.icon} text={link.text} />
+                      return <DashboardLink href={link.href} icon={link.icon} text={link.text} key={item.header.text} />
                     }
                   })
                 }
