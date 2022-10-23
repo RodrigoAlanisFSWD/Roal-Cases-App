@@ -39,7 +39,7 @@ export const Products: FC<ProductsProps> = ({ category }) => {
 
   return (
     <Main>
-      <div className="w-full max-h-full h-[100%] row-[2/3] grid grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[400px_1fr] overflow-y-scroll">
+      <div className="w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[400px_1fr]">
         <div className='hidden lg:block'>
           <SubCategoryFilter />
         </div>

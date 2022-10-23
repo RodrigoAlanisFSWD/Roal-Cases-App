@@ -7,7 +7,7 @@ export const Category: FC<CategoryType> = ({ description, name, price, imageUrl,
     <Link href={`/products?category=${slug}`}>
     <div className="w-full h-full cursor-pointer">
       <div className="w-full bg-background rounded-md flex flex-col items-center justify-center p-[10px] h-[400px] bg-cover">
-        <img src={imageUrl} alt={name} />
+        <img src={imageUrl} alt={name} className="w-[full] max-w-[300px]" />
         <div className="h-[40px] w-2/4 p-[10px] rounded-md bg-white flex justify-center items-center text-xl">${ price }</div>
       </div>
       <div className="flex flex-col items-center py-6">

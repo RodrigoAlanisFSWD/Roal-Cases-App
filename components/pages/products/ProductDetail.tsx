@@ -74,46 +74,46 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
     return (
         <Main>
-            <div className='w-2/5 max-h-full h-[100%] row-[2/3] flex justify-between pt-10'>
-                <div>
-                    <img className='w-[250px] bg-cover' src={selectedImage?.imageUrl} alt={product.name} />
-                    <div className={`flex ${product.images.length > 2 ? "overflow-x-scroll" : ""} mt-2`}>
+                <div className='w-full sm:w-[calc(100%-50px)] md:w-4/5 lg:w-3/5 xl:w-2/5 max-h-full h-[100%] flex flex-col sm:flex-row justify-start items-center sm:items-start sm:justify-between pt-10 sm:pb-0 pb-10'>
+                    <div>
+                        <img className='w-[250px] bg-cover' src={selectedImage?.imageUrl} alt={product.name} />
+                        <div className={`flex ${product.images.length > 2 ? "overflow-x-scroll" : ""} mt-2 h-[100px]`}>
+                            {
+                                product.images.map((image: ProductImage) => (
+                                    <div onClick={() => setSelectedImage(image)} key={image.id} className='w-[100px] mr-2 flex justify-center border border-gray-200'>
+                                        <img className='w-[50px] opacity-75' src={image.imageUrl} alt={product.name} />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div className='flex flex-col items-center sm:items-start w-full sm:w-auto px-5'>
+                        <h2 className='text-3xl mt-5 font-bold'>
+                            {product.name}
+                        </h2>
+
+                        <h4 className='mt-5 text-2xl'>
+                            ${product.price}
+                        </h4>
+
+                        <div className='w-full sm:w-[250px] mt-5'>
+                            <Select width="w-[calc(100%-40px)] sm:w-[250px]" className="w-full sm:w-[250px]" selectedItem={brand} onSelect={(item) => setBrand(item)} placeholder='Marca' items={brands} />
+                            <Select width="w-[calc(100%-40px)] sm:w-[250px]" className='mt-5 w-full sm:w-[250px]' selectedItem={model} onSelect={(item) => setModel(item)} placeholder='Modelo' items={models} />
+                        </div>
+
+                        <div className='flex mt-5 items-center'>
+                            <Counter count={count} setCount={setCount} />
+                        </div>
+
+                        <Button text='Añadir Al Carrito' className="sm:w-[250px] mt-5" onClick={() => submit()} />
+
                         {
-                            product.images.map((image: ProductImage) => (
-                                <div onClick={() => setSelectedImage(image)} key={image.id} className='w-[100px] mr-2 flex justify-center border border-gray-200'>
-                                    <img className='w-[50px] opacity-75' src={image.imageUrl} alt={product.name} />
-                                </div>
-                            ))
+                            error && <Alert text="Elige Un Modelo" className='mt-2' />
                         }
+
                     </div>
-                </div>
-                <div>
-                    <h2 className='text-3xl mt-5 font-bold'>
-                        {product.name}
-                    </h2>
-
-                    <h4 className='mt-5 text-2xl'>
-                        ${product.price}
-                    </h4>
-
-                    <div className='w-[250px] mt-5'>
-                        <Select width='250px' selectedItem={brand} onSelect={(item) => setBrand(item)} placeholder='Marca' items={brands} />
-                        <Select width='250px' className='mt-5' selectedItem={model} onSelect={(item) => setModel(item)} placeholder='Modelo' items={models} />
-                    </div>
-
-                    <div className='flex mt-5 items-center'>
-                        <Counter count={count} setCount={setCount} />
-                    </div>
-
-                    <Button text='Añadir Al Carrito' className="w-[250px] mt-5" onClick={() => submit()} />
-
-                    {
-                        error && <Alert text="Elige Un Modelo" className='mt-2' />
-                    }
 
                 </div>
-
-            </div>
         </Main>
     )
 }

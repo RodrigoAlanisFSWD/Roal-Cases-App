@@ -54,7 +54,7 @@ export const SignInForm: FC = () => {
     }
 
     return (
-        <div className="w-full max-w-xl row-[2/3] h-auto flex flex-col items-center 2xl:max-w-xl 2xl:shadow-md">
+        <div className="w-full max-w-xl h-auto flex flex-col items-center 2xl:max-w-xl 2xl:shadow-md">
             <h2 className="text-3xl mb-14 lg:mt-14">
                 Iniciar Sesion
             </h2>

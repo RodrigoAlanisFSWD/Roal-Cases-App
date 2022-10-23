@@ -13,8 +13,14 @@ export const signIn = async (user: any) => {
 }
 
 export const setTokens = async (tokens: Tokens) => {
-    cookies.set("roal_cases/access_token", tokens.access_token);
-    cookies.set("roal_cases/refresh_token", tokens.refresh_token);
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    cookies.set("roal_cases/access_token", tokens.access_token, {
+        expires: date
+    });
+    cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
+        expires: date
+    });
 }
 
 export const getTokens = (): Tokens => {
@@ -42,6 +48,7 @@ export const sendVerification = async (tokens: Tokens) => {
 }
 
 export const logout = async () => {
+    removeTokens()
     return (await api.post("/auth/logout")).data
 }
 

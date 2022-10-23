@@ -25,7 +25,7 @@ export const BrandForm: FC<BrandForm> = ({ edit, brand }) => {
     const router = useRouter();
 
     const onSubmit = async (data: any) => {
-        console.log(data);
+      if (categories.length < 1) return 
 
         if (edit && brand) {
             await updateBrand({
