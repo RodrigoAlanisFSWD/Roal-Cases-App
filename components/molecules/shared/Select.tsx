@@ -32,7 +32,7 @@ export const Select: FC<SelectProps> = ({ placeholder, items, selectedItem, onSe
                         <motion.div initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }} className={`border absolute w-full rounded-b-sm mt-[55px] sm:w-[${width ? width : "450px"}] bg-white border-t-0`}>
+                            transition={{ duration: 0.3 }} className={`border absolute w-full rounded-b-sm mt-[55px] ${width ? width : "w-[calc(100%-98px)] sm:w-[450px]"} bg-white border-t-0`}>
                             {
                                 items.map((item: SelectItemType) => (
                                     <div key={item.key} onClick={() => { 

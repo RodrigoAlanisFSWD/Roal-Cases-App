@@ -8,11 +8,11 @@ export const Main: FC<any> = ({ children }) => {
     <>
       <div className="w-screen min-h-screen">
 
-        <div className="w-screen h-screen min-h-[700px] grid grid-cols-1 grid-rows-[100px_1fr] justify-items-center items-center">
           <Navbar />
 
-          {children}
-        </div>
+          <div className='w-full min-h-screen object-cover pt-[100px] flex justify-center items-center'>
+            {children}
+          </div>
 
         <Footer />
       </div>

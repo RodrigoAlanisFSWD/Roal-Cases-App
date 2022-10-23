@@ -4,9 +4,13 @@ import { useSelector } from 'react-redux';
 import { Button } from '../atoms/shared/Button';
 import { AppStore } from '../../redux/store';
 import { logout } from '../../services/authService';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../redux/states/auth';
 
 export const Profile = () => {
     const user = useSelector((store: AppStore) => store.auth.profile)
+
+    const dispatch = useDispatch()
 
     return (
        <Main>
@@ -29,7 +33,7 @@ export const Profile = () => {
 
                 <Button text='Cerrar Sesion' onClick={async () => {
                     logout()
-                    
+                    dispatch(logoutUser())
                 }} />
             </div>
        </Main>

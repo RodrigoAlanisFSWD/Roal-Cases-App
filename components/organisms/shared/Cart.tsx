@@ -39,10 +39,10 @@ export const Cart: FC<CartProps> = ({ handleClose }) => {
                 animate={{ translateX: 0 }}
                 exit={{ translateX: "100%" }}
                 transition={{ duration: 0.3 }}
-                className='bg-white w-[500px] h-screen overflow-y-scroll flex flex-col items-center'>
+                className='bg-white w-full sm:w-[500px] h-screen overflow-y-scroll flex flex-col items-center'>
                 <div className='w-full flex flex-col items-center'>
                     <div className='flex flex-start w-full items-center justify-center p-5'>
-                        <FontAwesomeIcon onClick={handleClose} icon={faChevronLeft} className="absolute mr-[400px] text-xl" />
+                        <FontAwesomeIcon onClick={handleClose} icon={faChevronLeft} className="absolute mr-[80%] sm:mr-[400px] text-xl" />
                         <FontAwesomeIcon icon={faShoppingCart} className="text-2xl text-dark" />
                     </div>
                     <div className='w-11/12 h-[5px] bg-background rounded-md'>
@@ -50,12 +50,12 @@ export const Cart: FC<CartProps> = ({ handleClose }) => {
                     </div>
                 </div>
 
-                <div className='w-full p-5 px-10'>
+                <div className='w-full p-5 px-0 sm:px-10'>
                     {
                         cart.products.map((product: CartProductType) => (<CartProduct key={product.id} {...product} />))
                     }
                 </div>
-                <div className='px-10 w-full border-t border-gray-200 pt-5'>
+                <div className='px-5 sm:px-10 w-full border-t border-gray-200 pt-5'>
                     <div className='flex justify-between w-full mb-5'>
                         <span className='text-xl'>
                             Subtotal

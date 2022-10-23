@@ -32,13 +32,13 @@ export const Models = () => {
 
   return (
     <div>
-      <div className='flex items-center mb-6 justify-between'>
-        <h2 className='text-2xl sm:text-3xl mr-5'>
+      <div className='flex w-full flex-col lg:flex-row lg:items-center mb-6 justify-between'>
+        <h2 className='text-2xl sm:text-3xl mr-5 mb-5 lg:mb-0'>
           Modelos
         </h2>
-        <div className='flex'>
-          <Select items={brands} selectedItem={selectedBrand} onSelect={(item: SelectItemType) => setSelectedBrand(item)} placeholder="Marca" className='w-[450px]' width='450px' />
-          <Button text="Buscar" className="w-[250px] ml-5 h-[55px]" onClick={() => search()} />
+        <div className='flex flex-col lg:flex-row justify-start'>
+          <Select items={brands} selectedItem={selectedBrand} onSelect={(item: SelectItemType) => setSelectedBrand(item)} placeholder="Marca" className='w-full lg:w-[450px]' width='w-[calc(100%-98px)] lg:w-[450px]' />
+          <Button text="Buscar" className="lg:w-[250px] mt-5 lg:mt-0 lg:ml-5 h-[55px]" onClick={() => search()} />
         </div>
 
       </div>
@@ -50,7 +50,7 @@ export const Models = () => {
         }} />)
       }
 
-      <Button text="Crear Modelo" className="w-full mt-6 sm:w-[250px]" onClick={() => router.push("/dashboard/models/create")} />
+      <Button text="Crear Modelo" className="w-full mt-6 sm:w-[250px] h-[55px]" onClick={() => router.push("/dashboard/models/create")} />
     </div>
   )
 }

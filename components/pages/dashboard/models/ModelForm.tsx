@@ -27,6 +27,8 @@ export const ModelForm: FC<ModelFormProps> = ({ edit, model }) => {
     const router = useRouter();
 
     const onSubmit = async (data: any) => {
+      if (categories.length < 1 || !selectedBrand) return 
+      
         if (edit && model) {
             await updateModel({
                 ...model,
@@ -89,7 +91,7 @@ export const ModelForm: FC<ModelFormProps> = ({ edit, model }) => {
           <Form className="w-full sm:w-[450px] h-auto">
               <FormControl icon={faList} placeholder="Nombre" name="name" type="text" error={errors.name} touched={touched.name} />
 
-              <Select items={brands} selectedItem={selectedBrand} onSelect={(item: SelectItemType) => setSelectedBrand(item)} placeholder="Marca" className='w-[450px] mt-2' width='450px' />
+              <Select items={brands} selectedItem={selectedBrand} onSelect={(item: SelectItemType) => setSelectedBrand(item)} placeholder="Marca" className='w-full sm:w-[450px] mt-2' />
 
             <CategorySelector selected={categories} onAdd={handleAdd} onRemove={handleRemove} className="mt-3" />
 
