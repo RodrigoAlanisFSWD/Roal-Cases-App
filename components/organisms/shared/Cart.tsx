@@ -20,18 +20,6 @@ export const Cart: FC<CartProps> = ({ handleClose }) => {
 
     const cart = useSelector((store: AppStore) => store.cart)
 
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const init = async () => {
-            const cart = await getCart()
-
-            dispatch(setCart(cart))
-        }
-
-        init()
-    }, [])
-
     return (
         <div className="top-0 fixed w-screen h-screen bg-modalBlack backdrop-blur-sm flex z-[10000000] justify-end items-center">
             <motion.div

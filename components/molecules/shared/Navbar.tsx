@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -15,15 +15,35 @@ import { AppStore } from "../../../redux/store";
 import { Cart } from "../../organisms/shared/Cart";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { getCart } from "../../../services/cartService";
+import { setCart } from "../../../redux/states/cart";
 
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
 
   const { state, profile } = useSelector((store: AppStore) => store.auth)
 
+  const { products } = useSelector((store: AppStore) => store.cart)
+
   const [showCart, setShowCart] = useState(false)
 
   const router = useRouter()
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      const init = async () => {
+          const cart = await getCart()
+
+          dispatch(setCart(cart))
+      }
+
+      if (state === authTypes.AUTHENTICATED) {
+        init()
+      }
+  }, [state])
+
 
   return (
     <>
@@ -52,6 +72,9 @@ export const Navbar = () => {
           </div>
           <h1 className="text-center font-vogue text-4xl mt-2">ROAL CASES</h1>
           <div className="w-full flex justify-end items-center cursor-pointer duration-300 text-secondary transition-all hover:text-primary">
+            <span className="mr-2 text-xl">
+              {products.length}
+            </span>
             <FontAwesomeIcon
               icon={faShoppingCart}
               className="text-2xl"

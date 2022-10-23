@@ -10,6 +10,8 @@ import { searchBrands, searchModels } from '../../../services/modelsService'
 import { Alert } from '../../atoms/shared/Alert'
 import { addProductToCart } from '../../../services/cartService'
 import { Counter } from '../../atoms/shared/Counter'
+import { useDispatch } from 'react-redux'
+import { setCart } from '../../../redux/states/cart'
 
 interface ProductDetailProps {
     product: Product
@@ -18,8 +20,6 @@ interface ProductDetailProps {
 export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
     const [selectedImage, setSelectedImage] = useState<ProductImage | null>(null)
-
-    const [quantity, setQuantity] = useState(1)
 
     useEffect(() => {
         const image = product.images.find((i: any) => i.type === "MAIN");
@@ -50,6 +50,8 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
         init()
     }, [])
 
+    const dispatch = useDispatch();
+
     const submit = async () => {
         if (!brand || !model) {
             setError(true)
@@ -63,11 +65,13 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                 id: model.key,
                 name: model.text
             },
-            count: quantity,
+            count,
             product: product,
         }
 
-        await addProductToCart(newProduct)
+        const cart = await addProductToCart(newProduct)
+
+        dispatch(setCart(cart))
     }
 
     const [count, setCount] = useState(1)
