@@ -16,10 +16,14 @@ export const setTokens = async (tokens: Tokens) => {
     const date = new Date();
     date.setDate(date.getDate() + 7);
     cookies.set("roal_cases/access_token", tokens.access_token, {
-        expires: date
+        expires: date,
+        path: "/",
+        domain: "localhost"
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
-        expires: date
+        expires: date,
+        path: "/",
+        domain: "localhost"
     });
 }
 

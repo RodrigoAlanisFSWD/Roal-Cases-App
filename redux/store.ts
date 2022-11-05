@@ -10,6 +10,8 @@ import cartReducer from './states/cart';
 import { createWrapper } from "next-redux-wrapper";
 import { SearchParams } from "../models/search";
 import { Cart } from "../models/cart";
+import { PaymentState } from "./states/payment";
+import paymentReducer from "./states/payment"
 
 export interface AppStore {
     auth: AuthState;
@@ -18,6 +20,7 @@ export interface AppStore {
     groups: Group[];
     search: SearchParams;
     cart: Cart;
+    payment: PaymentState;
 }
 
 export const store = configureStore<AppStore>({
@@ -27,7 +30,8 @@ export const store = configureStore<AppStore>({
         categories: categoriesReducer,
         groups: groupsReducer,
         search: searchReducer,
-        cart: cartReducer
+        cart: cartReducer,
+        payment: paymentReducer
     }
 })
 

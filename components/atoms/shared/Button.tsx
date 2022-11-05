@@ -5,9 +5,10 @@ interface ButtonProps {
     className?: any;
     onClick?: () => void;
     type?: string;
+    disabled?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({ text, className, onClick, type }) => {
-    return <div onClick={onClick}
-        className={`w-full h-11 flex justify-center items-center rounded-sm text-white text-xl cursor-pointer border-2 border-primary transition-all duration-300  ${type === 'outlined' ? "bg-white text-primary hover:bg-primary hover:text-white" : 'bg-primary hover:bg-transparent hover:text-primary'} ${className}`}>{text}</div>;
+export const Button: FC<ButtonProps> = ({ text, className, onClick, type, disabled }) => {
+    return <div onClick={disabled ? () => {} :onClick}
+        className={`w-full h-11 flex justify-center items-center rounded-sm text-white text-xl cursor-pointer border-2 border-primary transition-all duration-300  ${type === 'outlined' ? "bg-white text-primary hover:bg-primary hover:text-white" : 'bg-primary hover:bg-transparent hover:text-primary'} ${disabled ? "cursor-not-allowed" : ""} ${className}`}>{text}</div>;
 };

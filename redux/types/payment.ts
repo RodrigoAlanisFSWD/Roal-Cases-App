@@ -1,0 +1,4 @@
+export const NOT_INITIALIZED = "NOT_INITIALIZED"
+export const IN_PROCESS = "IN_PROCESS"
+export const IN_CONFIRMATION = "IN_CONFIRMATION"
+export const SUCCESS = "SUCCESS"

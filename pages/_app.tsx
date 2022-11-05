@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { getProfile, getTokens } from "../services/authService";
 import { authenticateUser, authInitial } from "../redux/states/auth";
 import * as authTypes from "../redux/types/auth";
+import { useRouter } from "next/router";
 
 config.autoAddCss = false;
 
@@ -16,22 +17,31 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const dispatch = useDispatch()
 
+  const router = useRouter();
+
   const init = async () => {
     const tokens = getTokens()
 
     if (tokens.access_token && tokens.refresh_token) {
+      try {
 
-      const user = await getProfile()
+        const user = await getProfile()
 
-      dispatch(
-        authenticateUser({
-          ...tokens,
-          profile: user
-        })
-      );
+        dispatch(
+          authenticateUser({
+            ...tokens,
+            profile: user
+          })
+        )
+      } catch (error) {
+        dispatch(authInitial(authTypes.UNAUNTHENTICATED));
+        router.push("/sign-in")
+      }
     } else {
       dispatch(authInitial(authTypes.UNAUNTHENTICATED));
     }
+
+
   }
 
   useEffect(() => {

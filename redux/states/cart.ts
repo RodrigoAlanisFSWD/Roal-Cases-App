@@ -4,7 +4,8 @@ import { Cart, CartProduct } from "../../models/cart";
 const initialState: Cart = {
     id: 0,
     products: [],
-    totalCost: 0
+    totalCost: 0,
+    confirmed: false
 }
 
 export const cartSlice = createSlice({
@@ -19,10 +20,16 @@ export const cartSlice = createSlice({
                 ...state,
                 products: state.products.map((i: any) => i.id === action.payload.id ? action.payload : i)
             }
+        },
+        confirmCart: (state) => {
+            return {
+                ...state,
+                confirmed: true
+            }
         }
     }
 })
 
-export const { setCart, editProductInCart } = cartSlice.actions
+export const { setCart, editProductInCart, confirmCart } = cartSlice.actions
 
 export default cartSlice.reducer
