@@ -28,6 +28,7 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
+    console.log(error)
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
@@ -42,8 +43,7 @@ api.interceptors.response.use(
           "Bearer " + newTokens.access_token;
         return api(originalRequest);
       } catch (error) {
-        await logout();
-        store.dispatch(logoutUser())
+          store.dispatch(logoutUser())
       }
 
     }
