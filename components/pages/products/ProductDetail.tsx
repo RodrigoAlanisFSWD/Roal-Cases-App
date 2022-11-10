@@ -1,5 +1,3 @@
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { FC, useEffect, useState } from 'react'
 import { Product, ProductImage } from '../../../models/product'
 import { SelectItemType } from '../../../models/select'
@@ -78,7 +76,7 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
     return (
         <Main>
-                <div className='w-full sm:w-[calc(100%-50px)] md:w-4/5 lg:w-3/5 xl:w-2/5 max-h-full h-[100%] flex flex-col sm:flex-row justify-start items-center sm:items-start sm:justify-between pt-10 sm:pb-0 pb-10'>
+                <div className='w-full sm:w-[calc(100%-50px)] md:w-4/5 lg:w-3/5 xl:w-2/5 max-h-full h-[100%] flex flex-col sm:flex-row justify-start items-center sm:items-start sm:justify-between sm:pb-0 pb-10'>
                     <div>
                         <img className='w-[250px] bg-cover' src={selectedImage?.imageUrl} alt={product.name} />
                         <div className={`flex ${product.images.length > 2 ? "overflow-x-scroll" : ""} mt-2 h-[100px]`}>

@@ -33,15 +33,15 @@ export const Navbar = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-      const init = async () => {
-          const cart = await getCart()
+    const init = async () => {
+      const cart = await getCart()
 
-          dispatch(setCart(cart))
-      }
+      dispatch(setCart(cart))
+    }
 
-      if (state === authTypes.AUTHENTICATED) {
-        init()
-      }
+    if (state === authTypes.AUTHENTICATED) {
+      init()
+    }
   }, [state])
 
 
@@ -71,24 +71,23 @@ export const Navbar = () => {
             </div>
           </div>
           <h1 className="text-center font-vogue text-4xl mt-2">ROAL CASES</h1>
-          <div className="w-full flex justify-end items-center cursor-pointer duration-300 text-secondary transition-all hover:text-primary">
+          <div onClick={() => {
+            if (state === authTypes.UNAUNTHENTICATED) {
+              router.push("/sign-in")
+            }
+
+            if (state === authTypes.AUTHENTICATED) {
+              setShowCart(!showCart)
+            }
+          }} className="w-full flex justify-end items-center cursor-pointer duration-300 text-secondary transition-all hover:text-primary">
             <span className="mr-2 text-xl">
               {products.length}
             </span>
             <FontAwesomeIcon
               icon={faShoppingCart}
               className="text-2xl"
-              onClick={() => {
-                if (state === authTypes.UNAUNTHENTICATED) {
-                  router.push("/sign-in")
-                }
 
-                if (state === authTypes.AUTHENTICATED) {
-                  setShowCart(!showCart)
-                }
-              }}
             />
-            <h3 className="hidden sm-block ml-4">Mi Carrito</h3>
           </div>
         </div>
         <menu

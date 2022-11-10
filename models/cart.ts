@@ -7,6 +7,7 @@ export interface Cart {
     user?: User;
     products: CartProduct[];
     totalCost: number;
+    confirmed: boolean;
 }
 
 export interface CartProduct {
