@@ -28,7 +28,6 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    console.log(error)
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
@@ -38,6 +37,7 @@ api.interceptors.response.use(
         originalRequest._retry = true;
 
         const newTokens = await refreshToken();
+        console.log(newTokens)
         setTokens(newTokens)
         originalRequest.headers["Authorization"] =
           "Bearer " + newTokens.access_token;

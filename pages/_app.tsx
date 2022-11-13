@@ -21,7 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const init = async () => {
     const tokens = getTokens()
-
     if (tokens.access_token && tokens.refresh_token) {
       try {
 
