@@ -100,7 +100,9 @@ export const Navbar = () => {
                 (
                   <NavLink text="Iniciar Sesion" href={"/sign-in"} icon={faUser} />
                 ) : (
-                  <NavLink text="Cuenta" href={"/profile"} icon={faUser} />
+                  <>
+                  <NavLink text="Cuenta" href={"/user"} icon={faUser} />
+                  </>
                 )
             }
             {
