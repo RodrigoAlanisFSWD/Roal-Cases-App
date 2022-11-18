@@ -6,6 +6,7 @@ import { Address } from '../../../models/address'
 import { CartProduct } from '../../../models/cart'
 import { ProductImage } from '../../../models/product'
 import { confirmCart } from '../../../redux/states/cart'
+import { setSelectedAddress } from '../../../redux/states/payment'
 import { AppStore } from '../../../redux/store'
 import { Alert } from '../../atoms/shared/Alert'
 import { Button } from '../../atoms/shared/Button'
@@ -107,6 +108,7 @@ export const BuyConfirmation = () => {
               }
             
               dispatch(confirmCart())
+              dispatch(setSelectedAddress(address))
 
               router.push("/shopping/payment")
             }

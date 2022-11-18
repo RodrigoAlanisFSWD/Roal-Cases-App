@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import Cookies from 'universal-cookie'
+import { setCart } from '../../../redux/states/cart'
+import { getCart } from '../../../services/cartService'
 import { createOrder } from '../../../services/ordersService'
 import { Button } from '../../atoms/shared/Button'
 
@@ -14,6 +17,8 @@ export const AfterPayment: FC<any> = ({ payment }) => {
     const stripe = useStripe()
 
     const cookies = new Cookies()
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!stripe) return 
@@ -26,8 +31,20 @@ export const AfterPayment: FC<any> = ({ payment }) => {
             try {
                 const intent = await stripe.retrievePaymentIntent(payment)
 
-                const order = await createOrder();
+                const address = cookies.get("roal_cases/address-id")
+
+                if (address) {
+                    cookies.remove("roal_cases/address-id", {
+                        domain: "localhost",
+                        path: "/",
+                      })
+                    const order = await createOrder({
+                        id: address
+                    });
+                    dispatch(setCart(await getCart()))
+                }
             } catch (error) {
+                console.log(error)
                 router.push("/")
             }            
         }

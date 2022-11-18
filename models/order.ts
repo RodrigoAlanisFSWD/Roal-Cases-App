@@ -1,3 +1,4 @@
+import { Address } from "./address";
 import { Model } from "./models";
 import { Product } from "./product";
 import { User } from "./user";
@@ -17,6 +18,7 @@ export interface Order {
     user: User;
     products: OrderProduct[];
     created_at: string;
+    address: Address;
 }
 
 export interface OrderProduct {

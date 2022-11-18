@@ -3,14 +3,17 @@ import { Order, OrderProduct } from '../../../models/order'
 import { Main } from '../../layouts/Main'
 import { OrderDetailProduct } from '../../molecules/user/OrderDetailProduct'
 
-export const OrderDetail: FC<Order> = ({ products, status, total, user }) => {
+export const OrderDetail: FC<Order> = ({ products, status, total, user, address }) => {
   return (
     <Main>
         <div className='h-auto w-3/4 shadow-lg'>
-            <div className='p-5 border-b border-gray-300'>
+            <div className='p-5 border-b border-gray-300 flex justify-between items-center'>
                 <h2 className='text-3xl'>
-                    { user.name }
+                    { address.name }
                 </h2>
+                <h3 className='text-2xl'>
+                    { address.street }
+                </h3>
             </div>
             <div className='min-h-[250px] max-h-[500px]'>
                 {

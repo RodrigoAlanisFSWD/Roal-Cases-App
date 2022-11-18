@@ -5,7 +5,7 @@ const initialState: Cart = {
     id: 0,
     products: [],
     totalCost: 0,
-    confirmed: false
+    confirmed: false,
 }
 
 export const cartSlice = createSlice({

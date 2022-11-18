@@ -23,6 +23,7 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
 
   const cart = useSelector((store: AppStore) => store.cart)
   const key = useSelector((store: AppStore) => store.payment.clientSecret)
+  const address = useSelector((store: AppStore) => store.payment.selectedAddress)
 
   const router = useRouter()
 
@@ -50,6 +51,13 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
           domain: "localhost",
           path: "/",
         })
+        if (address) {
+          cookies.set("roal_cases/address-id", address.id, {
+            domain: "localhost",
+            path: "/",
+          })
+        }
+
       }
     } catch (error) {
       console.log(error);

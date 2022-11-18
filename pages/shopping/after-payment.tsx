@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const cookies = context.req.cookies;
 
-    if (!cookies["roal_cases/payment-intent"]) {
+    if (!cookies["roal_cases/payment-intent"] && !cookies["roal_cases/address-id"]) {
         return {
             redirect: {
                 permanent: false,
@@ -44,6 +44,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     const clientSecret = cookies["roal_cases/payment-intent"]
+
+    console.log(clientSecret)
 
     return {
         props: {
