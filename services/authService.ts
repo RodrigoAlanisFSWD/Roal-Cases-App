@@ -58,6 +58,7 @@ export const logout = async () => {
 
 export const refreshToken = async () => {
     const refresh = cookies.get("roal_cases/refresh_token")
+    console.log(refresh)
     return (await api.post<Tokens>("/auth/refresh", {}, {
         headers: {
             Authorization: `Bearer ${refresh}`

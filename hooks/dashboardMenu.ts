@@ -1,4 +1,4 @@
-import { faHouse, faMobilePhone, faShoppingBag } from "@fortawesome/free-solid-svg-icons"
+import { faHouse, faMobilePhone, faMoneyBill, faShoppingBag } from "@fortawesome/free-solid-svg-icons"
 import { NavItem } from "../models/navbar"
 
 export const useDashboardMenu = () => {
@@ -51,6 +51,17 @@ export const useDashboardMenu = () => {
               href: "/dashboard/models"
             },
           ]
+        },
+        {
+          links: [
+    
+          ],
+          header: {
+            text: "Ordenes",
+            icon: faMoneyBill,
+            href: "/dashboard/orders/"
+          },
+          isGroup: false,
         },
       ]
 

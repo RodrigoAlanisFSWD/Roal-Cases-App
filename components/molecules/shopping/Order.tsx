@@ -5,11 +5,11 @@ import { Button } from '../../atoms/shared/Button'
 
 export const Order: FC<OrderType> = ({ created_at, total, status, id }) => {
     return (
-        <div className='border-b border-gray-300 h-[50px] flex justify-between items-center px-3'>
-            <h3 className='text-xl'>
+        <div className='border-b border-gray-300 sm:h-[50px] flex flex-col sm:flex-row justify-between items-center px-3'>
+            <h3 className='text-xl mb-2 sm:mb-0'>
                 {created_at}
             </h3>
-            <div className='flex justify-end w-2/4 items-center'>
+            <div className='flex justify-end sm:w-2/4 items-center'>
                 <span className='text-lg'>
                     Total: ${total}
                 </span>
