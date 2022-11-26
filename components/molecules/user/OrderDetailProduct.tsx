@@ -6,12 +6,12 @@ export const OrderDetailProduct: FC<OrderProduct> = ({ count, model, product: { 
     return (
         <div className='w-full p-5 flex'>
             <img src={images.find((i: ProductImage) => i.type === "MAIN")?.imageUrl} alt={name} className="w-[100px]" />
-            <div className='flex justify-between w-full'>
+            <div className='flex flex-col sm:flex-row justify-between w-full'>
                 <div className='flex flex-col ml-5'>
-                    <h3 className='text-2xl font-bold'>
+                    <h3 className='text-xl sm:text-2xl font-bold'>
                         {name}
                     </h3>
-                    <span className='text-lg'>
+                    <span className='text-md sm:text-lg'>
                         Modelo: {model.name}
                     </span>
 
@@ -19,8 +19,8 @@ export const OrderDetailProduct: FC<OrderProduct> = ({ count, model, product: { 
                         Cantidad: {count}
                     </span>
                 </div>
-                <div>
-                    <h3 className='text-xl font-bold mt-2'>
+                <div className='ml-5 mb-2'>
+                    <h3 className='text-lg sm:text-xl font-bold sm:mt-2'>
                         Precio: ${price}
                     </h3>
                 </div>

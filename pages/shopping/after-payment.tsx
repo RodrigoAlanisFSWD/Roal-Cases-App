@@ -6,7 +6,6 @@ import { Main } from '../../components/layouts/Main';
 import { AfterPayment } from '../../components/pages/shopping/AfterPayment';
 
 interface AfterPaymentProps {
-    status: string;
     clientSecret: string;
     payment: string;
 }
@@ -15,7 +14,7 @@ const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJaw
     locale: "es"
 })
 
-const AfterPaymentPage: NextPage<AfterPaymentProps> = ({ status, clientSecret, payment }) => {
+const AfterPaymentPage: NextPage<AfterPaymentProps> = ({ clientSecret, payment }) => {
 
     return (
         <Elements stripe={stripePromise} options={{
@@ -33,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const cookies = context.req.cookies;
 
-    if (!cookies["roal_cases/payment-intent"]) {
+    if (!cookies["roal_cases/payment-intent"] && !cookies["roal_cases/address-id"]) {
         return {
             redirect: {
                 permanent: false,
@@ -47,7 +46,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            status: context.query.redirect_status,
             clientSecret,
             payment: context.query.payment_intent_client_secret
         }

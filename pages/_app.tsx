@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     const tokens = getTokens()
     if (tokens.access_token && tokens.refresh_token) {
       try {
-
         const user = await getProfile()
 
         dispatch(

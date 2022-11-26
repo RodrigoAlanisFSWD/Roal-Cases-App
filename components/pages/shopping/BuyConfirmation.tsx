@@ -6,6 +6,7 @@ import { Address } from '../../../models/address'
 import { CartProduct } from '../../../models/cart'
 import { ProductImage } from '../../../models/product'
 import { confirmCart } from '../../../redux/states/cart'
+import { setSelectedAddress } from '../../../redux/states/payment'
 import { AppStore } from '../../../redux/store'
 import { Alert } from '../../atoms/shared/Alert'
 import { Button } from '../../atoms/shared/Button'
@@ -32,9 +33,15 @@ export const BuyConfirmation = () => {
 
   return (
     <Main>
-      <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-[1fr_300px]'>
-        <div className='p-5'>
-          <Addresses selected={address} onChange={(address: Address) => setAddress(address)} />
+      <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-1 md:grid-cols-[1fr_300px]'>
+        <div className='md:p-5'>
+          <Addresses selected={address} onChange={(newAddress: Address) => {
+            if (address?.id === newAddress.id) {
+                setAddress(null)
+            } else {
+              setAddress(newAddress)
+            }
+          }} />
         </div>
         <div className='bg-white shadow-md border flex flex-col'>
           <h2 className='text-2xl border-b border-gray-200 w-full p-5'>
@@ -107,6 +114,7 @@ export const BuyConfirmation = () => {
               }
             
               dispatch(confirmCart())
+              dispatch(setSelectedAddress(address))
 
               router.push("/shopping/payment")
             }

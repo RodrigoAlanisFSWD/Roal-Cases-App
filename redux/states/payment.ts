@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Address } from "../../models/address";
 
 export interface PaymentState {
     clientSecret: string | null;
     status: string;
+    selectedAddress: Address | null;
 }
 
 const initialState: PaymentState = {
     clientSecret: null,
-    status: "NOT_INITIALIZED"
+    status: "NOT_INITIALIZED",
+    selectedAddress: null
 }
 
 export const paymentSlice = createSlice({
@@ -25,10 +28,16 @@ export const paymentSlice = createSlice({
                 ...state,
                 clientSecret: action.payload
             }
+        },
+        setSelectedAddress(state, action: PayloadAction<Address>) {
+            return {
+                ...state,
+                selectedAddress: action.payload
+            }
         }
     }
 })
 
-export const { setStatus, setClientSecret } = paymentSlice.actions
+export const { setStatus, setClientSecret, setSelectedAddress } = paymentSlice.actions
 
 export default paymentSlice.reducer

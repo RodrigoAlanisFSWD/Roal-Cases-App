@@ -23,6 +23,7 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
 
   const cart = useSelector((store: AppStore) => store.cart)
   const key = useSelector((store: AppStore) => store.payment.clientSecret)
+  const address = useSelector((store: AppStore) => store.payment.selectedAddress)
 
   const router = useRouter()
 
@@ -50,6 +51,13 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
           domain: "localhost",
           path: "/",
         })
+        if (address) {
+          cookies.set("roal_cases/address-id", address.id, {
+            domain: "localhost",
+            path: "/",
+          })
+        }
+
       }
     } catch (error) {
       console.log(error);
@@ -109,7 +117,7 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
           }
         }}>
           <Main>
-            <div className='flex flex-col shadow-lg py-5 rounded-sm w-2/5 h-auto items-center'>
+            <div className='flex flex-col shadow-lg py-5 rounded-sm w-full sm:w-3/5 lg:w-2/5 h-auto items-center'>
               <h2 className='text-3xl mb-5'>
                 Pago
               </h2>

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  console.log(request)
   const cookies = request.cookies;
 
   if (
@@ -15,5 +16,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile", "/dashboard/:path*"],
+  matcher: ["/user/:path*", "/dashboard/:path*", "/shopping/:path*"],
 };

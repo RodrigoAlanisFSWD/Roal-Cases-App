@@ -24,17 +24,17 @@ export const Addresses: FC<AddressesProps> = ({ selected, onChange }) => {
     }, [])
 
   return (
-    <div className='w-full h-[250px] p-5 flex flex-col justify-between'>
+    <div className='w-full min-h-[250px] p-5 flex flex-col justify-between'>
         <h2 className='text-xl'>
             Dirreciones De Envio
         </h2>
-        <div className='h-[100px] mb-3'>
+        <div className='min-h-[100px] mb-3 w-full flex sm:justify-start justify-center flex-wrap gap-5 py-5'>
             {
-                addresses.map((address: AddressType) => <Address selected={selected} onChange={onChange} key={address.id} {...address} />)
+                addresses.map((address: AddressType) => <Address selected={selected} onChange={onChange} key={address.id} {...address} /> )
             }
         </div>
         <Link href={"/shopping/addresses/create"}>
-            <h3 className='text-primary'>
+            <h3 className='text-primary text-lg'>
                 <FontAwesomeIcon icon={faAdd} className="mr-2" />
                 Agregar Nueva Direccion
             </h3>
