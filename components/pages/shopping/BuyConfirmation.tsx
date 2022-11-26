@@ -33,9 +33,15 @@ export const BuyConfirmation = () => {
 
   return (
     <Main>
-      <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-[1fr_300px]'>
-        <div className='p-5'>
-          <Addresses selected={address} onChange={(address: Address) => setAddress(address)} />
+      <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-1 md:grid-cols-[1fr_300px]'>
+        <div className='md:p-5'>
+          <Addresses selected={address} onChange={(newAddress: Address) => {
+            if (address?.id === newAddress.id) {
+                setAddress(null)
+            } else {
+              setAddress(newAddress)
+            }
+          }} />
         </div>
         <div className='bg-white shadow-md border flex flex-col'>
           <h2 className='text-2xl border-b border-gray-200 w-full p-5'>

@@ -35,4 +35,4 @@ export const store = configureStore<AppStore>({
     }
 })
 
-export const wrapper = createWrapper(() => store, { debug: true })
+export const wrapper = createWrapper(() => store)

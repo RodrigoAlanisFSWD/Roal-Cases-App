@@ -14,32 +14,32 @@ export const Address: FC<AddressProps> = (props) => {
     const { id, name, street, state, postalCode, selected, onChange } = props
 
   return (
-    <div className={`w-[450px] flex justify-between border border-gray-200 p-4 transition-all duration-300 ${selected?.id === id ? "bg-background" : ""}`}>
+    <div className={`max-w-[450px] w-[450px] flex justify-between border border-gray-200 p-4 transition-all duration-300 ${selected?.id === id ? "bg-background" : ""}`}>
         <CheckBox isActive={selected?.id === id} onChange={() => onChange({
             id: id
         })} />
-        <div>
-            <div className='flex'>
-                <h3 className='mr-5 text-xl text-secondary'>
+        <div className='max-w-[305px] ml-5 sm:ml-0'>
+            <div className='flex max-h-[28px] overflow-hidden'>
+                <h3 className='mr-5 text-lg sm:text-xl text-secondary'>
                     Nombre:
                 </h3>
-                <h3 className='text-xl'>
+                <h3 className='text-lg sm:text-xl'>
                     { name } 
                 </h3>
             </div>
-            <div className='flex'>
-                <h3 className='mr-5 text-xl text-secondary'>
+            <div className='flex max-h-[28px] overflow-hidden'>
+                <h3 className='mr-5 text-lg sm:text-xl text-secondary'>
                     Direccion:
                 </h3>
-                <h3 className='text-xl'>
-                    { street } 
+                <h3 className='text-lg sm:text-xl'>
+                    { street }  asdasdasdasd
                 </h3>
             </div>
-            <div className='flex'>
-                <h3 className='mr-5 text-xl text-secondary'>
+            <div className='flex max-h-[28px] overflow-hidden'>
+                <h3 className='mr-5 text-lg sm:text-xl text-secondary'>
                     Codigo Postal:
                 </h3>
-                <h3 className='text-xl'>
+                <h3 className='text-lg sm:text-xl'>
                     { postalCode } 
                 </h3>
             </div>

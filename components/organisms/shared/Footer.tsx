@@ -10,7 +10,7 @@ import {
 export const Footer = () => {
   return (
     <>
-      <footer className="w-full bg-dark p-8 grid grid-cols-1 lg:grid-cols-2 items-start py-14 px-24 gap-y-5">
+      <footer className="w-full bg-dark p-8 grid grid-cols-1 lg:grid-cols-2 items-start sm:py-14 sm:px-24 gap-y-5">
         <div className="w-full flex flex-col items-center lg:grid grid-cols-[1fr_25%] gap-3">
           <h3 className="text-white text-xl mb-4">NEWSPAPER</h3>
 
@@ -23,7 +23,7 @@ export const Footer = () => {
 
           <Button text="UNETE" className="w-full lg:col-[2/3] lg:row-[2/3]" />
         </div>
-        <div className="w-full flex flex-col items-center p-6 lg:col-[1/2] lg:p-0 lg:items-start">
+        <div className="w-full flex flex-col items-center sm:p-6 lg:col-[1/2] lg:p-0 lg:items-start">
           <h3 className="text-white text-xl mb-6">Vuelvete De Los Nuestros</h3>
 
           <div className="w-full flex justify-center lg:w-auto">
