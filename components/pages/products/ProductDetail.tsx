@@ -90,7 +90,7 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
                         </div>
                     </div>
                     <div className='flex flex-col items-center sm:items-start w-full sm:w-auto px-5'>
-                        <h2 className='text-3xl mt-5 font-bold'>
+                        <h2 className='text-3xl mt-5'>
                             {product.name}
                         </h2>
 

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { traduceOrderState } from '../../../../adapters/traductors'
 import { Order } from '../../../../models/order'
 import { Button } from '../../../atoms/shared/Button'
 
@@ -19,7 +20,7 @@ export const DashboardOrder: FC<Order> = ({ created_at, status, user, id }) => {
             </span>
 
             <span className='text-xl ml-5'>
-                Estado: { status }
+                Estado: { traduceOrderState(status) }
             </span>
 
             <Button text='Ver Detalle' className="ml-5 w-[200px]" onClick={() => router.push("/dashboard/orders/" + id)} />

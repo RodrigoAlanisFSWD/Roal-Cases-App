@@ -18,5 +18,5 @@ export const updateAddress = async (address: Address) => {
 } 
 
 export const deleteAddress = async (id: number) => {
-    return await api.delete("/address" + id)
+    return await api.delete("/addresses/" + id)
 } 

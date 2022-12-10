@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { traduceOrderState } from '../../../adapters/traductors'
 import { Order, OrderProduct } from '../../../models/order'
 import { Main } from '../../layouts/Main'
 import { OrderDetailProduct } from '../../molecules/user/OrderDetailProduct'
@@ -26,7 +27,7 @@ export const OrderDetail: FC<Order> = ({ products, status, total, user, address 
 
                 </span>
                 <span className='text-xl'>
-                    Estado: { status }
+                    Estado: { traduceOrderState(status) }
                 </span>
             </div>
         </div>

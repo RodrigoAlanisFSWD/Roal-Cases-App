@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { traduceOrderState } from '../../../adapters/traductors'
 import { Order as OrderType } from '../../../models/order'
 import { Button } from '../../atoms/shared/Button'
 
@@ -14,7 +15,7 @@ export const Order: FC<OrderType> = ({ created_at, total, status, id }) => {
                     Total: ${total}
                 </span>
                 <span className='text-lg ml-4'>
-                    Stado: {status}
+                    Estado: { traduceOrderState(status) }
                 </span>
                 <Link href={"/user/orders/" + id} className="h-[40px] flex items-center justify-center px-4 hover:bg-[#89a3c622] ml-5 transition-all duration-300">
                     <span className='text-primary text-xl bg-opacity-0 block rounded-sm text-center'>

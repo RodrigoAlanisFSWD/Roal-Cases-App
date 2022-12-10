@@ -1,13 +1,19 @@
 import { faBox, faBoxArchive, faBuilding, faMap, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { FC } from 'react'
 import * as Yup from "yup"
-import { createAddress } from '../../../../services/addressesService'
+import { Address } from '../../../../models/address'
+import { createAddress, updateAddress } from '../../../../services/addressesService'
 import { Button } from '../../../atoms/shared/Button'
 import { FormControl } from '../../../atoms/shared/FormControl'
 
-export const AddressForm = () => {
+interface AddressFormProps {
+    edit?: boolean;
+    address?: Address;
+}
+
+export const AddressForm: FC<AddressFormProps> = ({ edit, address }) => {
 
     const AddressSchema = Yup.object().shape({
         name: Yup.string()
@@ -25,15 +31,22 @@ export const AddressForm = () => {
     const router = useRouter()
 
     const submit = async (data: any) => {
-        await createAddress(data)
-
+        if (edit) {
+            await updateAddress({
+                ...address,
+                ...data,
+            })
+        } else {
+            await createAddress(data)
+        }
+        
         router.push("/shopping/confirmation")
     }
 
     return (
         <div className="w-full max-w-2xl h-auto flex flex-col items-center 2xl:shadow-md">
             <h2 className="text-3xl mb-5 sm:mb-14 lg:mt-14">
-                Añadir Direccion
+                { edit ? "Editar" : "Añadir" } Direccion
             </h2>
 
             <div className="w-full bg-background p-4 text-xl text-center text-secondary">
@@ -41,7 +54,9 @@ export const AddressForm = () => {
             </div>
 
             <Formik
-                initialValues={{
+                initialValues={edit ? {
+                    ...address,
+                } : {
                     name: "",
                     street: "",
                     apartment: "",
@@ -64,7 +79,7 @@ export const AddressForm = () => {
                         <FormControl className="mt-4 sm:col-span-2" placeholder="Estado" type="text"
                             name="state" icon={faMap} error={errors.state} touched={touched.state} />
 
-                        <Button onClick={handleSubmit} text="Agregar" className="mt-9 mb-4 sm:col-span-2" />
+                        <Button onClick={handleSubmit} text={edit ? "Editar" : "Agregar" } className="mt-9 mb-4 sm:col-span-2" />
 
                     </Form>
                 )}

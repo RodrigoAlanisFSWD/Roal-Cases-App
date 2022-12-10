@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { traduceOrderState } from '../../../../adapters/traductors'
 import { Order, OrderProduct } from '../../../../models/order'
 import { OrderDetailProduct } from '../../../molecules/user/OrderDetailProduct'
 
@@ -27,7 +28,7 @@ export const DashboardOrderDetail: FC<OrderDetailProps> = ({ order: { user, addr
                 Total: ${ total }
             </h3>
             <h3>
-                Estado: ${ status }
+                Estado: { traduceOrderState(status) }
             </h3>
         </div>
     </div>

@@ -10,6 +10,7 @@ import { Button } from '../../atoms/shared/Button';
 import products from '../../../redux/states/products';
 import { useRouter } from 'next/router';
 import { Protected } from '../../layouts/Protected';
+import { Alert } from '../../atoms/shared/Alert';
 
 interface CartProps {
     handleClose: () => void;
@@ -41,6 +42,11 @@ export const Cart: FC<CartProps> = ({ handleClose }) => {
                     </div>
 
                     <div className='w-full p-5 px-0 sm:px-10'>
+                        {
+                            cart.products.length < 1 ? (
+                                <Alert text='No Hay Productos En El Carrito' className='sm:mx-0 mx-5' />
+                            ) : null
+                        }
                         {
                             cart.products.map((product: CartProductType) => (<CartProduct key={product.id} {...product} />))
                         }
