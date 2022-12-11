@@ -6,22 +6,33 @@ import { Main } from '../../components/layouts/Main';
 import { AfterPayment } from '../../components/pages/shopping/AfterPayment';
 
 interface AfterPaymentProps {
-    session: string
+    clientSecret: string;
+    payment: string;
 }
 
-const AfterPaymentPage: NextPage<AfterPaymentProps> = ({ session }) => {
+const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
+    locale: "es"
+})
+
+const AfterPaymentPage: NextPage<AfterPaymentProps> = ({ clientSecret, payment }) => {
 
     return (
+        <Elements stripe={stripePromise} options={{
+            clientSecret,
+        }}>
             <Main>
-                <AfterPayment session={session} />
+                <AfterPayment payment={payment} />
             </Main>
+        </Elements>
 
     )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    if (!context.query["session_id"]) {
+    const cookies = context.req.cookies;
+
+    if (!cookies["roal_cases/payment-intent"]) {
         return {
             redirect: {
                 permanent: false,
@@ -31,10 +42,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     }
 
+    const clientSecret = cookies["roal_cases/payment-intent"]
 
     return {
         props: {
-            session: context.query["session_id"],
+            clientSecret,
+            payment: context.query.payment_intent_client_secret
         }
     }
 }

@@ -1,27 +1,58 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
-import api from '../../../interceptors/axios'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import Cookies from 'universal-cookie'
+import { setCart } from '../../../redux/states/cart'
+import { setClientSecret } from '../../../redux/states/payment'
+import { AppStore } from '../../../redux/store'
+import { getCart } from '../../../services/cartService'
+import { createOrder } from '../../../services/ordersService'
 import { Button } from '../../atoms/shared/Button'
 
-export const AfterPayment: FC<any> = ({ session }) => {
+export const AfterPayment: FC<any> = ({ payment }) => {
 
     const router = useRouter()
+    
+    const stripe = useStripe()
+
+    const cookies = new Cookies()
+
+    const dispatch = useDispatch()
+
+    const address = useSelector((store: AppStore) => store.payment.selectedAddress)
 
     useEffect(() => {
+        if (!stripe) return 
+        cookies.remove("roal_cases/payment-intent", {
+            domain: "localhost",
+            path: "/",
+          })
+
+          dispatch(setClientSecret(''))
+
         const init = async () => {
-            console.log(router.query);
-            try {
-                await api.post("http://localhost:8080/api/payments/finish/" + session)
-            } catch (error) {
-                console.log(error)
-                router.push("/")
-            }            
+            if (address) {
+                try {
+                    await stripe.retrievePaymentIntent(payment)
+    
+                    if (address) {
+                        await createOrder(address);
+                        dispatch(setCart(await getCart()))
+                    }
+                } catch (error) {
+                    console.log(error)
+                    router.push("/")
+                }   
+            }
+                     
         }
 
         init()
-    }, [])
+    }, [stripe])
 
   return (
     <div className='w-2/5 h-auto shadow-lg rounded-sm p-5 flex flex-col justify-between items-center'>

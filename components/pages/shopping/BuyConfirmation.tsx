@@ -2,23 +2,25 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import api from '../../../interceptors/axios'
 import { Address } from '../../../models/address'
 import { CartProduct } from '../../../models/cart'
 import { ProductImage } from '../../../models/product'
 import { confirmCart } from '../../../redux/states/cart'
-import { setSelectedAddress } from '../../../redux/states/payment'
+import { setSelectedAddress, setStatus } from '../../../redux/states/payment'
 import { AppStore } from '../../../redux/store'
 import { Alert } from '../../atoms/shared/Alert'
 import { Button } from '../../atoms/shared/Button'
 import { Main } from '../../layouts/Main'
 import { Addresses } from '../../organisms/shopping/Addresses'
-import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { createOrder } from '../../../services/ordersService'
-
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { CheckBox } from '../../atoms/shared/CheckBox'
+import * as types from '../../../redux/types/payment'
 
 export const BuyConfirmation = () => {
+
+  const stripe = useStripe()
+  const elements = useElements();
 
   const cookies = new Cookies()
 
@@ -33,6 +35,13 @@ export const BuyConfirmation = () => {
   const [address, setAddress] = useState<Address | null>(null)
   const [error, setError] = useState("")
 
+  const [confirmations, setConfirmations] = useState({
+    address: false,
+    payment: false,
+  })
+
+  const [paymentFilled, setPaymentFilled] = useState(false)
+
   const router = useRouter()
 
   const dispatch = useDispatch();
@@ -41,6 +50,10 @@ export const BuyConfirmation = () => {
     cookies.remove("roal_cases/address-id")
   }, [])
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const key = useSelector((store: AppStore) => store.payment.clientSecret)
+
   return (
     <Main>
       <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-1 md:grid-cols-[1fr_300px]'>
@@ -48,10 +61,36 @@ export const BuyConfirmation = () => {
           <Addresses selected={address} onChange={(newAddress: Address) => {
             if (address?.id === newAddress.id) {
               setAddress(null)
+              setConfirmations({
+                ...confirmations,
+                address: false
+              })
             } else {
               setAddress(newAddress)
+              setConfirmations({
+                ...confirmations,
+                address: true
+              })
             }
           }} />
+          <div className='sm:w-3/5 w-full p-5 flex flex-col'>
+            <h2 className='text-xl mb-5'>
+              Pago
+            </h2>
+            <PaymentElement onChange={(event) => {
+              if (event.complete) {
+                setPaymentFilled(true)
+              } else {
+                setPaymentFilled(false)
+              }
+            }} className='w-full' />
+            <Button text="Confirmar" className="mt-8 w-[250px]" disabled={!paymentFilled} onClick={() => {
+              setConfirmations({
+                ...confirmations,
+                payment: true
+              })
+            }} />
+          </div>
         </div>
         <div className='bg-white shadow-md border flex flex-col'>
           <h2 className='text-2xl border-b border-gray-200 w-full p-5'>
@@ -113,34 +152,71 @@ export const BuyConfirmation = () => {
             ))}
           </div>
           <div className='p-5'>
+            <div className='mb-5'>
+              <div className='flex items-center mb-2'>
+                <CheckBox isActive={confirmations.address} onChange={() => { }} />
+                <span className='ml-2'>
+                  Direccion
+                </span>
+              </div>
+              <div className='flex items-center'>
+                <CheckBox isActive={confirmations.payment} onChange={() => { }} />
+                <span className='ml-2'>
+                  Metodo De Pago
+                </span>
+              </div>
+            </div>
             <Button text='Continuar Con La Compra' onClick={async () => {
               if (cart.products.length < 1) {
                 setError("No Tienes Productos En El Carrito")
                 return
               }
-              if (!address) {
+              if (!confirmations.address) {
                 setError("Selecciona Una Direccion")
+                return
+              }
+
+              if (!confirmations.payment) {
+                setError("Ingresa El Metodo De Pago")
+                return
+              }
+
+              if (!address || !stripe || !elements) return
+
+              console.log(key);
+
+              cookies.set("roal_cases/payment-intent", key, {
+                domain: "localhost",
+                path: "/",
+                // expires: new Date(Date.now() + 60 * 1)
+              })
+
+              const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                  return_url: "http://localhost:3000/shopping/after-payment"
+                },
+                redirect: "if_required"
+              })
+
+              if (error && error.message) {
+                setErrorMessage(error.message)
                 return
               }
 
               dispatch(confirmCart())
               dispatch(setSelectedAddress(address))
+              dispatch(setStatus(types.SUCCESS))
 
-              const { data } = await axios.get("http://localhost:8080/api/payments/" + cart.id, {
-                headers: {
-                  Authorization: `Bearer sk_test_51LyNkyKPetfkQCPTULboJTU5KLygsDBuZIBUiaS2L1b4qnS8SOwkjiyT3vgjnPMQf8sN7Rpkwp6MOjel5Hph6esi00QxaW0vv7`
-                }
-              })
+              router.push("/shopping/after-payment?payment_intent_client_secret=" + key)
 
-              console.log(data)
-
-              const order = await createOrder(address, data.id)
-
-               router.replace(data.url)
             }
             } />
             {
               error.length > 1 && <Alert text={error} className='mt-5' />
+            }
+            {
+              errorMessage && <Alert text="Surgio Un Error En El Pago" className='mt-5' />
             }
 
           </div>
