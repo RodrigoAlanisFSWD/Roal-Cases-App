@@ -8,7 +8,8 @@ export enum OrderStatus {
     CONFIRMED = "CONFIRMED",
     FAILED = "FAILED",
     DELIVERED = "DELIVERED",
-    FINISHED = "FINISHED"
+    FINISHED = "FINISHED",
+    PAID = "PAID"
 }
 
 export interface Order {

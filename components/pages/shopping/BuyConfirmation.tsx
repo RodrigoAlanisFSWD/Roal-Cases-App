@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import api from '../../../interceptors/axios'
 import { Address } from '../../../models/address'
 import { CartProduct } from '../../../models/cart'
 import { ProductImage } from '../../../models/product'
@@ -12,9 +13,14 @@ import { Alert } from '../../atoms/shared/Alert'
 import { Button } from '../../atoms/shared/Button'
 import { Main } from '../../layouts/Main'
 import { Addresses } from '../../organisms/shopping/Addresses'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+import { createOrder } from '../../../services/ordersService'
 
 
 export const BuyConfirmation = () => {
+
+  const cookies = new Cookies()
 
   const cart = useSelector((store: AppStore) => store.cart)
 
@@ -31,13 +37,17 @@ export const BuyConfirmation = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    cookies.remove("roal_cases/address-id")
+  }, [])
+
   return (
     <Main>
       <div className='w-full max-h-full min-h-[calc(100vh-100px)] grid grid-cols-1 md:grid-cols-[1fr_300px]'>
         <div className='md:p-5'>
           <Addresses selected={address} onChange={(newAddress: Address) => {
             if (address?.id === newAddress.id) {
-                setAddress(null)
+              setAddress(null)
             } else {
               setAddress(newAddress)
             }
@@ -103,7 +113,7 @@ export const BuyConfirmation = () => {
             ))}
           </div>
           <div className='p-5'>
-            <Button text='Continuar Con La Compra' onClick={() => { 
+            <Button text='Continuar Con La Compra' onClick={async () => {
               if (cart.products.length < 1) {
                 setError("No Tienes Productos En El Carrito")
                 return
@@ -112,17 +122,27 @@ export const BuyConfirmation = () => {
                 setError("Selecciona Una Direccion")
                 return
               }
-            
+
               dispatch(confirmCart())
               dispatch(setSelectedAddress(address))
 
-              router.push("/shopping/payment")
+              const { data } = await axios.get("http://localhost:8080/api/payments/" + cart.id, {
+                headers: {
+                  Authorization: `Bearer sk_test_51LyNkyKPetfkQCPTULboJTU5KLygsDBuZIBUiaS2L1b4qnS8SOwkjiyT3vgjnPMQf8sN7Rpkwp6MOjel5Hph6esi00QxaW0vv7`
+                }
+              })
+
+              console.log(data)
+
+              const order = await createOrder(address, data.id)
+
+               router.replace(data.url)
             }
             } />
             {
               error.length > 1 && <Alert text={error} className='mt-5' />
             }
-            
+
           </div>
         </div>
 

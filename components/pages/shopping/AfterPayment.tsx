@@ -1,48 +1,19 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useStripe } from '@stripe/react-stripe-js'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import Cookies from 'universal-cookie'
-import { setCart } from '../../../redux/states/cart'
-import { getCart } from '../../../services/cartService'
-import { createOrder } from '../../../services/ordersService'
+import api from '../../../interceptors/axios'
 import { Button } from '../../atoms/shared/Button'
 
-export const AfterPayment: FC<any> = ({ payment }) => {
+export const AfterPayment: FC<any> = ({ session }) => {
 
     const router = useRouter()
-    
-    const stripe = useStripe()
-
-    const cookies = new Cookies()
-
-    const dispatch = useDispatch()
 
     useEffect(() => {
-        if (!stripe) return 
-        cookies.remove("roal_cases/payment-intent", {
-            domain: "localhost",
-            path: "/",
-          })
-
         const init = async () => {
+            console.log(router.query);
             try {
-                const intent = await stripe.retrievePaymentIntent(payment)
-
-                const address = cookies.get("roal_cases/address-id")
-
-                if (address) {
-                    cookies.remove("roal_cases/address-id", {
-                        domain: "localhost",
-                        path: "/",
-                      })
-                    const order = await createOrder({
-                        id: address
-                    });
-                    dispatch(setCart(await getCart()))
-                }
+                await api.post("http://localhost:8080/api/payments/finish/" + session)
             } catch (error) {
                 console.log(error)
                 router.push("/")
@@ -50,7 +21,7 @@ export const AfterPayment: FC<any> = ({ payment }) => {
         }
 
         init()
-    }, [stripe])
+    }, [])
 
   return (
     <div className='w-2/5 h-auto shadow-lg rounded-sm p-5 flex flex-col justify-between items-center'>

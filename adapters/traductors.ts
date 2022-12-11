@@ -12,5 +12,7 @@ export const traduceOrderState = (state: string) => {
             return "Finalisada"
         case OrderStatus.FAILED:
             return "Fallida"
+        case OrderStatus.PAID:
+            return "Pagada"
     }
 }
