@@ -17,11 +17,7 @@ export const groupsSlice = createSlice({
             ]
         },
         editGroup: (state: Group[], action: PayloadAction<Group>) => {
-            const index = state.findIndex((group: Group) => group.id === action.payload.id)
-
-            state[index] = action.payload;
-
-            return state
+            return state.map((group: Group) => group.id === action.payload.id ? action.payload : group)
         },
         removeGroup: (state: Group[], action: PayloadAction<number>) => {
             return state.filter((group: Group) => group.id !== action.payload)
@@ -35,7 +31,7 @@ export const groupsSlice = createSlice({
             return newState;
         },
         deleteSubCategoryFromGroup: (state: Group[], action: PayloadAction<any>) => {
-            return state.map((group: Group) => group.id === action.payload.groupId ? {...group, subCategories: group.subCategories?.filter((sub: SubCategory) => sub.id !== action.payload.id)} : group)
+            return state.map((group: Group) => group.id === action.payload.groupId ? {...group, subCategories: group.subCategories?.filter((sub: SubCategory) => sub.id !== action.payload.subCategory.id)} : group)
         },
         editSubCategoryFromGroup: (state: Group[], action: PayloadAction<any>) => {
             return state.map((group: Group) => group.id === action.payload.groupId ? {...group, subCategories: group.subCategories?.map((sub: SubCategory) => sub.id === action.payload.subCategory.id ? action.payload.subCategory : sub)} : group)

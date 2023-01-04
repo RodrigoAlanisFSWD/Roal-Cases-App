@@ -1,4 +1,4 @@
-import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
@@ -9,10 +9,9 @@ import { useSelector } from 'react-redux'
 import { Main } from '../../components/layouts/Main'
 import { Protected } from '../../components/layouts/Protected'
 import { Payment } from '../../components/pages/shopping/Payment'
-import { setClientSecret, setStatus } from '../../redux/states/payment'
+import { setClientSecret } from '../../redux/states/payment'
 import { AppStore } from '../../redux/store'
 import { getCart } from '../../services/cartService'
-import * as types from "../../redux/types/payment"
 import Cookies from 'universal-cookie'
 
 const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
@@ -22,8 +21,8 @@ const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJaw
 const PaymentPage: NextPage<any> = ({ apiKey }) => {
 
   const cart = useSelector((store: AppStore) => store.cart)
-  const key = useSelector((store: AppStore) => store.payment.clientSecret)
-  const address = useSelector((store: AppStore) => store.payment.selectedAddress)
+  const user = useSelector((store: AppStore) => store.auth.profile)
+  const { clientSecret, selectedDiscount, selectedShipment } = useSelector((store: AppStore) => store.payment)
 
   const router = useRouter()
 
@@ -32,31 +31,24 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
   const cookies = new Cookies()
 
   const init = async () => {
-    if (cart.products.length < 1 || !cart.confirmed) {
+    if (cart.products.length < 1) {
       router.push("/")
       return;
     }
     try {
-      if (apiKey && !key) {
+      if (apiKey && !clientSecret) {
         const cart = await getCart()
-        const secret = await axios.get("http://localhost:8080/api/payments/" + cart.id, {
+        const secret = await axios.post("http://localhost:8080/api/payments/", {
+          userId: user?.id,
+          shipmentId: selectedShipment?.id,
+          discountId: selectedDiscount ? selectedDiscount.id : 0
+        }, {
           headers: {
             Authorization: `Bearer sk_test_51LyNkyKPetfkQCPTULboJTU5KLygsDBuZIBUiaS2L1b4qnS8SOwkjiyT3vgjnPMQf8sN7Rpkwp6MOjel5Hph6esi00QxaW0vv7`
           }
         })
 
         dispatch(setClientSecret(secret.data.client_secret))
-        dispatch(setStatus(types.IN_PROCESS))
-        cookies.set("roal_cases/payment-intent", secret.data.client_secret, {
-          domain: "localhost",
-          path: "/",
-        })
-        if (address) {
-          cookies.set("roal_cases/address-id", address.id, {
-            domain: "localhost",
-            path: "/",
-          })
-        }
 
       }
     } catch (error) {
@@ -71,62 +63,53 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
 
   return <Protected>
     {
-      key ? (
+      clientSecret ? (
         <Elements stripe={stripePromise} options={{
-          clientSecret: key as string,
+          clientSecret: clientSecret as string,
           appearance: {
             theme: "flat",
             variables: {
-              fontFamily: 'sans-serif',
-              fontLineHeight: '1.5',
-              borderRadius: '5px',
-              colorBackground: '#F6F6F6',
-              colorPrimaryText: '#262626'
+              fontFamily: 'system-ui',
+              borderRadius: '2px',
+              colorBackground: '#fff',
+              colorPrimaryText: '#555555',
+              colorSuccess: "#89A3C6",
+              colorDanger: "#FF4B4B",
+              colorSuccessText: "#89A3C6",
+              colorDangerText: "#FF4B4B"
             },
             rules: {
               '.Block': {
                 backgroundColor: '#F6F6F6',
                 boxShadow: 'none',
                 padding: '12px',
+                color: '#555'
               },
               '.Input': {
                 padding: '12px',
+                border: '1px solid rgb(229 231 235)',
+                color: '#888'
+
               },
               '.Input:disabled, .Input--invalid:disabled': {
                 color: 'lightgray'
               },
-              '.Tab': {
-                padding: '10px 12px 8px 12px',
-                border: 'none'
-              },
-              '.Tab:hover': {
-                border: 'none',
-                boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)'
-              },
-              '.Tab--selected, .Tab--selected:focus, .Tab--selected:hover': {
-                border: 'none',
-                backgroundColor: '#fff',
-                boxShadow: '0 0 0 1.5px var(--colorPrimaryText), 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)'
+              '.Input:focus': {
+                boxShadow: 'none',
+                color: '#555'
               },
               '.Label': {
                 fontWeight: '500',
-
+                color: '#555',
               }
             },
             labels: "above"
           }
         }}>
           <Main>
-            <div className='flex flex-col shadow-lg py-5 rounded-sm w-full sm:w-3/5 lg:w-2/5 h-auto items-center'>
-              <h2 className='text-3xl mb-5'>
-                Pago
-              </h2>
-              <div className='flex justify-center items-center h-[50px] bg-background w-full'>
-                Llena Todo Los Campos Para Realizar Tu Pago
-              </div>
-              <Payment />
 
-            </div>
+            <Payment />
+
           </Main>
         </Elements>
       ) : (

@@ -9,7 +9,6 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../organisms/shared/Footer";
 
 export const Home = () => {
-
   return (
     <div>
       <Navbar />
@@ -23,10 +22,7 @@ export const Home = () => {
       <References />
       <div className="flex flex-col items-center w-full p-8">
         <div className="w-20 bg-primary flex rounded-full justify-center items-center h-20">
-          <FontAwesomeIcon
-            icon={faCheck}
-            className="text-white text-2xl"
-          />
+          <FontAwesomeIcon icon={faCheck} className="text-white text-2xl" />
         </div>
         <h3 className="mt-6 text-2xl">Te Garantisamos Calidad</h3>
         <p className="text-center mt-6 text-secondary max-w-lg">

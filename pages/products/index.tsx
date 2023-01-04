@@ -1,15 +1,11 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import React, { FC, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Protected } from '../../components/layouts/Protected'
 import { Products } from '../../components/pages/products/Products'
-import { Category, SubCategory } from '../../models/category'
+import { Category } from '../../models/category'
 import { Product } from '../../models/product'
 import api from '../../interceptors/axios'
 import { setProducts } from '../../redux/states/products'
-import { SearchParams } from '../../models/search'
 import { setCategory, setQuery, setSubCategories } from '../../redux/states/search'
 
 interface ProductsPageProps {

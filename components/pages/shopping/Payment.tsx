@@ -1,13 +1,13 @@
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import React, { FormEvent, useState } from 'react'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Alert } from '../../atoms/shared/Alert'
-import { Button } from '../../atoms/shared/Button'
 import * as types from "../../../redux/types/payment"
 import { setStatus } from '../../../redux/states/payment'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../../redux/store'
 import { useRouter } from 'next/router'
+import Cookies from 'universal-cookie'
+import { PaymentUI } from '../../organisms/shopping/PaymentUI'
 
 export const Payment = () => {
 
@@ -22,36 +22,40 @@ export const Payment = () => {
 
     const router = useRouter();
 
+    const cookies = new Cookies();
+
+
     const submit = async () => {
-        if (!stripe || !elements) {
+        if (!stripe || !elements || !key) {
             return;
         }
 
-        dispatch(setStatus(types.IN_CONFIRMATION))
+        cookies.set("roal_cases/payment-intent", key, {
+            domain: "localhost",
+            path: "/",
+        });
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/shopping/after-payment"
+                return_url: "http://localhost:3000/shopping/after-payment",
             },
-            redirect: "if_required"
-        })
+            redirect: "if_required",
+        });
 
-        if (error && error.message) { 
-            setErrorMessage(error.message) 
-            return
+        if (error && error.message) {
+            setErrorMessage(error.message);
+            return;
         }
+
+        dispatch(setStatus(types.SUCCESS))
 
         router.push("/shopping/after-payment?payment_intent_client_secret=" + key)
     }
 
-  return (
-    <div className='w-full p-5 flex flex-col'>
-        <PaymentElement className='w-full' />
-                <Button text="Finalizar Compra" className="mt-12" onClick={() => submit()} />
-                {
-                    errorMessage && <Alert text="La Targeta Utilizada No Completo El Pago. Intenta Con Otra" className='mt-5' />
-                }
-    </div>
-  )
+    
+
+    return (
+        <PaymentUI submit={submit} errorMessage={errorMessage} />
+    )
 }

@@ -10,7 +10,6 @@ import { getProfile, getTokens } from "../services/authService";
 import { authenticateUser, authInitial } from "../redux/states/auth";
 import * as authTypes from "../redux/types/auth";
 import { useRouter } from "next/router";
-import api from "../interceptors/axios";
 
 config.autoAddCss = false;
 
@@ -46,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     init()
-  }, []);
+  });
 
   return (
     <Provider store={store}>

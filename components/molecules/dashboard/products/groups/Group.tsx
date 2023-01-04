@@ -71,7 +71,8 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
                           onAction('EDIT', id, subCategory)
                         }} icon={faPencil} color="primary" className='ml-[10px]' />
                         <IconButton onClick={async () => {
-                          await deleteSubCategory(id)
+                          console.log(id)
+                          await deleteSubCategory(subCategory.id)
 
                           dispatch(deleteSubCategoryFromGroup({
                             subCategory: subCategory,

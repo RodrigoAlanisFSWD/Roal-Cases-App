@@ -1,6 +1,8 @@
 import { Address } from "./address";
+import { Discount } from "./discount";
 import { Model } from "./models";
 import { Product } from "./product";
+import { Shipment } from "./shipment";
 import { User } from "./user";
 
 export enum OrderStatus {
@@ -20,6 +22,8 @@ export interface Order {
     products: OrderProduct[];
     created_at: string;
     address: Address;
+    shipment: Shipment;
+    discount: Discount;
 }
 
 export interface OrderProduct {

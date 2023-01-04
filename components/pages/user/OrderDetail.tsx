@@ -1,10 +1,27 @@
 import React, { FC } from 'react'
 import { traduceOrderState } from '../../../adapters/traductors'
 import { Order, OrderProduct } from '../../../models/order'
+import { calcPercent } from '../../../utilities/prices'
 import { Main } from '../../layouts/Main'
 import { OrderDetailProduct } from '../../molecules/user/OrderDetailProduct'
 
-export const OrderDetail: FC<Order> = ({ products, status, total, user, address }) => {
+export const OrderDetail: FC<Order> = ({ products, status, total, user, address, shipment, discount }) => {
+
+    const getPrice = () => {
+        if (discount) {
+          return (
+            <>
+              <span className="text-primary mr-2">
+                - %{discount.percent} 
+              </span>
+              ${total - calcPercent(total, discount.percent)}
+            </>
+          )
+        } else {
+          return total
+        }
+      }
+    
   return (
     <Main>
         <div className='max-h-[calc(100vh-100px)] min-h-[calc(100vh-100px)] sm:h-auto w-full sm:w-3/4 shadow-lg'>
@@ -23,11 +40,14 @@ export const OrderDetail: FC<Order> = ({ products, status, total, user, address 
             </div>
             <div className='w-full flex justify-between border-t border-gray-300 p-5'>
                 <span className='text-xl'>
-                Total: ${ total }
+                Total: { getPrice() }
 
                 </span>
                 <span className='text-xl'>
                     Estado: { traduceOrderState(status) }
+                </span>
+                <span className='text-xl'>
+                    Tipo De Envio: { shipment.name } - ${ shipment.price }
                 </span>
             </div>
         </div>
