@@ -1,12 +1,10 @@
 import React, { FC } from 'react'
 import { Navbar } from '../molecules/shared/Navbar'
-import styles from '../../styles/layouts/Main.module.scss'
 import { Footer } from '../organisms/shared/Footer'
 
 export const Main: FC<any> = ({ children }) => {
   return (
-    <>
-      <div className="w-screen min-h-screen">
+        <div className="w-screen min-h-screen">
 
           <Navbar />
 
@@ -14,9 +12,7 @@ export const Main: FC<any> = ({ children }) => {
             {children}
           </div>
 
-        <Footer />
-      </div>
-    </>
-
+          <Footer />
+        </div>
   )
 }

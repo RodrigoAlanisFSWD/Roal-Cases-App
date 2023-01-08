@@ -7,6 +7,7 @@ import { Hero } from "../organisms/home/Hero";
 import { References } from "../organisms/home/References";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Footer } from "../organisms/shared/Footer";
+import { Modal } from "../layouts/Modal";
 
 export const Home = () => {
   return (

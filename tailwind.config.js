@@ -12,7 +12,7 @@ module.exports = {
         "secondary": "#525252",
         "dark": "#555555",
         "danger": "#FF4B4B",
-        "modal": "rgba(255, 255, 255, 0.5)",
+        "modal": "rgba(255, 255, 255, 0.75)",
         "modalBlack": "rgba(0, 0, 0, 0.5)",
       },
       gridTemplateColumns: {
