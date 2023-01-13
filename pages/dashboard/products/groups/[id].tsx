@@ -21,6 +21,7 @@ const EditGroupPage: NextPage<EditProps> = ({ group }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
+  try {
     const group = await getGroup(context.query.id as string)
 
     return {
@@ -28,6 +29,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           group
         }
     }
+  } catch (error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard/products/groups"
+      }
+    }
+  }
+    
 }
 
 export default EditGroupPage;

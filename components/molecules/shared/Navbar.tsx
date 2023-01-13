@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { getCart } from "../../../services/cartService";
 import { setCart } from "../../../redux/states/cart";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [extraMenu, setExtraMenu] = useState(false);
@@ -70,7 +71,9 @@ export const Navbar = () => {
               />
             </div>
           </div>
-          <h1 className="text-center font-vogue text-4xl mt-2">ROAL CASES</h1>
+          <Link href={"/"}>
+            <h1 className="text-center font-vogue text-4xl mt-2">ROAL CASES</h1>
+          </Link>
           <div onClick={() => {
             if (state === authTypes.UNAUNTHENTICATED) {
               router.push("/sign-in")

@@ -12,20 +12,30 @@ interface EditProps {
 const EditProductPage: NextPage<EditProps> = ({ product }) => {
   return (
     <Dashboard>
-        <ProductForm edit={true} product={product} />
+      <ProductForm edit={true} product={product} />
     </Dashboard>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
+  try {
     const product = await getProduct(context.query.slug as string)
 
     return {
-        props: {
-          product
-        }
+      props: {
+        product
+      }
     }
+  } catch (error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard/products"
+      }
+    }
+  }
+
+
 }
 
 export default EditProductPage;

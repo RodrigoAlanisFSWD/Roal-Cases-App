@@ -23,23 +23,17 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
     const [paymentFilled, setPaymentFilled] = useState(false)
 
     const getPrice = () => {
-        const price = selectedShipment ? cart.totalCost + selectedShipment?.price : cart.totalCost
-        if (selectedDiscount) {
-          return (
-            <>
-              <span className="text-primary mr-2">
-                - %{selectedDiscount.percent} 
-              </span>
-              ${price - calcPercent(price, selectedDiscount.percent)}
-            </>
-          )
-        } else {
-          return price
-        }
-      }
+        const price = selectedDiscount ? cart.totalCost - calcPercent(cart.totalCost, selectedDiscount.percent) : cart.totalCost
 
-  return (
-    <div className='w-full h-[calc(100vh-100px)] grid grid-cols-[60%_40%]'>
+        return price
+    }
+
+    const getTotalPrice = () => {
+        return selectedShipment ? getPrice() + selectedShipment?.price : getPrice()
+    }
+
+    return (
+        <div className='w-full h-[calc(100vh-100px)] grid grid-cols-[60%_40%]'>
             <div className='p-12'>
                 <h2 className='text-2xl mb-5'>
                     Datos De La Compra
@@ -72,7 +66,17 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
                 <div className="p-5 border-b border-gray-200 w-full">
                     <div className="flex justify-between mb-4">
                         <h3 className="text-xl">Precio:</h3>
-                        <h3 className="text-xl">${cart?.totalCost}</h3>
+                        <h3 className="text-xl">{
+                            selectedDiscount ?
+                                (
+                                    <>
+                                        ${cart.totalCost + ' '}
+                                        <span className="text-primary mr-2">
+                                            - %{selectedDiscount.percent}
+                                        </span>
+                                    </>
+                                ) : cart.totalCost
+                        }</h3>
                     </div>
                     <div className="flex justify-between">
                         <h3 className="text-xl">Envio:</h3>
@@ -82,7 +86,7 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
                 <div className="flex justify-between p-5 border-b border-gray-200">
                     <h3 className="text-xl">Total:</h3>
                     <h3 className="text-xl">
-                        { getPrice() }
+                        {getTotalPrice()}
                     </h3>
                 </div>
             </div>
@@ -105,5 +109,5 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
                 }
             </div>
         </div>
-  )
+    )
 }

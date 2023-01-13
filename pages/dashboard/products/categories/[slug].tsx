@@ -13,20 +13,28 @@ const EditCategoryPage: NextPage<EditProps> = ({ category }) => {
 
   return (
     <Dashboard>
-        <CategoryForm edit={true} category={category} />
+      <CategoryForm edit={true} category={category} />
     </Dashboard>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
+  try {
     const category = await getCategory(context.query.slug as string)
 
     return {
-        props: {
-          category
-        }
+      props: {
+        category
+      }
     }
+  } catch (error) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard/products/categories"
+      }
+    }
+  }
 }
 
 export default EditCategoryPage

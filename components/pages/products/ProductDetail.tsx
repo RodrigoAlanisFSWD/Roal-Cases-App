@@ -10,6 +10,7 @@ import { addProductToCart } from '../../../services/cartService'
 import { Counter } from '../../atoms/shared/Counter'
 import { useDispatch } from 'react-redux'
 import { setCart } from '../../../redux/states/cart'
+import products from '../../../redux/states/products'
 
 interface ProductDetailProps {
     product: Product
@@ -74,7 +75,7 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
     const [count, setCount] = useState(1)
 
-    return (
+    return product.images ? (
         <Main>
                 <div className='w-full sm:w-[calc(100%-50px)] md:w-4/5 lg:w-3/5 xl:w-2/5 max-h-full h-[100%] flex flex-col sm:flex-row justify-start items-center sm:items-start sm:justify-between sm:pb-0 pb-10'>
                     <div>
@@ -117,5 +118,5 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
 
                 </div>
         </Main>
-    )
+    ) : null
 }

@@ -17,7 +17,9 @@ const ProductDetailPage: NextPage<ProductDetailPageProps> = ({ product }) => {
 
 export async function getServerSideProps({ query }: any) {
 
-    const product = await getProduct(query) 
+    const product = await getProduct(query.slug) 
+
+    console.log(product)
 
     return {
         props: {

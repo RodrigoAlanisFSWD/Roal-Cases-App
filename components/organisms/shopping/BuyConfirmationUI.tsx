@@ -47,19 +47,13 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
   const [discount, setDiscount] = useState<Discount | null>(null); 
 
   const getPrice = () => {
-    const price = shipment ? cart.totalCost + shipment?.price : cart.totalCost
-    if (discount) {
-      return (
-        <>
-          <span className="text-primary mr-2">
-            - %{discount.percent} 
-          </span>
-          ${price - calcPercent(price, discount.percent)}
-        </>
-      )
-    } else {
-      return price
-    }
+    const price = discount ? cart.totalCost - calcPercent(cart.totalCost, discount.percent) : cart.totalCost
+
+    return price
+  }
+
+  const getTotalPrice = () => {
+    return shipment ? getPrice() + shipment?.price : getPrice()
   }
 
   return (
@@ -70,7 +64,17 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
  <div className="p-5 border-b border-gray-200 w-full">
    <div className="flex justify-between mb-4">
      <h3 className="text-xl">Precio:</h3>
-     <h3 className="text-xl">${cart?.totalCost}</h3>
+     <h3 className="text-xl">{
+      discount ?
+        (
+          <>
+            ${cart.totalCost + ' '}
+            <span className="text-primary mr-2">
+              - %{discount.percent} 
+            </span>
+          </>
+        ) : cart.totalCost
+     }</h3>
    </div>
    <div className="flex justify-between">
      <h3 className="text-xl">Envio:</h3>
@@ -80,7 +84,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
  <div className="flex justify-between p-5 border-b border-gray-200">
    <h3 className="text-xl">Total:</h3>
    <h3 className="text-xl">
-     {getPrice()}
+     {getTotalPrice()}
    </h3>
  </div>
  <div className="p-5 border-b border-gray-200">
