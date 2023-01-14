@@ -31,7 +31,7 @@ export const ShipmentForm: FC<ShipmentFormProps> = ({ edit, shipment }) => {
     const onSubmit = async (data: any) => {
         if (!edit) {
             const product = await createShipment({
-                ...data
+                ...data,
             })
         } else {
             const edited = await updateShipment({
@@ -46,7 +46,7 @@ export const ShipmentForm: FC<ShipmentFormProps> = ({ edit, shipment }) => {
     return (
         <div className="flex justify-center items-center h-full flex-col">
             <h2 className="text-4xl mb-14">
-                {!edit ? 'Crear Grupo' : 'Editar Grupo'}
+                {!edit ? 'Crear Tipo De Envio' : 'Editar Tipo De Envio'}
             </h2>
 
             <Formik

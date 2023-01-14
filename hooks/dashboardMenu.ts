@@ -68,6 +68,10 @@ export const useDashboardMenu = () => {
             {
               text: "Envios",
               href: "/dashboard/shipments"
+            },
+            {
+              text: "Descuentos",
+              href: "/dashboard/discounts"
             }
           ],
           header: {
