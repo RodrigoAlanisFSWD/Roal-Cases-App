@@ -10,6 +10,7 @@ import { getProfile, getTokens } from "../services/authService";
 import { authenticateUser, authInitial } from "../redux/states/auth";
 import * as authTypes from "../redux/types/auth";
 import { useRouter } from "next/router";
+import { AxiosInterceptor } from "../components/layouts/AxiosInterceptor";
 
 config.autoAddCss = false;
 
@@ -49,7 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <AxiosInterceptor>
+        <Component {...pageProps} />
+      </AxiosInterceptor>
     </Provider>
   );
 }

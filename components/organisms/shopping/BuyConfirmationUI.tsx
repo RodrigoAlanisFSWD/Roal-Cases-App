@@ -73,7 +73,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
               - %{discount.percent} 
             </span>
           </>
-        ) : cart.totalCost
+        ) : '$' + cart.totalCost
      }</h3>
    </div>
    <div className="flex justify-between">
@@ -84,7 +84,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
  <div className="flex justify-between p-5 border-b border-gray-200">
    <h3 className="text-xl">Total:</h3>
    <h3 className="text-xl">
-     {getTotalPrice()}
+     ${getTotalPrice()}
    </h3>
  </div>
  <div className="p-5 border-b border-gray-200">

@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { Dashboard } from '../../../components/layouts/Dashboard'
+import { Protected } from '../../../components/layouts/Protected'
 import { ModelForm } from '../../../components/pages/dashboard/models/ModelForm'
 import { Model } from '../../../models/models'
 import { getModel } from '../../../services/modelsService'
@@ -10,11 +11,11 @@ interface EditModelProps {
 }
 
 const EditModelPage: NextPage<EditModelProps> = ({ model }) => {
-  return (
-    <Dashboard>
-        <ModelForm edit={true} model={model} />
-    </Dashboard>
-  )
+    return (
+        <Dashboard>
+            <ModelForm edit={true} model={model} />
+        </Dashboard>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

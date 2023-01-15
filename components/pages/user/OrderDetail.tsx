@@ -44,12 +44,12 @@ export const OrderDetail: FC<Order> = ({ products, status, total, address, shipm
               discount ?
                 (
                   <>
-                    ${total + ' '}
+                    ${total - shipment.price + ' '}
                     <span className="text-primary mr-2">
                       - %{discount.percent}
                     </span>
                   </>
-                ) : total
+                ) : total - shipment.price
             }</h3>
           </div>
           <div className="flex justify-between">
