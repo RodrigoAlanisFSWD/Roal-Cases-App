@@ -68,7 +68,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
         </div>
         <div className="grid grid-cols-1 grid-rows-[60px_1fr] max-h-screen">
           <DashboardHeader />
-          <div className="p-6 h-[calc(100vh-60px)] overflow-y-scroll">
+          <div className="md:p-6 h-[calc(100vh-60px)] overflow-y-scroll">
             {children}
           </div>
         </div>

@@ -74,23 +74,25 @@ export const Navbar = () => {
           <Link href={"/"}>
             <h1 className="text-center font-vogue text-4xl mt-2">ROAL CASES</h1>
           </Link>
-          <div onClick={() => {
-            if (state === authTypes.UNAUNTHENTICATED) {
-              router.push("/sign-in")
-            }
+          <div className="flex justify-end">
+            <div className="w-[auto] flex justify-end items-center cursor-pointer duration-300 text-secondary transition-all hover:text-primary" onClick={() => {
+              if (state === authTypes.UNAUNTHENTICATED) {
+                router.push("/sign-in")
+              }
 
-            if (state === authTypes.AUTHENTICATED) {
-              setShowCart(!showCart)
-            }
-          }} className="w-full flex justify-end items-center cursor-pointer duration-300 text-secondary transition-all hover:text-primary">
-            <span className="mr-2 text-xl">
-              {products.length}
-            </span>
-            <FontAwesomeIcon
-              icon={faShoppingCart}
-              className="text-2xl"
+              if (state === authTypes.AUTHENTICATED) {
+                setShowCart(!showCart)
+              }
+            }}>
+              <span className="mr-2 text-xl">
+                {products.length}
+              </span>
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="text-2xl"
 
-            />
+              />
+            </div>
           </div>
         </div>
         <menu
@@ -104,7 +106,7 @@ export const Navbar = () => {
                   <NavLink text="Iniciar Sesion" href={"/sign-in"} icon={faUser} />
                 ) : (
                   <>
-                  <NavLink text="Cuenta" href={"/user"} icon={faUser} />
+                    <NavLink text="Cuenta" href={"/user"} icon={faUser} />
                   </>
                 )
             }

@@ -55,7 +55,8 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
             }
         
             if (
-              error.response.states === 403
+              error.response.status === 403 &&
+              error.response.msg === 'Email Not Confirmed'
             ) {
                 router.push("/verify_email")
             }
