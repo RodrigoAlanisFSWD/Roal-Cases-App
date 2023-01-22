@@ -20,7 +20,8 @@ module.exports = {
         "navbar": "repeat(3, 1fr)"
       },
       fontFamily: {
-        "vogue": "Vogue"
+        "vogue": "Vogue",
+        'roboto': "Roboto"
       },
       animation: {
         "hideMenu": "hideMenu 300ms forwards",

@@ -1,43 +1,57 @@
 import React from "react";
-import styles from "../../../styles/Hero.module.scss";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import 'swiper/css/pagination';
+import "swiper/css/effect-creative";
+import { Autoplay, EffectCoverflow, EffectCreative, Pagination } from "swiper";
+
+import styles from '../../../styles/Hero.module.scss'
 import { Button } from "../../atoms/shared/Button";
-import { HeroPolaroid } from "../../atoms/home/HeroPolaroid";
 
 export const Hero = () => {
   return (
-    <div className={styles["hero"]}>
-      <div style={{"maxWidth": "1500px"}} className="w-full h-full lg:max-h-screen lg:p-12 p-6 pt-32 flex flex-col lg:flex-row-reverse lg:justify-between items-center">
-        <div className={styles["hero__images"]}>
-          <HeroPolaroid
-            image="/case.svg"
-            size="xl"
-            className={styles["hero__image-xl"]}
-          />
-          <HeroPolaroid
-            image="/case.svg"
-            size="md"
-            className={styles["hero__image-md"]}
-          />
-          <HeroPolaroid
-            image="/case.svg"
-            size="sm"
-            className={styles["hero__image-sm"]}
-          />
+    <div className="lg:h-[calc(100vh-100px)] mt-[100px] grid lg:grid-cols-8 grid-cols-1">
+      <div className="w-full p-8 sm:p-12 lg:p-5 col-span-4 xl:col-span-5 flex flex-col justify-center lg:items-start items-center lg:border-none border-t border-gray-200">
+        <div className="sm:w-[500px]  lg:ml-12 flex flex-col lg:items-start items-center">
+          <h2 className="sm:text-4xl text-3xl md:text-5xl font-roboto mb-5 lg:text-start text-center">
+            Ahora compra con nuestra nueva pagina web!
+          </h2>
+          <h3 className="text-xl md:text-2xl lg:text-start text-center">
+            Crea una cuenta, compra cualquiera de nuestros productos y obten seguimiento activo de tu orden.
+          </h3>
+          <Button text="Empezar a comprar" className="sm:w-[300px] mt-8" />
         </div>
 
-        <div className="mt-14 w-3/4 lg:w-2/4 xl:w-1/3 flex flex-col items-center lg:items-start justify-end">
-          <h2 className="mb-8 text-3xl text-secondary">Titulo Del Hero</h2>
-
-          <p className="hidden lg:block mb-6 text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem a
-            atque, sed incidunt sit magnam. Aliquid, eveniet cum vel
-            exercitationem quod minus dolore nisi cupiditate vero animi omnis
-            itaque fuga!
-          </p>
-
-          <Button text="Ver Mas" className="lg:w-60 md:w-72" />
-        </div>
       </div>
+      <Swiper
+        modules={[Pagination, EffectCreative, Autoplay]}
+        slidesPerView={'auto'}
+        className={`w-full h-[calc(100vh-100px)] lg:w-full lg:h-full lg:border-l border-gray-300 col-span-4 xl:col-span-3  ${styles.slider} row-start-1 row-end-2 lg:row-start-auto lg:row-end-auto`}
+        pagination={{ clickable: true }}
+        loop={true}
+        centeredSlides={true}
+        spaceBetween={30}
+        effect={"creative"}
+        autoplay={{ delay: 5000 }}
+        creativeEffect={{
+          prev: {
+            translate: ["-100%", 0, 0],
+            scale: 0.8
+          },
+          next: {
+            translate: ["100%", 0, 0],
+            scale: 0.8
+          },
+        }}
+      >
+        <SwiperSlide className="flex items-center">
+          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px]" />
+        </SwiperSlide>
+        <SwiperSlide className="flex items-center">
+          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px]" />
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 };
