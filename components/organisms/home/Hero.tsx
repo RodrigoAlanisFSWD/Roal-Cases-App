@@ -12,9 +12,9 @@ import { Button } from "../../atoms/shared/Button";
 export const Hero = () => {
   return (
     <div className="lg:h-[calc(100vh-100px)] mt-[100px] grid lg:grid-cols-8 grid-cols-1">
-      <div className="w-full p-8 sm:p-12 lg:p-5 col-span-4 xl:col-span-5 flex flex-col justify-center lg:items-start items-center lg:border-none border-t border-gray-200">
-        <div className="sm:w-[500px]  lg:ml-12 flex flex-col lg:items-start items-center">
-          <h2 className="sm:text-4xl text-3xl md:text-5xl font-roboto mb-5 lg:text-start text-center">
+      <div className="w-full p-8 sm:p-12 lg:p-5 col-span-4 flex flex-col justify-center lg:items-start items-center lg:border-none border-t border-gray-200">
+        <div className="sm:w-[500px] lg:w-[650px]  lg:ml-12 flex flex-col lg:items-start items-center">
+          <h2 className="sm:text-4xl text-3xl md:text-6xl font-roboto mb-5 lg:text-start text-center">
             Ahora compra con nuestra nueva pagina web!
           </h2>
           <h3 className="text-xl md:text-2xl lg:text-start text-center">
@@ -27,13 +27,13 @@ export const Hero = () => {
       <Swiper
         modules={[Pagination, EffectCreative, Autoplay]}
         slidesPerView={'auto'}
-        className={`w-full h-[calc(100vh-100px)] lg:w-full lg:h-full lg:border-l border-gray-300 col-span-4 xl:col-span-3  ${styles.slider} row-start-1 row-end-2 lg:row-start-auto lg:row-end-auto`}
+        className={`w-full h-[calc(100vh-100px)] lg:w-full lg:h-full lg:border-l border-gray-300 col-span-4 ${styles.slider} row-start-1 row-end-2 lg:row-start-auto lg:row-end-auto`}
         pagination={{ clickable: true }}
         loop={true}
         centeredSlides={true}
         spaceBetween={30}
         effect={"creative"}
-        autoplay={{ delay: 5000 }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
         creativeEffect={{
           prev: {
             translate: ["-100%", 0, 0],
@@ -46,10 +46,10 @@ export const Hero = () => {
         }}
       >
         <SwiperSlide className="flex items-center">
-          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px]" />
+          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px] 2xl:w-[325px]" />
         </SwiperSlide>
         <SwiperSlide className="flex items-center">
-          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px]" />
+          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px] 2xl:w-[325px]" />
         </SwiperSlide>
       </Swiper>
     </div>

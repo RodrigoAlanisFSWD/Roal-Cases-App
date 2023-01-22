@@ -4,7 +4,13 @@ import React, { FC, useState } from 'react'
 import { OrderProduct } from '../../../models/order'
 import { Product, ProductImage } from '../../../models/product'
 
-export const ReviewProduct: FC<OrderProduct> = ({ count, model, product: { images, price, name } }) => {
+interface ReviewProductProps extends OrderProduct {
+    addReview: (product: any, stars: number) => void
+}
+
+export const ReviewProduct: FC<ReviewProductProps> = ({ count, model, product, addReview, id }) => {
+
+    const { images, price, name } = product
 
     const stars = [
         0,
@@ -15,6 +21,16 @@ export const ReviewProduct: FC<OrderProduct> = ({ count, model, product: { image
     ]
 
     const [starsSelected, setStarsSelected] = useState(0)
+
+    const selectStars = (stars: number) => {
+        setStarsSelected(stars)
+
+        addReview({
+            id,
+            product,
+            count
+        }, stars)
+    }
 
     return (
         <div className='w-full p-5 flex border-t border-gray-200'>
@@ -27,7 +43,7 @@ export const ReviewProduct: FC<OrderProduct> = ({ count, model, product: { image
                     <div>
                         {
                             stars.map((value: number, index: number) => (
-                                <FontAwesomeIcon onClick={() => setStarsSelected(index + 1)} icon={faStar} className={index + 1 <= starsSelected ? 'text-primary' : 'text-gray-300'} />
+                                <FontAwesomeIcon onClick={() => selectStars(index + 1)} icon={faStar} className={index + 1 <= starsSelected ? 'text-primary' : 'text-gray-300'} />
                             ))
                         }
                     </div>
