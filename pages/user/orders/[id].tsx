@@ -1,38 +1,31 @@
 import { GetServerSideProps, NextPage } from 'next';
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
 import { Protected } from '../../../components/layouts/Protected';
 import { OrderDetail } from '../../../components/pages/user/OrderDetail';
 import api from '../../../interceptors/axios';
 import { Order } from '../../../models/order'
 import { getOrder } from '../../../services/ordersService';
 
-interface OrderDetailProps {
-    order: Order;
-}
+const OrderDetailPage: NextPage = () => {
 
-const OrderDetailPage: NextPage<OrderDetailProps> = ({ order }) => {
+  const [order, setOrder] = useState<Order | null>(null)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    (async () => {
+        setOrder(await getOrder(router.query.id))
+    })
+  })
+
   return (
     <Protected>
-        <OrderDetail {...order} />
+        {
+            order ? <OrderDetail {...order} /> : <></>
+        }
     </Protected>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-    const cookies = context.req.cookies;
-
-    const order = await api.get<Order>("/orders/" + context.query.id, {
-        headers: {
-            Authorization: `Bearer ${cookies["roal_cases/access_token"]}`
-        }
-    })
-
-    return {
-        props: {
-            order: order.data
-        }
-    }
 }
 
 export default OrderDetailPage

@@ -5,7 +5,7 @@ export const getAddresses = async () => {
     return (await api.get("/addresses")).data
 }
 
-export const getAddress = async (id: number) => {
+export const getAddress = async (id: any) => {
     return (await api.get("/addresses/" + id)).data
 }
 

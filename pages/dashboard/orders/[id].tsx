@@ -1,37 +1,30 @@
 import { GetServerSideProps, NextPage } from 'next';
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
 import { Dashboard } from '../../../components/layouts/Dashboard'
 import { DashboardOrderDetail } from '../../../components/pages/dashboard/orders/DashboardOrderDetail';
-import api from '../../../interceptors/axios';
 import { Order } from '../../../models/order';
+import { getOrder } from '../../../services/ordersService';
 
-interface OrderDetailProps {
-    order: Order
-}
+const OrdersPage: NextPage = () => {
 
-const OrdersPage: NextPage<OrderDetailProps> = ({ order }) => {
-  return (
-    <Dashboard>
-        <DashboardOrderDetail order={order} />
-    </Dashboard>
-  )
-}
+    const [order, setOrder] = useState<Order | null>(null)
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+    const router = useRouter()
 
-    const cookies = context.req.cookies;
-
-    const order = await api.get<Order>("/orders/" + context.query.id, {
-        headers: {
-            Authorization: `Bearer ${cookies["roal_cases/access_token"]}`
-        }
+    useEffect(() => {
+        (async () => {
+            setOrder(await getOrder(router.query.id))
+        })
     })
 
-    return {
-        props: {
-            order: order.data
-        }
-    }
+    return (
+        <Dashboard>
+            {
+                order ? <DashboardOrderDetail order={order} /> : <></>
+            }
+        </Dashboard>
+    )
 }
 
 export default OrdersPage;

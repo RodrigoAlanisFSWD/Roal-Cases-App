@@ -19,8 +19,6 @@ export async function getServerSideProps({ query }: any) {
 
     const product = await getProduct(query.slug) 
 
-    console.log(product)
-
     return {
         props: {
             product,

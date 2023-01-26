@@ -9,7 +9,7 @@ export const getOrders = async () => {
   return (await api.get("/orders")).data;
 };
 
-export const getOrder = async (id: number) => {
+export const getOrder = async (id: any) => {
   return (await api.get("/orders/" + id)).data;
 }
 
