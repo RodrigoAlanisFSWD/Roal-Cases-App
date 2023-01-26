@@ -15,7 +15,7 @@ const OrdersPage: NextPage = () => {
     useEffect(() => {
         (async () => {
             setOrder(await getOrder(router.query.id))
-        })
+        })()
     })
 
     return (

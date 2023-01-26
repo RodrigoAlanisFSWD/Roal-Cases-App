@@ -7,71 +7,57 @@ import { logoutUser } from "../../redux/states/auth";
 import { getTokens, refreshToken, setTokens } from "../../services/authService";
 
 export const AxiosInterceptor: FC<any> = ({ children }) => {
-    const router = useRouter()
+  const router = useRouter()
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    useEffect(() => {
+  api.interceptors.request.use(async (config: AxiosRequestConfig) => {
+    const tokens = getTokens();
 
-        const reqInterceptor = async (config: AxiosRequestConfig) => {
-            const tokens = getTokens();
-        
-            config.headers = {
-              Authorization: `Bearer ${tokens.access_token}`,
-              ...config.headers,
-            };
-            return config;
-          }
+    config.headers = {
+      Authorization: `Bearer ${tokens.access_token}`,
+      ...config.headers,
+    };
+    return config;
+  }, (error: any) => {
+    Promise.reject(error);
+  })
 
-          const reqErrorInterceptor = (error: any) => {
-            Promise.reject(error);
-          }
+  api.interceptors.response.use((res) => {
+    return res
+  }, async (error: any) => {
+    console.log(error);
+    const originalRequest = error.config;
+    console.log(error, "asdas");
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      error.config.url != "/auth/refresh"
+    ) {
+      try {
+        originalRequest._retry = true;
 
-          const resInterceptor = (response: any) => {
-            return response
-          }
+        const newTokens = await refreshToken();
+        console.log(newTokens)
+        setTokens(newTokens)
+        originalRequest.headers["Authorization"] =
+          "Bearer " + newTokens.access_token;
+        return api(originalRequest);
+      } catch (error) {
+        dispatch(logoutUser())
+        router.push("/sign-in")
+      }
 
-          const resErrorInterceptor =  async (error: any) => {
-            const originalRequest = error.config;
-            if (
-              error.response.status === 401 &&
-              !originalRequest._retry &&
-              error.config.url != "/auth/refresh"
-            ) {
-              try {
-                originalRequest._retry = true;
-        
-                const newTokens = await refreshToken();
-                console.log(newTokens)
-                setTokens(newTokens)
-                originalRequest.headers["Authorization"] =
-                  "Bearer " + newTokens.access_token;
-                return api(originalRequest);
-              } catch (error) {
-                  dispatch(logoutUser())
-                  router.push("/sign-in")
-              }
-        
-            }
-        
-            if (
-              error.response.status === 403 &&
-              error.response.msg === 'Email Not Confirmed'
-            ) {
-                router.push("/verify_email")
-            }
-            return Promise.reject(error);
-          }
+    }
 
-          const resInterceptors = api.interceptors.response.use(resInterceptor, resErrorInterceptor)
-          const reqInterceptors = api.interceptors.request.use(reqInterceptor, reqErrorInterceptor)
+    if (
+      error.response.status === 403 &&
+      error.response.msg === 'Email Not Confirmed'
+    ) {
+      router.push("/verify_email")
+    }
+    return Promise.reject(error);
+  })
 
-          return () => {
-            api.interceptors.response.eject(resInterceptors)
-            api.interceptors.request.eject(reqInterceptors)
-          }
-
-    }, [router])
-
-    return children
+  return children
 }

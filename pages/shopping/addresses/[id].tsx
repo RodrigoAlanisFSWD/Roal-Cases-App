@@ -19,7 +19,7 @@ const EditAddress: NextPage = () => {
     useEffect(() => {
         (async () => {
             setAddress(await getAddress(router.query.id))
-        })
+        })()
     })
 
     return (
@@ -31,23 +31,6 @@ const EditAddress: NextPage = () => {
             </Main>
         </Protected>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-    const cookies = context.req.cookies;
-
-    const address = await api.get<Address>("/addresses/" + context.query.id, {
-        headers: {
-            Authorization: `Bearer ${cookies["roal_cases/access_token"]}`
-        }
-    })
-
-    return {
-        props: {
-            address: address.data,
-        }
-    }
 }
 
 export default EditAddress

@@ -2,6 +2,7 @@ import { Address } from "./address";
 import { Discount } from "./discount";
 import { OrderReview, Review } from "./review";
 import { Shipment } from "./shipment";
+import { User } from "./user";
 
 export interface Sell {
     id: number;
@@ -12,4 +13,5 @@ export interface Sell {
     productReviews: Review[];
     review: OrderReview;
     created_at: string;
+    user: User;
 }
