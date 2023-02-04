@@ -16,3 +16,7 @@ export const getOrder = async (id: any) => {
 export const updateOrder = async (order: Order) => {
   return (await api.put("/orders/", order)).data
 }
+
+export const setShipmentUrl = async (order: Order) => {
+  return (await api.post("/orders/setUrl", order)).data
+}

@@ -17,7 +17,7 @@ const OrderDetailPage: NextPage = () => {
     (async () => {
         setOrder(await getOrder(router.query.id))
     })()
-  })
+  }, [])
 
   return (
     <Protected>

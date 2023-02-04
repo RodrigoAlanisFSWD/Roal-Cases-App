@@ -73,7 +73,7 @@ export const FinishOrder: FC<FinishOrderProps> = ({ order }) => {
 
     return (
         <div className='min-h-[calc(100vh-100px)] w-full shadow-lg grid grid-cols-12'>
-            <div className='col-span-4 w-full border-r border-gray-200'>
+            <div className='col-span-12 md:col-span-4 w-full border-r border-gray-200'>
                 <h2 className='text-2xl m-5'>
                     Reseñas
                 </h2>
@@ -83,7 +83,7 @@ export const FinishOrder: FC<FinishOrderProps> = ({ order }) => {
                     }
                 </div>
             </div>
-            <div className='col-span-8'>
+            <div className='col-span-12 md:col-span-8'>
                 <h2 className='text-2xl p-5'>
                     Finalizar Orden
                 </h2>

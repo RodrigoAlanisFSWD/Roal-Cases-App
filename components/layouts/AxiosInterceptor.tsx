@@ -26,9 +26,7 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
   api.interceptors.response.use((res) => {
     return res
   }, async (error: any) => {
-    console.log(error);
     const originalRequest = error.config;
-    console.log(error, "asdas");
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
@@ -38,7 +36,6 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
         originalRequest._retry = true;
 
         const newTokens = await refreshToken();
-        console.log(newTokens)
         setTokens(newTokens)
         originalRequest.headers["Authorization"] =
           "Bearer " + newTokens.access_token;
@@ -52,8 +49,10 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
 
     if (
       error.response.status === 403 &&
-      error.response.msg === 'Email Not Confirmed'
+      !originalRequest._retry &&
+      error.response.data.msg === 'Email Not Confirmed'
     ) {
+      originalRequest._retry = true;
       router.push("/verify_email")
     }
     return Promise.reject(error);

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { traduceOrderState } from '../../../adapters/traductors'
@@ -7,7 +8,7 @@ import { Button } from '../../atoms/shared/Button'
 import { Main } from '../../layouts/Main'
 import { OrderDetailProduct } from '../../molecules/user/OrderDetailProduct'
 
-export const OrderDetail: FC<Order> = ({ products, status, total, address, shipment, discount, id }) => {
+export const OrderDetail: FC<Order> = ({ products, status, total, address, shipment, discount, id, shipmentUrl }) => {
 
   const getPrice = () => {
     const price = discount ? ((total - shipment.price) - calcPercent(total - shipment.price, discount.percent)) + shipment.price : total
@@ -37,8 +38,17 @@ export const OrderDetail: FC<Order> = ({ products, status, total, address, shipm
           <span className='text-xl'>
             Estado: {traduceOrderState(status)}
           </span>
-          <span className='text-xl'>
-            Tipo De Envio: {shipment.name} - ${shipment.price}
+          <span className='text-xl flex items-center'>
+            <span>
+              Tipo De Envio: {shipment.name} - ${shipment.price}
+            </span>
+            {
+              shipmentUrl ? (
+                <Link href={shipmentUrl} target="_blank">
+                    <Button className="w-[200px] ml-5" text="Seguimiento" />
+                </Link>
+              ) : null
+            }
           </span>
         </div>
         <div className="p-5 border-b border-t border-gray-200 w-full">

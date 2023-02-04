@@ -24,6 +24,7 @@ export interface Order {
     address: Address;
     shipment: Shipment;
     discount: Discount;
+  shipmentUrl: string;
 }
 
 export interface OrderProduct {

@@ -10,8 +10,8 @@ interface ReviewProps {
 export const Review: FC<ReviewProps> = ({ review, setReview, inmutable }) => {
     return (
         <>
-            <div className='w-full p-5 text-xl flex items-center'>
-                <h3 className='mr-5'>
+            <div className={`${inmutable ? 'py-5' : 'p-5'} text-xl flex sm:items-center w-[500px] sm:justify-between sm:flex-row flex-col`}>
+                <h3 className='mr-5 sm:mb-0 mb-5'>
                     Tu pedido llego en el tiempo estimado ?
                 </h3>
                 <YesOrNo value={review.shipping} onChange={(payload: boolean) => {
@@ -23,8 +23,8 @@ export const Review: FC<ReviewProps> = ({ review, setReview, inmutable }) => {
                     }
                 }} />
             </div>
-            <div className='w-full p-5 text-xl flex items-center'>
-                <h3 className='mr-5'>
+            <div className={`${inmutable ? 'py-5' : 'p-5'} text-xl flex sm:items-center w-[500px] sm:justify-between sm:flex-row flex-col`}>
+                <h3 className='mr-5 sm:mb-0 mb-5'>
                     Tu pedido llego en buenas condiciones ?
                 </h3>
                 <YesOrNo value={review.condition} onChange={(payload: boolean) => {
@@ -36,8 +36,8 @@ export const Review: FC<ReviewProps> = ({ review, setReview, inmutable }) => {
                     }
                 }} />
             </div>
-            <div className='w-full p-5 text-xl flex items-center'>
-                <h3 className='mr-5'>
+            <div className={`${inmutable ? 'py-5' : 'p-5'} text-xl flex sm:items-center w-[500px] sm:justify-between sm:flex-row flex-col`}>
+                <h3 className='mr-5 sm:mb-0 mb-5'>
                     Tu pedido es lo que esperabas ?
                 </h3>
                 <YesOrNo value={review.order} onChange={(payload: boolean) => {
@@ -49,8 +49,8 @@ export const Review: FC<ReviewProps> = ({ review, setReview, inmutable }) => {
                     }
                 }} />
             </div>
-            <div className='w-full p-5 text-xl flex items-center'>
-                <h3 className='mr-5'>
+            <div className={`${inmutable ? 'py-5' : 'p-5'} text-xl flex sm:items-center w-[500px] sm:justify-between sm:flex-row flex-col`}>
+                <h3 className='mr-5 sm:mb-0 mb-5'>
                     La app funciono de manera satisfactoria ?
                 </h3>
                 <YesOrNo value={review.app} onChange={(payload: boolean) => {

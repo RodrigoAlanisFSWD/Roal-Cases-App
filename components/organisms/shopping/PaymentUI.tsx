@@ -86,7 +86,7 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
                 <div className="flex justify-between p-5 border-b border-gray-200">
                     <h3 className="text-xl">Total:</h3>
                     <h3 className="text-xl">
-                        {getTotalPrice()}
+                        ${getTotalPrice()}
                     </h3>
                 </div>
             </div>

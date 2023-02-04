@@ -6,8 +6,12 @@ import { calcPercent } from '../../../../utilities/prices'
 import { OrderDetailProduct } from '../../../molecules/user/OrderDetailProduct'
 import { Select } from '../../../molecules/shared/Select'
 import { Button } from '../../../atoms/shared/Button'
-import { updateOrder } from '../../../../services/ordersService'
+import { setShipmentUrl, updateOrder } from '../../../../services/ordersService'
 import { useRouter } from 'next/router'
+import { Form, Formik } from 'formik'
+import * as Yup from 'yup'
+import { FormControl } from '../../../atoms/shared/FormControl'
+import { faBox } from '@fortawesome/free-solid-svg-icons'
 
 interface OrderDetailProps {
     order: Order
@@ -42,6 +46,11 @@ export const DashboardOrderDetail: FC<OrderDetailProps> = ({ order }) => {
         return price
     }
 
+    const shipmentUrlSchema = Yup.object().shape({
+        'url': Yup.string()
+            .required()
+    })
+
     return (
         <div>
             <div className='flex justify-between items-center border-b border-gray-300 py-3 md:px-0 px-3'>
@@ -65,7 +74,7 @@ export const DashboardOrderDetail: FC<OrderDetailProps> = ({ order }) => {
                     Tipo De Envio: {shipment.name}
                 </h3>
             </div>
-            
+
             <div className="p-5 border-b border-t border-gray-200 w-full">
                 <div className="flex justify-between mb-4">
                     <h3 className="text-xl">Precio:</h3>
@@ -96,7 +105,7 @@ export const DashboardOrderDetail: FC<OrderDetailProps> = ({ order }) => {
                 <Select items={orderStates.filter((state: SelectItemType) => state.key !== status)} placeholder="Estado" selectedItem={selectedState} onSelect={(item) => setSelectedState(item)} width="w-full md:w-[400px] lg:w-[600px]" className='w-full md:w-[400px] lg:w-[600px]' />
                 <Button text='Actualizar' className="md:ml-5 md:mt-0 mt-5 h-[55px] w-full md:w-[232px]" onClick={async () => {
                     if (selectedState) {
-                        const updated = await updateOrder({
+                        await updateOrder({
                             ...order,
                             status: selectedState.key as OrderStatus,
                         })
@@ -136,6 +145,37 @@ export const DashboardOrderDetail: FC<OrderDetailProps> = ({ order }) => {
                 </ul>
 
             </div>
+            {
+                status === OrderStatus.DELIVERED ? (
+                    <div className='flex md:flex-row flex-col p-5 border-t border-gray-200'>
+                        <Formik
+                            initialValues={{
+                                url: order.shipmentUrl ? order.shipmentUrl : '' 
+                            }}
+                            validationSchema={shipmentUrlSchema}
+                            onSubmit={async (values) => {
+                                await setShipmentUrl({
+                                    ...order,
+                                    shipmentUrl: values.url
+                                })
+
+                                router.push("/dashboard/orders/" + order.id)
+                            }}
+
+                        >
+                            {
+                                ({ errors, touched, handleSubmit }) => (
+                                    <Form className='w-full flex'>
+                                        <FormControl error={errors.url} touched={touched.url} icon={faBox} placeholder="Url De Seguimiento" name='url' className='w-full md:w-[400px] lg:w-[600px]' type='text' />
+                                        <Button text='Enviar' className="md:ml-5 md:mt-0 mt-5 h-[55px] w-full md:w-[232px]" onClick={handleSubmit} />
+                                    </Form>
+                                )
+                            }
+                        </Formik>
+                    </div>
+                ) : null
+            }
+
         </div>
     )
 }
