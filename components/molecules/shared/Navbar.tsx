@@ -85,7 +85,7 @@ export const Navbar = () => {
               }
             }}>
               <span className="mr-2 text-xl">
-                {products.length}
+                {products && products.length}
               </span>
               <FontAwesomeIcon
                 icon={faShoppingCart}

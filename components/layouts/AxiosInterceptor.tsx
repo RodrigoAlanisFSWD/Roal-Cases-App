@@ -30,7 +30,8 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
-      error.config.url != "/auth/refresh"
+      error.config.url != "/auth/refresh" &&
+      error.response.data.msg === 'JWT TOKEN ERROR'
     ) {
       try {
         originalRequest._retry = true;

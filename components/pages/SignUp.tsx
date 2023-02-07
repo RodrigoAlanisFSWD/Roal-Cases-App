@@ -41,7 +41,7 @@ export const SignUp: FC = () => {
             </Modal>
             <Modal
                 title="Verificacion De Correo"
-                show={!showModal}
+                show={showModal}
                 onClose={() => router.push("/")}
                 toolbar={
                     <Button text="Continuar" onClick={() => {

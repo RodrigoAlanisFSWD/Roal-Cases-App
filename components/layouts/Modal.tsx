@@ -44,7 +44,7 @@ export const Modal: FC<ModalProps> = ({ children, error, title, toolbar, show, o
                 <motion.div variants={dropIn}
                     initial="hidden"
                     animate="visible"
-                    exit="exit" className={`bg-white shadow-sm rounded-md w-2/6 h-2/6`}>
+                    exit="exit" className={`bg-white shadow-sm rounded-md w-2/6 h-2/6 max-h-[250px]`}>
                     {
                         error
                             ?
