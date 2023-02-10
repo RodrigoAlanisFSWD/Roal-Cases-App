@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -20,8 +22,9 @@ module.exports = {
         "navbar": "repeat(3, 1fr)"
       },
       fontFamily: {
-        "vogue": "Vogue",
-        'roboto': "Roboto"
+        "vogue": ['var(--vogue)'],
+        "champagne": ['var(--champagne)'],
+        'roboto': ['var(--roboto)']
       },
       animation: {
         "hideMenu": "hideMenu 300ms forwards",

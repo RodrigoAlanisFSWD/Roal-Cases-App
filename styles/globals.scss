@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Champagne';
+  font-family: var(--champagne);
   font-weight: 300;
 }
 
@@ -30,16 +30,6 @@ body::-webkit-scrollbar {
 body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-@font-face {
-  font-family: 'Vogue';
-  src: url("../assets/fonts/vogue/Vogue.ttf");
-}
-
-@font-face {
-  font-family: 'Champagne';
-  src: url("../assets/fonts/champagne/Champagne\ &\ Limousines.ttf");
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');

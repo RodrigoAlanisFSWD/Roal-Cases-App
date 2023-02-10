@@ -38,7 +38,7 @@ export const BuyConfirmation = () => {
                   className='flex border-b border-gray-200 p-5 w-full'
                 >
                   <Image
-                    width="50"
+                    width="75"
                     height="100"
                     src={
                       product.product.images.find(
@@ -46,7 +46,7 @@ export const BuyConfirmation = () => {
                       )?.imageUrl || ""
                     }
                     alt={product.product.name}
-                    className="w-[50px]"
+                    className="w-[60px]"
                   />
                   <div className="ml-5">
                     <h3 className="text-xl">{product.product.name}</h3>

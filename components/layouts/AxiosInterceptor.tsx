@@ -26,12 +26,13 @@ export const AxiosInterceptor: FC<any> = ({ children }) => {
   api.interceptors.response.use((res) => {
     return res
   }, async (error: any) => {
+    console.log(error.config)
     const originalRequest = error.config;
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
       error.config.url != "/auth/refresh" &&
-      error.response.data.msg === 'JWT TOKEN ERROR'
+      error.config.url != "/auth/sign-in"
     ) {
       try {
         originalRequest._retry = true;

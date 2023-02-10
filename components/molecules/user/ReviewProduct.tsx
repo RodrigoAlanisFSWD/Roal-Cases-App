@@ -1,5 +1,6 @@
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
 import React, { FC, useState } from 'react'
 import { OrderProduct } from '../../../models/order'
 import { Product, ProductImage } from '../../../models/product'
@@ -34,7 +35,7 @@ export const ReviewProduct: FC<ReviewProductProps> = ({ count, model, product, a
 
     return (
         <div className='w-full p-5 flex border-t border-gray-200'>
-            <img src={images.find((i: ProductImage) => i.type === "MAIN")?.imageUrl} alt={name} className="w-[50px]" />
+            <Image src={images.find((image: ProductImage) => image.type === "MAIN")?.imageUrl as string} className="w-[50px]" width="50" height="100" alt={name} />
             <div className='flex flex-col sm:flex-row justify-between w-full'>
                 <div className='flex flex-col ml-5'>
                     <h3 className='text-lg sm:text-xl'>

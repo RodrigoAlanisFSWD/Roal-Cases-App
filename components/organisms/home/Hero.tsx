@@ -8,6 +8,7 @@ import { Autoplay, EffectCoverflow, EffectCreative, Pagination } from "swiper";
 
 import styles from '../../../styles/Hero.module.scss'
 import { Button } from "../../atoms/shared/Button";
+import Image from "next/image";
 
 export const Hero = () => {
   return (
@@ -46,10 +47,10 @@ export const Hero = () => {
         }}
       >
         <SwiperSlide className="flex items-center">
-          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px] 2xl:w-[325px]" />
+          <Image src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
         </SwiperSlide>
         <SwiperSlide className="flex items-center">
-          <img src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="" className="sm:w-[250px] 2xl:w-[325px]" />
+          <Image src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
         </SwiperSlide>
       </Swiper>
     </div>
