@@ -7,25 +7,31 @@ import api from '../../../interceptors/axios';
 import { Order } from '../../../models/order'
 import { getOrder } from '../../../services/ordersService';
 
-const OrderDetailPage: NextPage = () => {
+const OrderDetailPage: NextPage<any> = ({ id }) => {
 
   const [order, setOrder] = useState<Order | null>(null)
 
-  const router = useRouter()
-
   useEffect(() => {
     (async () => {
-        setOrder(await getOrder(router.query.id))
+      setOrder(await getOrder(id))
     })()
   }, [])
 
   return (
     <Protected>
-        {
-            order ? <OrderDetail {...order} /> : <></>
-        }
+      {
+        order ? <OrderDetail {...order} /> : <></>
+      }
     </Protected>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      id: context.query.id
+    }
+  }
 }
 
 export default OrderDetailPage

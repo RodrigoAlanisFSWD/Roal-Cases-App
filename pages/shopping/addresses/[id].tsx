@@ -10,15 +10,13 @@ import { Address } from '../../../models/address'
 import { getAddress } from '../../../services/addressesService'
 import { getOrder } from '../../../services/ordersService'
 
-const EditAddress: NextPage = () => {
+const EditAddress: NextPage<any> = ({ id }) => {
 
     const [address, setAddress] = useState<Address | null>(null)
 
-    const router = useRouter()
-
     useEffect(() => {
         (async () => {
-            setAddress(await getAddress(router.query.id))
+            setAddress(await getAddress(id))
         })()
     })
 
@@ -32,5 +30,13 @@ const EditAddress: NextPage = () => {
         </Protected>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+      props: {
+        id: context.query.id
+      }
+    }
+  }
 
 export default EditAddress

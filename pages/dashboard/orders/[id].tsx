@@ -6,15 +6,13 @@ import { DashboardOrderDetail } from '../../../components/pages/dashboard/orders
 import { Order } from '../../../models/order';
 import { getOrder } from '../../../services/ordersService';
 
-const OrdersPage: NextPage = () => {
+const OrdersPage: NextPage<any> = ({ id }) => {
 
     const [order, setOrder] = useState<Order | null>(null)
 
-    const router = useRouter()
-
     useEffect(() => {
         (async () => {
-            setOrder(await getOrder(router.query.id))
+            setOrder(await getOrder(id))
         })()
     })
 
@@ -26,5 +24,13 @@ const OrdersPage: NextPage = () => {
         </Dashboard>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+      props: {
+        id: context.query.id
+      }
+    }
+  }
 
 export default OrdersPage;

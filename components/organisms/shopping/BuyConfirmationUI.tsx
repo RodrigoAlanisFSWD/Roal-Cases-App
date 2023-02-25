@@ -98,15 +98,14 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
      }}
      validationSchema={discountSchema}
      onSubmit={async (values: any) => {
-       const res = await getDiscountFromCode(values.code)
+      try {
+        const res = await getDiscountFromCode(values.code)
 
-       if (res) {
-         setDiscountError(false)
-         setDiscount(res)
-       } else {
-         setDiscount(null)
-         setDiscountError(true)
-       }
+      } catch (error) {
+        setDiscount(null)
+        setDiscountError(true)
+      }
+       
      }}
    >
      {({ touched, errors, handleSubmit }) => (
@@ -116,7 +115,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
          <Button text="Aplicar" onClick={handleSubmit} />
 
          {
-           discountError ? <Alert text="El Codio No Existe" className="mt-3" /> : null
+           discountError ? <Alert text="El Descuento Es Invalido" className="mt-3" /> : null
          }
        </Form>
      )}

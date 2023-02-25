@@ -1,13 +1,12 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { Shipment } from '../../../../models/shipment';
 import * as Yup from 'yup'
-import { updateProduct } from '../../../../services/productsService';
 import { createShipment, updateShipment } from '../../../../services/shipmentService';
 import { Button } from '../../../atoms/shared/Button';
 import { FormControl } from '../../../atoms/shared/FormControl';
-import { faBox, faCalendar, faList, faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faCalendar, faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
 
 interface ShipmentFormProps {
     edit?: boolean;
@@ -30,11 +29,11 @@ export const ShipmentForm: FC<ShipmentFormProps> = ({ edit, shipment }) => {
 
     const onSubmit = async (data: any) => {
         if (!edit) {
-            const product = await createShipment({
+            await createShipment({
                 ...data,
             })
         } else {
-            const edited = await updateShipment({
+            await updateShipment({
                 ...shipment,
                 ...data,
             })

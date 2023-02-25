@@ -9,13 +9,13 @@ export const DashboardHeader = () => {
     const profile = useSelector((store: AppStore) => store.auth.profile)
 
     return (
-        <div className="w-full bg-white border-b border-[#292929] grid grid-cols-[1fr_200px] h-[60px]">
+        <div className="w-full bg-white border-b border-[#292929] flex justify-end">
             <div className="">
 
             </div>
             <div className="flex justify-end items-center">
                 <FontAwesomeIcon icon={faBell} className="text-xl mr-6 text-dark sm:text-2xl" />
-                <div className="w-[175px] hidden justify-center items-center border-l border-[#292929] px-6 h-full sm:flex">
+                <div className="min-w-[175px] hidden justify-center items-center border-l border-[#292929] px-6 h-full sm:flex">
                     <FontAwesomeIcon icon={faUserCircle} className="text-4xl text-dark mr-4" />
                     <div>
                         <h3>
