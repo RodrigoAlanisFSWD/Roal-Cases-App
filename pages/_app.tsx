@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { AxiosInterceptor } from "../components/layouts/AxiosInterceptor";
 import localFont from '@next/font/local'
 import Head from "next/head";
+import { AnimatePresence } from "framer-motion";
 
 config.autoAddCss = false;
 
@@ -65,7 +66,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       ></meta>
         </Head>
         <main className={`${vogue.variable} ${champagne.variable}`}>
-          <Component {...pageProps} />
+          <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)} mode="wait" initial={false}>
+            <Component {...pageProps} />
+          </AnimatePresence>
         </main>
       </AxiosInterceptor>
     </Provider>

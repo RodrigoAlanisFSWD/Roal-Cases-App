@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
 import { Navbar } from '../molecules/shared/Navbar'
 import { Footer } from '../organisms/shared/Footer'
+import { motion } from 'framer-motion'
 
 export const Main: FC<any> = ({ children }) => {
   return (
-        <div className="w-screen min-h-screen">
+        <motion.div initial={{ x: 500, opacity: 1 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 500, opacity: 1 }} className="w-screen min-h-screen">
 
           <Navbar />
 
@@ -13,6 +16,6 @@ export const Main: FC<any> = ({ children }) => {
           </div>
 
           <Footer />
-        </div>
+        </motion.div>
   )
 }

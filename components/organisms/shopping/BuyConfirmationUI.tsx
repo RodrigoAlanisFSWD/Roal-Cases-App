@@ -40,7 +40,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
 
   const discountSchema = Yup.object().shape({
     code: Yup.string()
-      .min(8)
+      .min(5)
       .required()
   })
 
@@ -100,6 +100,8 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
      onSubmit={async (values: any) => {
       try {
         const res = await getDiscountFromCode(values.code)
+
+        setDiscount(res)
 
       } catch (error) {
         setDiscount(null)
