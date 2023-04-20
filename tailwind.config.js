@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        bounce200: 'bounce 1s infinite 200ms',
+        bounce400: 'bounce 1s infinite 400ms',
+    },
       colors: {
         "background": "#F6F6F6",
         "primary": "#89A3C6",
