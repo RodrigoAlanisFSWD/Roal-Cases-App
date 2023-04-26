@@ -10,7 +10,7 @@ export const PageLoader = () => {
         exit={{ x: 500, opacity: 1 }} className='w-screen h-screen flex justify-center items-center'>
             <div className='flex flex-col justify-center items-center'>
                 <h1 className='text-xl'>
-                    Loading Page...
+                    Cargando Pagina...
                 </h1>
 
                 <div className='flex mt-5 text-secondary'>

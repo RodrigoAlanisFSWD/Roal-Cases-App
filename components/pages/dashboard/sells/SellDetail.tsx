@@ -101,7 +101,7 @@ export const SellDetail: FC<SellDetailProps> = ({ sell: { user, created_at, prod
                     ${getPrice()}
                 </h3>
             </div>
-            <div className='p-5'>
+            {/* <div className='p-5'>
                 <h2 className='text-xl mb-5'>
                     Direccion De Envio:
                 </h2>
@@ -131,7 +131,7 @@ export const SellDetail: FC<SellDetailProps> = ({ sell: { user, created_at, prod
 
                 </ul>
 
-            </div>
+            </div> */}
             <div className="flex flex-col justify-between p-5 border-t border-gray-200">
                 <h2 className='text-xl mb-5'>
                     Reseña

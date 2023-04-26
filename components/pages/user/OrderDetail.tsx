@@ -45,7 +45,7 @@ export const OrderDetail: FC<Order> = ({ products, status, total, address, shipm
             {
               shipmentUrl ? (
                 <Link href={shipmentUrl} target="_blank">
-                    <Button className="w-[200px] ml-5" text="Seguimiento" />
+                  <Button className="w-[200px] ml-5" text="Seguimiento" />
                 </Link>
               ) : null
             }
@@ -77,12 +77,15 @@ export const OrderDetail: FC<Order> = ({ products, status, total, address, shipm
             ${getPrice()}
           </h3>
         </div>
-        <div className='p-5 flex lg:flex-row flex-col items-center justify-between'>
-          <p className='text-lg'>
-            El producto ya a sido enviado, si lo a recibido porfavor precione en Finalizar Orden.
-          </p>
-          <Button text='Finalizar Compra' className="w-[250px] ml-5 lg:mt-0 mt-5" onClick={() => router.push("/user/orders/finish/" + id)} />
-        </div>
+        {
+          status == 'DELIVERED' ? <div className='p-5 flex lg:flex-row flex-col items-center justify-between'>
+            <p className='text-lg'>
+              El producto ya a sido enviado, si lo a recibido porfavor precione en Finalizar Orden.
+            </p>
+            <Button text='Finalizar Compra' className="w-[250px] ml-5 lg:mt-0 mt-5" onClick={() => router.push("/user/orders/finish/" + id)} />
+          </div> : null
+        }
+
       </div>
 
     </Main>

@@ -102,6 +102,7 @@ export const BuyConfirmationUI: FC<BuyConfirmationUIProps> = ({ shipment, setShi
         const res = await getDiscountFromCode(values.code)
 
         setDiscount(res)
+        setDiscountError(false)
 
       } catch (error) {
         setDiscount(null)
