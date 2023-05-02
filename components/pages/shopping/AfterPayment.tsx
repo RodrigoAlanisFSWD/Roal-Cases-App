@@ -35,7 +35,7 @@ export const AfterPayment: FC<any> = ({ payment }) => {
     }
 
     cookies.remove("roal_cases/payment-intent", {
-      domain: "roal-cases-server.onrender.com",
+      domain: "roal-cases-client.onrender.com",
       path: "/",
     });
 
