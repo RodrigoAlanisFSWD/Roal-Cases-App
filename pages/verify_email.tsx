@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import { Protected } from "../components/layouts/Protected";
 import { VerifyEmail } from "../components/pages/VerifyEmail";
 import { User } from "../models/user";
-import { useUserService } from "../services2/userService";
-import { StoreState } from "../store";
+import { AppStore } from "../redux/store";
+
 
 const VerifyEmailPage: NextPage = () => {
 
-    const user = useSelector((store: StoreState) => store.auth.profile)
+    const user = useSelector((store: AppStore) => store.auth.profile)
 
     const router = useRouter();
   

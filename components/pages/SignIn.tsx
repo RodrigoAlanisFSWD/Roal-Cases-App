@@ -7,6 +7,7 @@ import { Main } from "../layouts/Main";
 import { useDispatch } from "react-redux";
 import { authInitial } from "../../redux/states/auth";
 import { AppStore } from "../../redux/store";
+import { Modal } from "../layouts/Modal";
 
 export const SignIn: FC = () => {
 
@@ -18,11 +19,14 @@ export const SignIn: FC = () => {
             <Main>
                 <SignInForm/>
             </Main>
-            {
-                state === authTypes.AUTH_ERROR ?
-                    <AlertModal onClose={() => dispatch(authInitial(authTypes.UNAUNTHENTICATED))} title="Iniciar Sesion" body={errorMsg}/>
-                    : null
-            }
+            <Modal
+            title="Error Al Iniciar Sesion" show={state === authTypes.AUTH_ERROR} onClose={() => dispatch(authInitial(authTypes.UNAUNTHENTICATED))}
+            error={true}
+            >
+                <h2 className="text-lg">
+                    Ha ocurrido un error al intentar iniciar sesion, verifica que las credenciales sean correctas o intentalo mas tarde.
+                </h2>
+            </Modal>
         </>
 
     )

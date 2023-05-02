@@ -10,9 +10,10 @@ import * as authTypes from "../../redux/types/auth";
 import { AlertModal } from '../molecules/shared/AlertModal';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { getProfile, verifyEmail } from '../../services/authService';
+import { getProfile, setTokens, verifyEmail } from '../../services/authService';
 import { authenticateUser, authError, authInitial } from '../../redux/states/auth';
 import { AppStore } from '../../redux/store';
+import { Modal } from '../layouts/Modal';
 
 export const VerifyEmail = () => {
 
@@ -32,6 +33,8 @@ export const VerifyEmail = () => {
         try {
             const tokens = await verifyEmail(values.code)
 
+            setTokens(tokens)
+
             const profile = await getProfile()
 
             dispatch(authenticateUser({
@@ -39,7 +42,7 @@ export const VerifyEmail = () => {
                 profile,
             }))
 
-            router.push("/profile")
+            router.push("/user")
         } catch (error) {
             dispatch(authError("El Codigo Es Incorrecto"))
         }
@@ -75,11 +78,14 @@ export const VerifyEmail = () => {
                     </Formik>
                 </div>
             </Main>
-            {
-                state === authTypes.AUTH_ERROR ?
-                    <AlertModal onClose={() => authInitial(authTypes.AUTHENTICATED)} title="Verificar Correo" body={errorMsg} />
-                    : null
-            }
+            <Modal
+                title="Verificacion" show={state === authTypes.AUTH_ERROR} onClose={() => dispatch(authInitial(authTypes.AUTHENTICATED))}
+                error={true}
+            >
+                <h2 className="text-lg">
+                    { errorMsg }
+                </h2>
+            </Modal>
         </>
 
     )

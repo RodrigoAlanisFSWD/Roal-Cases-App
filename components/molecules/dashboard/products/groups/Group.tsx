@@ -9,6 +9,8 @@ import { deleteSubCategoryFromGroup, removeGroup } from '../../../../../redux/st
 import { deleteGroup } from '../../../../../services/groupsService'
 import { deleteSubCategory } from '../../../../../services/subCategoriesService'
 import { IconButton } from '../../../../atoms/shared/IconButton'
+import { DashboardModal } from '../../../../layouts/DashboardModal'
+import { Modal } from '../../../../layouts/Modal'
 
 interface GroupProps extends GroupType {
   onAction: (action: string, groupId: number, subCategory: SubCategory | null) => void;
@@ -19,6 +21,7 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
   const router = useRouter()
 
   const [showCategories, setShowCategories] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const dispatch = useDispatch()
 
@@ -40,9 +43,14 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
             router.push("/dashboard/products/groups/" + id)
           }} icon={faPencil} color="primary" className='ml-[10px]' />
           <IconButton onClick={async () => {
-            await deleteGroup(id)
+            try {
+              await deleteGroup(id)
 
             dispatch(removeGroup(id))
+            } catch (error) {
+                setError("Este grupo no puede ser eliminado debido a que contiene una o mas subcategorias.")
+            }
+            
           }} icon={faTrash} color="danger" className='ml-[10px]' />
         </div>
       </div>
@@ -71,12 +79,17 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
                           onAction('EDIT', id, subCategory)
                         }} icon={faPencil} color="primary" className='ml-[10px]' />
                         <IconButton onClick={async () => {
-                          await deleteSubCategory(id)
+                          try {
+                            await deleteSubCategory(subCategory.id)
 
-                          dispatch(deleteSubCategoryFromGroup({
-                            subCategory: subCategory,
-                            groupId: id
-                          }))
+                            dispatch(deleteSubCategoryFromGroup({
+                              subCategory: subCategory,
+                              groupId: id
+                            }))
+                          } catch (error) {
+                            setError("Esta subcategoria no puede ser eliminada por que esta ligada a uno o mas productos.")
+                          }
+                          
                         }} icon={faTrash} color="danger" className='ml-[10px]' />
                       </div>
                     </article>
@@ -88,7 +101,12 @@ export const Group: FC<GroupProps> = ({ name, id, subCategories, onAction }) => 
           )
         }
       </AnimatePresence>
+      <DashboardModal error={true} show={error ? true : false} onClose={() => setError(null)} title="Error Al Eliminar">
+        <h2 className='text-lg'>
+          { error }
+        </h2>
+    </DashboardModal>
     </>
-
+    
   )
 }

@@ -7,9 +7,11 @@ import { Form, Formik } from "formik";
 import * as Yup from 'yup';
 import { useSelector } from "react-redux";
 import { authenticateUser, authError, authLoading } from "../../../redux/states/auth";
-import { getProfile, setTokens, signUp } from "../../../services/authService";
+import { getProfile, sendVerification, setTokens, signUp } from "../../../services/authService";
 import { useDispatch } from "react-redux";
 import { AppStore } from "../../../redux/store";
+import { createCart } from "../../../services/cartService";
+import { setCart } from "../../../redux/states/cart";
 
 export const SignUpForm: FC = () => {
 
@@ -43,6 +45,10 @@ export const SignUpForm: FC = () => {
 
             const profile = await getProfile()
 
+            const cart = await createCart()
+
+            dispatch(setCart(cart))
+
             dispatch(authenticateUser({
                 ...tokens,
                 profile: profile
@@ -50,7 +56,7 @@ export const SignUpForm: FC = () => {
 
             authLoading(false)
 
-            router.push("/")
+            await sendVerification(tokens)
         } catch (error) {
             dispatch(authError("El Correo O Contraseña Son Invalidos"))
         }

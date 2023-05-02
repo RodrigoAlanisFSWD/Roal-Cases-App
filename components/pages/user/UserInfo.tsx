@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Order as OrderType } from '../../../models/order'
 import { AppStore } from '../../../redux/store'
 import { getOrders } from '../../../services/ordersService'
+import { Alert } from '../../atoms/shared/Alert'
 import { Main } from '../../layouts/Main'
 import { Order } from '../../molecules/shopping/Order'
 
@@ -40,6 +41,9 @@ export const UserInfo = () => {
             <div>
               {
                 orders.map((order: OrderType) => <Order key={order.id} {...order} />)
+              }
+              {
+                orders.length < 1 ? <Alert text='No Hay Ordenes Activas' className='mt-5'/> : null
               }
             </div>
           </div>

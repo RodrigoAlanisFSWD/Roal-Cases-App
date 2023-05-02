@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../atoms/shared/Button";
+import styles from '../../../styles/Hero.module.scss'
 
 // Import Swiper React components
 import { Autoplay, Pagination } from "swiper";
@@ -28,7 +29,7 @@ export const References = () => {
             transition={{ duration: 0.3 }}
 
 
-            className="bg-background py-12">
+            className={`bg-background py-12 ${styles['slider']}`}>
             <Swiper
               modules={[Autoplay, Pagination]}
               className="w-full h-80 bg-white max-w-lg md:rounded-md"

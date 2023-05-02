@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { Dashboard } from '../../../../components/layouts/Dashboard'
+import { Protected } from '../../../../components/layouts/Protected'
 import { Brands } from '../../../../components/pages/dashboard/models/brands/Brands'
 import { Brand } from '../../../../models/models'
 import { getBrands } from '../../../../services/modelsService'
@@ -12,7 +13,7 @@ interface BrandsProps {
 const BrandsPage: NextPage<BrandsProps> = ({ brands }) => {
   return (
     <Dashboard>
-        <Brands brands={brands} />
+      <Brands brands={brands} />
     </Dashboard>
   )
 }

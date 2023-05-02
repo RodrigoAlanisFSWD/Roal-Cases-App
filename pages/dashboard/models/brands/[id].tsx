@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { Dashboard } from '../../../../components/layouts/Dashboard'
+import { Protected } from '../../../../components/layouts/Protected'
 import { BrandForm } from '../../../../components/pages/dashboard/models/brands/BrandForm'
 import { Brand } from '../../../../models/models'
 import { getBrand } from '../../../../services/modelsService'
@@ -10,11 +11,11 @@ interface EditBrandProps {
 }
 
 const EditBrandPage: NextPage<EditBrandProps> = ({ brand }) => {
-  return (
-    <Dashboard>
-        <BrandForm edit={true} brand={brand} />
-    </Dashboard>
-  )
+    return (
+        <Dashboard>
+            <BrandForm edit={true} brand={brand} />
+        </Dashboard>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

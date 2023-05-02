@@ -1,6 +1,10 @@
 import api from "../interceptors/axios"
 import { Cart, CartProduct } from "../models/cart"
 
+export const createCart = async () => {
+    return (await api.post<Cart>("/cart/")).data
+}
+
 export const addProductToCart = async (product: any) => {
     return (await api.post<Cart>("/cart/add", product)).data
 }

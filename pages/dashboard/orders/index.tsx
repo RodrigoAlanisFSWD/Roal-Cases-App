@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react'
 import { Dashboard } from '../../../components/layouts/Dashboard'
+import { Protected } from '../../../components/layouts/Protected';
 import { DashboardOrders } from '../../../components/pages/dashboard/orders/DashboardOrders';
 import api from '../../../interceptors/axios';
 import { Order } from '../../../models/order';
@@ -10,11 +11,11 @@ interface OrdersProps {
 }
 
 const OrdersPage: NextPage<OrdersProps> = ({ orders }) => {
-  return (
-    <Dashboard>
-        <DashboardOrders orders={orders} />
-    </Dashboard>
-  )
+    return (
+        <Dashboard>
+            <DashboardOrders orders={orders} />
+        </Dashboard>
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

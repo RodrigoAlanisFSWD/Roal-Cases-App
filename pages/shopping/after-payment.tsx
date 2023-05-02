@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const cookies = context.req.cookies;
 
-    if (!cookies["roal_cases/payment-intent"] && !cookies["roal_cases/address-id"]) {
+    if (!cookies["roal_cases/payment-intent"]) {
         return {
             redirect: {
                 permanent: false,

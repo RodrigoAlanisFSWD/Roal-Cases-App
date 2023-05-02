@@ -24,5 +24,6 @@ export const editSubCategory = async (subCategory: SubCategory) => {
 }
 
 export const deleteSubCategory = async (id: number) => {
+    console.log('delete', id)
     return (await api.delete("/subCategories/" + id)).data
 }
