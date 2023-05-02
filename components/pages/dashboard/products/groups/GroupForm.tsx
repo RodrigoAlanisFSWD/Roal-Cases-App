@@ -41,6 +41,8 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
             ...categories,
             category
         ])
+
+        setShowModal(false)
     }
 
     const handleDelete = (name: string) => {
@@ -107,7 +109,7 @@ export const GroupForm: FC<GroupFormProps> = ({ group, edit }) => {
             </div>
 
             {
-                showModal && <AddCategoryModal onAdd={handleAddCategory} onClose={() => setShowModal(false)} />
+                showModal && <AddCategoryModal onAdd={handleAddCategory} />
             }
         </>
 

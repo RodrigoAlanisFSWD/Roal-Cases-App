@@ -7,11 +7,13 @@ interface AlertModalProps {
     title: string;
     body: string;
     onClose?: () => void;
+    show: boolean;
 }
 
-export const AlertModal: FC<AlertModalProps> = ({ title, body, onClose }) => {
+export const AlertModal: FC<AlertModalProps> = ({ title, body, onClose, show }) => {
     return (
-        <Modal>
+        <Modal show={show} title={title} onClose={() => onClose}
+        error={true}>
             <div className="w-[95%] max-w-[500px] min-h-[100px] bg-white p-3 grid grid-cols-1 grid-rows-[30px_1fr] items-center rounded-sm shadow-md">
                 <div className="flex flex-row-reverse justify-between">
                     <FontAwesomeIcon onClick={onClose} icon={faTimes} className="text-xl mr-2" />
