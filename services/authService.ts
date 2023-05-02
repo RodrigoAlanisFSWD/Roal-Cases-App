@@ -18,12 +18,12 @@ export const setTokens = async (tokens: Tokens) => {
     cookies.set("roal_cases/access_token", tokens.access_token, {
         expires: date,
         path: "/",
-        domain: "localhost"
+        domain: "roal-cases-server.onrender.com"
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
         expires: date,
         path: "/",
-        domain: "localhost"
+        domain: "roal-cases-server.onrender.com"
     });
 }
 
@@ -58,7 +58,7 @@ export const logout = async () => {
 
 export const refreshToken = async () => {
     const refresh = cookies.get("roal_cases/refresh_token")
-    console.log(refresh)
+    
     return (await api.post<Tokens>("/auth/refresh", {}, {
         headers: {
             Authorization: `Bearer ${refresh}`

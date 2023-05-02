@@ -31,7 +31,7 @@ export const Payment = () => {
         }
 
         cookies.set("roal_cases/payment-intent", key, {
-            domain: "localhost",
+            domain: "roal-cases-server.onrender.com",
             path: "/",
         });
 

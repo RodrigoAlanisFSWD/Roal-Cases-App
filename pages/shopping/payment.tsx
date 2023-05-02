@@ -13,6 +13,7 @@ import { setClientSecret } from '../../redux/states/payment'
 import { AppStore } from '../../redux/store'
 import { getCart } from '../../services/cartService'
 import Cookies from 'universal-cookie'
+import api from '../../interceptors/axios'
 
 const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
   locale: "es"
@@ -38,7 +39,7 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
     try {
       if (apiKey && !clientSecret) {
         const cart = await getCart()
-        const secret = await axios.post("http://localhost:8080/api/payments/", {
+        const secret = await api.post("/api/payments/", {
           userId: user?.id,
           shipmentId: selectedShipment?.id,
           discountId: selectedDiscount ? selectedDiscount.id : 0
