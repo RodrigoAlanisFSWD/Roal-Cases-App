@@ -31,14 +31,14 @@ export const Payment = () => {
         }
 
         cookies.set("roal_cases/payment-intent", key, {
-            domain: "roal-cases-server.onrender.com",
+            domain: "roal-cases-client.onrender.com",
             path: "/",
         });
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/shopping/after-payment",
+                return_url: "https://roal-cases-client.onrender.com/shopping/after-payment",
             },
             redirect: "if_required",
         });
