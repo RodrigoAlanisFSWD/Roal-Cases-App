@@ -15,6 +15,7 @@ import { getCart } from '../../services/cartService'
 import Cookies from 'universal-cookie'
 import api from '../../interceptors/axios'
 
+// Secure This With Env
 const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
   locale: "es"
 })
