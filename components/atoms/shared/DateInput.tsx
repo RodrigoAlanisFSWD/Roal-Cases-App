@@ -18,7 +18,7 @@ interface DateInputProps {
 
 export const DateInput: FC<DateInputProps> = ({ value, name, onChange, error, touched, className }) => {
 
-    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    const CustomInput = forwardRef(({ value, onClick }: any, ref) => (
         <div className={`w-full h-14 bg-white border rounded-sm flex items-center text-xl pl-4 ${error && !value
                 ? "border-danger"
                 : !error && value

@@ -1,4 +1,4 @@
-import { Order } from '@stripe/stripe-js'
+import { Order } from '../../../../models/order'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
