@@ -31,14 +31,14 @@ export const Payment = () => {
         }
 
         cookies.set("roal_cases/payment-intent", key, {
-            domain: "roal-cases.netlify.app",
+            domain: "roal-cases.vercel.app",
             path: "/",
         });
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "https://roal-cases-client.onrender.com/shopping/after-payment",
+                return_url: "https://roal-cases.vercel.app/shopping/after-payment",
             },
             redirect: "if_required",
         });

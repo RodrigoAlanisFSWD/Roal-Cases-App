@@ -47,8 +47,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       dispatch(authInitial(authTypes.UNAUNTHENTICATED));
     }
-
-
   }
 
   useEffect(() => {

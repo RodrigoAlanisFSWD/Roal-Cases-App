@@ -18,12 +18,12 @@ export const setTokens = async (tokens: Tokens) => {
     cookies.set("roal_cases/access_token", tokens.access_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases.netlify.app"
+        domain: "roal-cases.vercel.app"
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases.netlify.app"
+        domain: "roal-cases.vercel.app"
     });
 }
 
