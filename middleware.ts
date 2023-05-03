@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.next();
   } else {
-    return NextResponse.rewrite("http://localhost:3000/sign-in");
+    return NextResponse.rewrite("https://roal-cases.vercel.app/sign-in");
   }
 }
 

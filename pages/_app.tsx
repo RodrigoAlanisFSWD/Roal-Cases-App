@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const init = async () => {
     const tokens = getTokens()
+    console.log(tokens, "tokens");
     if (tokens.access_token && tokens.refresh_token) {
       try {
         const user = await getProfile()
@@ -41,14 +42,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         )
 
       } catch (error) {
+        console.log(error)
         dispatch(authInitial(authTypes.UNAUNTHENTICATED));
         router.push("/sign-in")
       }
     } else {
       dispatch(authInitial(authTypes.UNAUNTHENTICATED));
     }
-
-
   }
 
   useEffect(() => {
@@ -59,7 +59,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <AxiosInterceptor>
         <Head>
-          <html lang="es" />
           <title>Roal Cases</title>
           <meta
             content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no"

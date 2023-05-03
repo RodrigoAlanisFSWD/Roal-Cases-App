@@ -14,16 +14,16 @@ export const signIn = async (user: any) => {
 
 export const setTokens = async (tokens: Tokens) => {
     const date = new Date();
-    date.setDate(date.getDate() + 7);
+    date.setDate(date.getDate() + 7); 
     cookies.set("roal_cases/access_token", tokens.access_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases-client.onrender.com"
+        domain: "roal-cases.vercel.app"
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases-client.onrender.com"
+        domain: "roal-cases.vercel.app"
     });
 }
 
@@ -35,8 +35,12 @@ export const getTokens = (): Tokens => {
 }
 
 export const removeTokens = () => {
-    cookies.remove("roal_cases/access_token");
-    cookies.remove("roal_cases/refresh_token");
+    cookies.remove("roal_cases/access_token", {
+        domain: "roal-cases.vercel.app"
+    });
+    cookies.remove("roal_cases/refresh_token", {
+        domain: "roal-cases.vercel.app"
+    });
 }
 
 export const getProfile = async () => {
