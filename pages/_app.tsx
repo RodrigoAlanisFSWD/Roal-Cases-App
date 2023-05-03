@@ -59,7 +59,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <AxiosInterceptor>
         <Head>
-          <html lang="es" />
           <title>Roal Cases</title>
           <meta
             content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no"
