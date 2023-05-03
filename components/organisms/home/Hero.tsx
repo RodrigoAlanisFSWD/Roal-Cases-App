@@ -47,10 +47,10 @@ export const Hero = () => {
         }}
       >
         <SwiperSlide className="flex items-center">
-          <Image src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
+          <Image src="https://roal-cases-server.onrender.com/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
         </SwiperSlide>
         <SwiperSlide className="flex items-center">
-          <Image src="http://localhost:8080/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
+          <Image src="https://roal-cases-server.onrender.com/files/products/d483a0de-bba8-4bb1-b60d-93eaebee54ae.svg" alt="Case Image" className="sm:w-[250px] 2xl:w-[325px]" width="350" height="600" />
         </SwiperSlide>
       </Swiper>
     </div>

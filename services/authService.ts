@@ -35,8 +35,12 @@ export const getTokens = (): Tokens => {
 }
 
 export const removeTokens = () => {
-    cookies.remove("roal_cases/access_token");
-    cookies.remove("roal_cases/refresh_token");
+    cookies.remove("roal_cases/access_token", {
+        domain: "roal-cases.vercel.app"
+    });
+    cookies.remove("roal_cases/refresh_token", {
+        domain: "roal-cases.vercel.app"
+    });
 }
 
 export const getProfile = async () => {
