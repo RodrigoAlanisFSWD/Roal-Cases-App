@@ -14,16 +14,16 @@ export const signIn = async (user: any) => {
 
 export const setTokens = async (tokens: Tokens) => {
     const date = new Date();
-    date.setDate(date.getDate() + 7);
+    date.setDate(date.getDate() + 7); 
     cookies.set("roal_cases/access_token", tokens.access_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases-client.onrender.com"
+        domain: "roal-cases.netlify.app"
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases-client.onrender.com"
+        domain: "roal-cases.netlify.app"
     });
 }
 

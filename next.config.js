@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost']
+    domains: ['localhost', 'roal-cases-client.onrender.com']
   },
   experimental: {
     fontLoaders: [
