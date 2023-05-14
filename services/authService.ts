@@ -18,12 +18,12 @@ export const setTokens = async (tokens: Tokens) => {
     cookies.set("roal_cases/access_token", tokens.access_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases.vercel.app"
+        domain: process.env.NEXT_PUBLIC_CLIENT_DOMAIN
     });
     cookies.set("roal_cases/refresh_token", tokens.refresh_token, {
         expires: date,
         path: "/",
-        domain: "roal-cases.vercel.app"
+        domain: process.env.NEXT_PUBLIC_CLIENT_DOMAIN
     });
 }
 
@@ -36,10 +36,10 @@ export const getTokens = (): Tokens => {
 
 export const removeTokens = () => {
     cookies.remove("roal_cases/access_token", {
-        domain: "roal-cases.vercel.app"
+        domain: process.env.NEXT_PUBLIC_CLIENT_DOMAIN
     });
     cookies.remove("roal_cases/refresh_token", {
-        domain: "roal-cases.vercel.app"
+        domain: process.env.NEXT_PUBLIC_CLIENT_DOMAIN
     });
 }
 

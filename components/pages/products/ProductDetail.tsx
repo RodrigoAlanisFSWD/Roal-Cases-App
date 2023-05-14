@@ -11,6 +11,8 @@ import { Counter } from '../../atoms/shared/Counter'
 import { useDispatch } from 'react-redux'
 import { setCart } from '../../../redux/states/cart'
 import products from '../../../redux/states/products'
+import { useImage } from '../../../hooks/useImage'
+import Image from 'next/image'
 
 interface ProductDetailProps {
     product: Product
@@ -79,12 +81,12 @@ export const ProductDetail: FC<ProductDetailProps> = ({ product }) => {
         <Main>
                 <div className='w-full sm:w-[calc(100%-50px)] md:w-4/5 lg:w-3/5 xl:w-2/5 max-h-full h-[100%] flex flex-col sm:flex-row justify-start items-center sm:items-start sm:justify-between sm:pb-0 pb-10'>
                     <div>
-                        <img className='w-[250px] bg-cover' src={selectedImage?.imageUrl} alt={product.name} />
+                        <img className='w-[250px] bg-cover' src={useImage(selectedImage?.imageUrl as string)} alt={product.name} />
                         <div className={`flex ${product.images.length > 2 ? "overflow-x-scroll" : ""} mt-2 h-[100px]`}>
                             {
                                 product.images.map((image: ProductImage) => (
                                     <div onClick={() => setSelectedImage(image)} key={image.id} className='w-[100px] mr-2 flex justify-center border border-gray-200'>
-                                        <img className='w-[50px] opacity-75' src={image.imageUrl} alt={product.name} />
+                                        <img className='w-[50px] opacity-75' src={useImage(image.imageUrl)} alt={product.name} />
                                     </div>
                                 ))
                             }

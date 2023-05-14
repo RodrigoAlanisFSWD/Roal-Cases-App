@@ -2,6 +2,7 @@ import { PaymentElement } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 import React, { FC, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useImage } from '../../../hooks/useImage';
 import { CartProduct } from '../../../models/cart';
 import { ProductImage } from '../../../models/product';
 import { AppStore } from '../../../redux/store';
@@ -48,9 +49,11 @@ export const PaymentUI: FC<PaymentUIProps> = ({ submit, errorMessage }) => {
                                 width="50"
                                 height="100"
                                 src={
+                                    useImage(
                                     product.product.images.find(
                                         (img: ProductImage) => img.type === "MAIN"
-                                    )?.imageUrl || ""
+                                    )?.imageUrl || "/files/defaults/white.jpeg"
+                                    )
                                 }
                                 alt={product.product.name}
                                 className="w-[50px]"

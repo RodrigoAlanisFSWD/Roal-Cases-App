@@ -1,6 +1,7 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC } from 'react'
+import { useImage } from '../../../hooks/useImage';
 import { ProductImage as ProductImageType } from '../../../models/product';
 import { Button } from '../shared/Button';
 import { IconButton } from '../shared/IconButton';
@@ -31,7 +32,7 @@ export const ProductImage: FC<ProductImageProps> = ({ handleEdit, id, imageUrl, 
                 style={{ display: 'none' }} />
             <img onClick={() =>
                 handleClick()
-            } className={`w-[200px] h-[200px]`} src={imageUrl} />
+            } className={`w-[200px] h-[200px]`} src={useImage(imageUrl)} />
             {
                 type === "NORMAL" ? (
                     <span className='text-center cursor-pointer border-t border-gray-200 rounded-t-none rounded-b-sm text-dark p-1 hover:bg-danger hover:border-danger hover:text-white transition-all duration-300' onClick={() => handleDelete(id)}>

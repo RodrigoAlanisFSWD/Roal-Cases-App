@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { editProductInCart, setCart } from '../../../redux/states/cart'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useImage } from '../../../hooks/useImage'
 
 export const CartProduct: FC<CartProductType> = (props) => {
 
@@ -17,7 +18,7 @@ export const CartProduct: FC<CartProductType> = (props) => {
 
     return (
         <div className='flex p-5 justify-center sm:justify-start w-full'>
-            <Image src={product.images.find((image: ProductImage) => image.type === "MAIN")?.imageUrl as string} className="w-[75px]" width="75" height="100" alt={product.name} />
+            <Image src={useImage(product.images.find((image: ProductImage) => image.type === "MAIN")?.imageUrl as string)} className="w-[75px]" width="75" height="100" alt={product.name} />
             <div className='flex ml-10 py-1'>
                 <div className='flex flex-col h-full justify-between'>
                     <div>

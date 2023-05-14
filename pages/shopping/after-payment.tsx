@@ -10,7 +10,7 @@ interface AfterPaymentProps {
     payment: string;
 }
 
-const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK, {
     locale: "es"
 })
 

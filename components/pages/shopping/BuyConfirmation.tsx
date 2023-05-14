@@ -9,6 +9,7 @@ import { Addresses } from "../../organisms/shopping/Addresses";
 import { Shipment } from "../../../models/shipment";
 import Image from "next/image";
 import { BuyConfirmationUI } from "../../organisms/shopping/BuyConfirmationUI";
+import { useImage } from "../../../hooks/useImage";
 
 export const BuyConfirmation = () => {
   const cart = useSelector((store: AppStore) => store.cart);
@@ -41,9 +42,11 @@ export const BuyConfirmation = () => {
                     width="75"
                     height="100"
                     src={
+                      useImage(
                       product.product.images.find(
                         (img: ProductImage) => img.type === "MAIN"
-                      )?.imageUrl || ""
+                      )?.imageUrl || "/files/defaults/white.jpeg"
+                      )
                     }
                     alt={product.product.name}
                     className="w-[60px]"

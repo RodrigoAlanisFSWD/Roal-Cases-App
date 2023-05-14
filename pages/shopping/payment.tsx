@@ -1,6 +1,5 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -15,8 +14,7 @@ import { getCart } from '../../services/cartService'
 import Cookies from 'universal-cookie'
 import api from '../../interceptors/axios'
 
-// Secure This With Env
-const stripePromise = loadStripe(`pk_test_51LyNkyKPetfkQCPTSc9jm3HSkMjM1C5hkUJawieii7dfvERSxm6GEWOudV9HbQzXiPkoPIMtzzxTMoH9e1beab3I00Z1sI3gRC`, {
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK, {
   locale: "es"
 })
 
@@ -30,8 +28,6 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
 
   const dispatch = useDispatch()
 
-  const cookies = new Cookies()
-
   const init = async () => {
     if (cart.products.length < 1) {
       router.push("/")
@@ -40,16 +36,15 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
     try {
       if (apiKey && !clientSecret) {
         const cart = await getCart()
-        const secret = await api.post("/api/payments/", {
+        const secret = await api.post("/payments/", {
           userId: user?.id,
           shipmentId: selectedShipment?.id,
           discountId: selectedDiscount ? selectedDiscount.id : 0
         }, {
           headers: {
-            Authorization: `Bearer sk_test_51LyNkyKPetfkQCPTULboJTU5KLygsDBuZIBUiaS2L1b4qnS8SOwkjiyT3vgjnPMQf8sN7Rpkwp6MOjel5Hph6esi00QxaW0vv7`
+            Authorization: `Bearer ${apiKey}`
           }
         })
-
         dispatch(setClientSecret(secret.data.client_secret))
 
       }
@@ -124,7 +119,7 @@ const PaymentPage: NextPage<any> = ({ apiKey }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      apiKey: process.env.STRIPE_SK as string
+      apiKey: process.env.STRIPE_SK as string,
     }
   }
 }

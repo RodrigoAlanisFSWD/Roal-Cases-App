@@ -29,7 +29,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const init = async () => {
     const tokens = getTokens()
-    console.log(tokens, "tokens");
     if (tokens.access_token && tokens.refresh_token) {
       try {
         const user = await getProfile()

@@ -35,7 +35,7 @@ export const AfterPayment: FC<any> = ({ payment }) => {
     }
 
     cookies.remove("roal_cases/payment-intent", {
-      domain: "roal-cases.vercel.app",
+      domain: process.env.NEXT_PUBLIC_CLIENT_DOMAIN,
       path: "/",
     });
 
